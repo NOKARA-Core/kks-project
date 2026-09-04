@@ -1,0 +1,20 @@
+# Antigravity Rules - KKS Platform (Monorepo Turborepo + Bun + Supabase)
+
+## Environment & Runtime
+- Gunakan runtime `bun` untuk semua dependency management dan eksekusi command.
+- Struktur monorepo:
+  - `apps/web`: Landing page publik KKS (diterjemahkan dari Stitch).
+  - `apps/admin`: Dashboard admin pengurus KKS (Sensus Warga, Verifikasi E-KTA, Laporan Kas).
+  - `packages/ui`: Shared design system (Tailwind CSS + Radix/Shadcn).
+
+## Pedoman Desain & Eksekusi Stitch
+- Kunjungi referensi token desain lokal di `design-template-project/design-md/supabase` untuk dashboard dan `design-template-project/design-md/framer` untuk transisi halaman/modal.
+- Saat mengimplementasikan visual dari Stitch ke `apps/web`, jaga clean code: pisahkan setiap section ke file terisolasi di `apps/web/components/sections/`.
+- Tidak ada inline CSS sembarangan; gunakan styling Tailwind utility-first yang semantik.
+
+## Clean Code & Supabase Data Flow
+- Strict TypeScript: Dilarang menggunakan `any`.
+- Next.js App Router: 
+  - Gunakan React Server Components (RSC) untuk fetching data warta dan direktori publik.
+  - Gunakan Server Actions untuk submit pendaftaran sensus warga dan approval admin.
+- Supabase Auth: Gunakan `@supabase/ssr` untuk proteksi route di `apps/admin/middleware.ts`.

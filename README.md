@@ -157,3 +157,28 @@ Learn more about the power of Turborepo:
 - [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
 - [Configuration Options](https://turborepo.dev/docs/reference/configuration)
 - [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+
+# Directory
+```
+kks-platform/
+├── apps/
+│   ├── web/                    # [LANDING PAGE] Wadah hasil ekspor / slicing Stitch
+│   │   ├── app/                # Next.js App Router (Hero, Warta, Form Sensus, UMKM)
+│   │   ├── components/         # Komponen spesifik landing page
+│   │   └── public/             # Aset statis (Logo KKS, foto dokumentasi)
+│   └── admin/                  # [DASHBOARD ADMIN] Panel verifikasi & kelola organisasi
+│       ├── app/                # Route: /dashboard, /warga, /kas, /warta
+│       └── components/         # Data table TanStack, filter sensus, ringkasan kas
+├── packages/
+│   ├── database/               # Supabase client singleton, skema types, query helper
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   └── src/
+│   │       ├── client.ts       # Browser & Server Supabase client (@supabase/ssr)
+│   │       └── types.ts        # Database types (bisa di-generate via Supabase CLI)
+│   ├── ui/                     # Komponen UI bersama (Button, Dialog, Card, Input)
+│   ├── typescript-config/
+│   └── eslint-config/
+├── turbo.json
+└── package.json
+```
