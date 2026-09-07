@@ -354,57 +354,58 @@ Salipuri Temmadinging.`;
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {errorMessage && (
-        <div className="p-4 rounded-xl bg-rose-50 border-2 border-rose-200 text-rose-800 text-base font-medium flex items-center gap-3">
-          <AlertTriangle className="w-6 h-6 text-rose-600 shrink-0" />
+        <div className="p-4 sm:p-5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-sm sm:text-base font-semibold flex items-center gap-3">
+          <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-rose-600 shrink-0" />
           <span>{errorMessage}</span>
         </div>
       )}
 
       {/* ============================================================ */}
-      {/* LANGKAH 1: PILIH JENIS KABAR (3 KARTU BESAR & MUDAH DITEKAN) */}
+      {/* LANGKAH 1: PILIH JENIS KABAR (3 KARTU BESAR & ADAPTIF MOBILE) */}
       {/* ============================================================ */}
-      <section className="bg-white rounded-2xl border-2 border-slate-200 p-6 sm:p-8 space-y-4 shadow-sm">
-        <div className="flex items-center gap-3">
-          <span className="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm">
+      <section className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-7 space-y-5 sm:space-y-6 shadow-xs">
+        <div className="flex items-start sm:items-center gap-3">
+          <span className="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm shrink-0 mt-0.5 sm:mt-0">
             1
           </span>
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+            <h2 className="text-lg sm:text-2xl font-bold text-slate-900 tracking-tight">
               Langkah 1: Pilih Jenis Kabar yang Ingin Diumumkan
             </h2>
-            <p className="text-sm text-slate-500">
-              Sentuh atau klik salah satu kartu besar di bawah ini.
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              Sentuh atau klik salah satu jenis kabar di bawah ini.
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+        {/* 3 Kartu: 1 Kolom di Mobile, 3 Kolom di Desktop (sm+) */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           {/* Kartu 1: Kabar Duka */}
           <button
             type="button"
             onClick={() => setKategori("duka_cita")}
-            className={`min-h-[96px] p-5 rounded-2xl border-3 text-left transition-all flex items-start gap-4 ${
+            className={`p-4 sm:p-5 rounded-2xl border-2 text-left transition-all flex items-start gap-3.5 sm:gap-4 ${
               kategori === "duka_cita"
-                ? "border-rose-600 bg-rose-50/80 ring-4 ring-rose-600/15 shadow-md"
+                ? "border-rose-600 bg-rose-50/70 ring-3 ring-rose-500/15 shadow-sm"
                 : "border-slate-200 hover:border-rose-300 bg-white"
             }`}
           >
             <div
-              className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${
+              className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 ${
                 kategori === "duka_cita"
                   ? "bg-rose-600 text-white"
                   : "bg-rose-100 text-rose-700"
               }`}
             >
-              <AlertTriangle className="w-6 h-6" />
+              <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <div>
-              <span className="block text-lg font-bold text-slate-900">
+            <div className="min-w-0 flex-1">
+              <span className="block text-base sm:text-lg font-bold text-slate-900">
                 Kabar Duka (Lelayu)
               </span>
-              <span className="text-xs text-slate-600 leading-snug block mt-0.5">
+              <span className="text-xs sm:text-sm text-slate-600 leading-relaxed block mt-1">
                 Kabar berpulangnya warga, rumah duka di Timika, & kontak takziah.
               </span>
             </div>
@@ -414,27 +415,27 @@ Salipuri Temmadinging.`;
           <button
             type="button"
             onClick={() => setKategori("suka_cita")}
-            className={`min-h-[96px] p-5 rounded-2xl border-3 text-left transition-all flex items-start gap-4 ${
+            className={`p-4 sm:p-5 rounded-2xl border-2 text-left transition-all flex items-start gap-3.5 sm:gap-4 ${
               kategori === "suka_cita"
-                ? "border-emerald-600 bg-emerald-50/80 ring-4 ring-emerald-600/15 shadow-md"
+                ? "border-emerald-600 bg-emerald-50/70 ring-3 ring-emerald-500/15 shadow-sm"
                 : "border-slate-200 hover:border-emerald-300 bg-white"
             }`}
           >
             <div
-              className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${
+              className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 ${
                 kategori === "suka_cita"
                   ? "bg-emerald-600 text-white"
                   : "bg-emerald-100 text-emerald-700"
               }`}
             >
-              <Heart className="w-6 h-6" />
+              <Heart className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <div>
-              <span className="block text-lg font-bold text-slate-900">
+            <div className="min-w-0 flex-1">
+              <span className="block text-base sm:text-lg font-bold text-slate-900">
                 Kabar Sukacita / Syukuran
               </span>
-              <span className="text-xs text-slate-600 leading-snug block mt-0.5">
-                Pernikahan, kelahiran bayi (tasmiyah), dan prestasi pemuda.
+              <span className="text-xs sm:text-sm text-slate-600 leading-relaxed block mt-1">
+                Pernikahan, kelahiran bayi (tasmiyah), dan prestasi warga.
               </span>
             </div>
           </button>
@@ -443,26 +444,26 @@ Salipuri Temmadinging.`;
           <button
             type="button"
             onClick={() => setKategori("agenda_kegiatan")}
-            className={`min-h-[96px] p-5 rounded-2xl border-3 text-left transition-all flex items-start gap-4 ${
+            className={`p-4 sm:p-5 rounded-2xl border-2 text-left transition-all flex items-start gap-3.5 sm:gap-4 ${
               kategori === "agenda_kegiatan"
-                ? "border-blue-600 bg-blue-50/80 ring-4 ring-blue-600/15 shadow-md"
+                ? "border-blue-600 bg-blue-50/70 ring-3 ring-blue-500/15 shadow-sm"
                 : "border-slate-200 hover:border-blue-300 bg-white"
             }`}
           >
             <div
-              className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${
+              className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 ${
                 kategori === "agenda_kegiatan"
                   ? "bg-blue-600 text-white"
                   : "bg-blue-100 text-blue-700"
               }`}
             >
-              <Calendar className="w-6 h-6" />
+              <Calendar className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <div>
-              <span className="block text-lg font-bold text-slate-900">
+            <div className="min-w-0 flex-1">
+              <span className="block text-base sm:text-lg font-bold text-slate-900">
                 Agenda / Kegiatan / Berita
               </span>
-              <span className="text-xs text-slate-600 leading-snug block mt-0.5">
+              <span className="text-xs sm:text-sm text-slate-600 leading-relaxed block mt-1">
                 Turnamen domino, musyawarah, pertemuan bulanan, atau berita warga.
               </span>
             </div>
@@ -471,8 +472,8 @@ Salipuri Temmadinging.`;
 
         {/* Input Judul Utama (Lega & Jelas) */}
         <div className="pt-4 border-t border-slate-100 space-y-2">
-          <label className="block text-base sm:text-lg font-bold text-slate-900">
-            Judul Kabar / Nama Pengumuman *
+          <label className="block text-sm sm:text-base font-bold text-slate-900">
+            Judul Kabar / Nama Pengumuman <span className="text-rose-600">*</span>
           </label>
           <input
             type="text"
@@ -486,7 +487,7 @@ Salipuri Temmadinging.`;
                 ? "Contoh: Syukuran Tasmiyah & Aqiqah Ananda Latemmamala di SP3"
                 : "Contoh: Turnamen Domino Semi-Open KKS Cup 2026 Se-Mimika"
             }
-            className="w-full h-14 px-4 bg-slate-50 border-2 border-slate-300 focus:border-amber-500 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium transition"
+            className="w-full h-12 sm:h-13 px-4 bg-slate-50 border border-slate-300 focus:border-amber-500 focus:bg-white rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium transition shadow-2xs"
           />
         </div>
       </section>
@@ -494,78 +495,78 @@ Salipuri Temmadinging.`;
       {/* ============================================================ */}
       {/* LANGKAH 2: FORMULIR DINAMIS SESUAI KATEGORI (HANYA KOLOM WAJIB) */}
       {/* ============================================================ */}
-      <section className="bg-white rounded-2xl border-2 border-slate-200 p-6 sm:p-8 space-y-6 shadow-sm">
-        <div className="flex items-center gap-3">
-          <span className="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm">
+      <section className="bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-7 space-y-6 sm:space-y-7 shadow-xs">
+        <div className="flex items-start sm:items-center gap-3">
+          <span className="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-sm shrink-0 mt-0.5 sm:mt-0">
             2
           </span>
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+            <h2 className="text-lg sm:text-2xl font-bold text-slate-900 tracking-tight">
               Langkah 2: Lengkapi Rincian Informasi
             </h2>
-            <p className="text-sm text-slate-500">
-              Kolom di bawah telah disesuaikan secara otomatis agar mudah diisi.
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              Kolom di bawah telah disesuaikan secara otomatis agar ringkas dan mudah diisi.
             </p>
           </div>
         </div>
 
         {/* KONDISI 1: KABAR DUKA CITA (4 Kolom Saja) */}
         {kategori === "duka_cita" && (
-          <div className="p-6 rounded-2xl bg-rose-50/70 border-2 border-rose-200 space-y-5 animate-in fade-in duration-200">
-            <div className="flex items-center gap-2 text-rose-900 font-bold text-base">
+          <div className="p-4 sm:p-6 rounded-2xl bg-rose-50/70 border border-rose-200/80 space-y-4 sm:space-y-5 animate-in fade-in duration-200">
+            <div className="flex items-center gap-2 text-rose-950 font-bold text-sm sm:text-base pb-2 border-b border-rose-200/60">
               <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0" />
               <span>Kolom Wajib Berita Duka (Lelayu)</span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div className="space-y-1.5">
-                <label className="block text-base font-bold text-slate-900">
-                  Nama Almarhum / Almarhumah *
+                <label className="block text-sm sm:text-base font-bold text-slate-900">
+                  Nama Almarhum / Almarhumah <span className="text-rose-600">*</span>
                 </label>
                 <input
                   type="text"
                   value={namaAlmarhum}
                   onChange={(e) => setNamaAlmarhum(e.target.value)}
                   placeholder="Contoh: Bapak Ambo Dalle"
-                  className="w-full h-14 px-4 bg-white border-2 border-rose-300 focus:border-rose-600 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium"
+                  className="w-full h-12 sm:h-13 px-4 bg-white border border-rose-300 focus:border-rose-600 rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium shadow-2xs"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-base font-bold text-slate-900">
-                  Waktu Berpulang (Tanggal & Jam)
+                <label className="block text-sm sm:text-base font-bold text-slate-900">
+                  Waktu Berpulang
                 </label>
                 <input
                   type="datetime-local"
                   value={waktuWafat}
                   onChange={(e) => setWaktuWafat(e.target.value)}
-                  className="w-full h-14 px-4 bg-white border-2 border-rose-300 focus:border-rose-600 rounded-xl text-base text-slate-900 focus:outline-hidden font-medium"
+                  className="w-full h-12 sm:h-13 px-4 bg-white border border-rose-300 focus:border-rose-600 rounded-xl text-sm sm:text-base text-slate-900 focus:outline-hidden font-medium shadow-2xs"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-base font-bold text-slate-900">
-                  Alamat Rumah Duka di Timika *
+                <label className="block text-sm sm:text-base font-bold text-slate-900">
+                  Alamat Rumah Duka di Timika <span className="text-rose-600">*</span>
                 </label>
                 <input
                   type="text"
                   value={alamatDukaTimika}
                   onChange={(e) => setAlamatDukaTimika(e.target.value)}
                   placeholder="Contoh: Jl. Hasanuddin Jalur 2 (Dekat Masjid Al-Hidayah)"
-                  className="w-full h-14 px-4 bg-white border-2 border-rose-300 focus:border-rose-600 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium"
+                  className="w-full h-12 sm:h-13 px-4 bg-white border border-rose-300 focus:border-rose-600 rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium shadow-2xs"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-base font-bold text-slate-900">
-                  Nomor WhatsApp Keluarga untuk Takziah *
+                <label className="block text-sm sm:text-base font-bold text-slate-900">
+                  Nomor WhatsApp Keluarga untuk Takziah <span className="text-rose-600">*</span>
                 </label>
                 <input
                   type="text"
                   value={kontakKeluargaWa}
                   onChange={(e) => setKontakKeluargaWa(e.target.value)}
                   placeholder="Contoh: 081248011234"
-                  className="w-full h-14 px-4 bg-white border-2 border-rose-300 focus:border-rose-600 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-mono font-medium"
+                  className="w-full h-12 sm:h-13 px-4 bg-white border border-rose-300 focus:border-rose-600 rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-mono font-medium shadow-2xs"
                 />
               </div>
             </div>
@@ -574,34 +575,34 @@ Salipuri Temmadinging.`;
 
         {/* KONDISI 2: KABAR SUKACITA / SYUKURAN */}
         {kategori === "suka_cita" && (
-          <div className="p-6 rounded-2xl bg-emerald-50/70 border-2 border-emerald-200 space-y-5 animate-in fade-in duration-200">
-            <div className="flex items-center gap-2 text-emerald-900 font-bold text-base">
+          <div className="p-4 sm:p-6 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-4 sm:space-y-5 animate-in fade-in duration-200">
+            <div className="flex items-center gap-2 text-emerald-950 font-bold text-sm sm:text-base pb-2 border-b border-emerald-200/60">
               <Heart className="w-5 h-5 text-emerald-600 shrink-0" />
               <span>Rincian Kabar Syukuran / Prestasi</span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div className="space-y-1.5">
-                <label className="block text-base font-bold text-slate-900">
-                  Nama Warga / Keluarga Pemangku Hajat *
+                <label className="block text-sm sm:text-base font-bold text-slate-900">
+                  Nama Warga / Keluarga Pemangku Hajat <span className="text-emerald-700">*</span>
                 </label>
                 <input
                   type="text"
                   value={namaKeluargaSuka}
                   onChange={(e) => setNamaKeluargaSuka(e.target.value)}
                   placeholder="Contoh: Keluarga Bapak Baharuddin Latif"
-                  className="w-full h-14 px-4 bg-white border-2 border-emerald-300 focus:border-emerald-600 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium"
+                  className="w-full h-12 sm:h-13 px-4 bg-white border border-emerald-300 focus:border-emerald-600 rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium shadow-2xs"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-base font-bold text-slate-900">
+                <label className="block text-sm sm:text-base font-bold text-slate-900">
                   Jenis Acara
                 </label>
                 <select
                   value={jenisAcaraSuka}
                   onChange={(e) => setJenisAcaraSuka(e.target.value)}
-                  className="w-full h-14 px-4 bg-white border-2 border-emerald-300 focus:border-emerald-600 rounded-xl text-base text-slate-900 focus:outline-hidden font-medium"
+                  className="w-full h-12 sm:h-13 px-4 bg-white border border-emerald-300 focus:border-emerald-600 rounded-xl text-sm sm:text-base text-slate-900 focus:outline-hidden font-medium shadow-2xs"
                 >
                   <option value="Pernikahan Warga">Pernikahan / Ijab Kabul</option>
                   <option value="Aqiqah & Tasmiyah">Kelahiran / Aqiqah (Tasmiyah)</option>
@@ -611,19 +612,19 @@ Salipuri Temmadinging.`;
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-base font-bold text-slate-900">
+                <label className="block text-sm sm:text-base font-bold text-slate-900">
                   Tanggal Acara
                 </label>
                 <input
                   type="date"
                   value={tanggalAcaraSuka}
                   onChange={(e) => setTanggalAcaraSuka(e.target.value)}
-                  className="w-full h-14 px-4 bg-white border-2 border-emerald-300 focus:border-emerald-600 rounded-xl text-base text-slate-900 focus:outline-hidden font-medium"
+                  className="w-full h-12 sm:h-13 px-4 bg-white border border-emerald-300 focus:border-emerald-600 rounded-xl text-sm sm:text-base text-slate-900 focus:outline-hidden font-medium shadow-2xs"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-base font-bold text-slate-900">
+                <label className="block text-sm sm:text-base font-bold text-slate-900">
                   Lokasi / Alamat Acara di Timika
                 </label>
                 <input
@@ -631,7 +632,7 @@ Salipuri Temmadinging.`;
                   value={lokasiAcaraSuka}
                   onChange={(e) => setLokasiAcaraSuka(e.target.value)}
                   placeholder="Contoh: Gedung Tongkonan / Kediaman SP3 Jalur Rajawali"
-                  className="w-full h-14 px-4 bg-white border-2 border-emerald-300 focus:border-emerald-600 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium"
+                  className="w-full h-12 sm:h-13 px-4 bg-white border border-emerald-300 focus:border-emerald-600 rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium shadow-2xs"
                 />
               </div>
             </div>
@@ -640,98 +641,98 @@ Salipuri Temmadinging.`;
 
         {/* KONDISI 3: AGENDA / KEGIATAN KOMPLEKS & TURNAMEN OLAHRAGA */}
         {kategori === "agenda_kegiatan" && (
-          <div className="space-y-6">
+          <div className="space-y-5 sm:space-y-6">
             {/* Sub-Pilihan Agenda */}
-            <div className="p-4 rounded-xl bg-slate-100 border border-slate-300 flex flex-col sm:flex-row items-center justify-between gap-3">
-              <span className="text-base font-bold text-slate-800">
-                Pilih Format Kegiatan:
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-100 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <span className="text-sm sm:text-base font-bold text-slate-800">
+                Format Kegiatan:
               </span>
-              <div className="flex items-center gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full sm:w-auto">
                 <button
                   type="button"
                   onClick={() => setSubJenisAgenda("turnamen_olahraga")}
-                  className={`px-4 py-2.5 rounded-xl text-sm font-bold transition ${
+                  className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 ${
                     subJenisAgenda === "turnamen_olahraga"
-                      ? "bg-blue-600 text-white shadow-xs"
+                      ? "bg-blue-600 text-white shadow-2xs"
                       : "bg-white text-slate-700 hover:bg-slate-200"
                   }`}
                 >
-                  🏆 Turnamen Olahraga (Domino/Futsal/Voli)
+                  🏆 Turnamen Olahraga
                 </button>
                 <button
                   type="button"
                   onClick={() => setSubJenisAgenda("pertemuan_biasa")}
-                  className={`px-4 py-2.5 rounded-xl text-sm font-bold transition ${
+                  className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 ${
                     subJenisAgenda === "pertemuan_biasa"
-                      ? "bg-blue-600 text-white shadow-xs"
+                      ? "bg-blue-600 text-white shadow-2xs"
                       : "bg-white text-slate-700 hover:bg-slate-200"
                   }`}
                 >
-                  📅 Pertemuan / Rapat / Berita Biasa
+                  📅 Pertemuan / Berita
                 </button>
               </div>
             </div>
 
             {/* Rincian Tempat & Jadwal */}
-            <div className="p-6 rounded-2xl bg-blue-50/70 border-2 border-blue-200 space-y-5 animate-in fade-in duration-200">
-              <div className="flex items-center gap-2 text-blue-900 font-bold text-base">
+            <div className="p-4 sm:p-6 rounded-2xl bg-blue-50/70 border border-blue-200/80 space-y-4 sm:space-y-5 animate-in fade-in duration-200">
+              <div className="flex items-center gap-2 text-blue-950 font-bold text-sm sm:text-base pb-2 border-b border-blue-200/60">
                 <Calendar className="w-5 h-5 text-blue-600 shrink-0" />
                 <span>Waktu Pelaksanaan & Tempat Acara</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div className="space-y-1.5">
-                  <label className="block text-base font-bold text-slate-900">
-                    Tanggal & Jam Mulai *
+                  <label className="block text-sm sm:text-base font-bold text-slate-900">
+                    Tanggal & Jam Mulai <span className="text-blue-700">*</span>
                   </label>
                   <input
                     type="datetime-local"
                     value={tanggalMulai}
                     onChange={(e) => setTanggalMulai(e.target.value)}
-                    className="w-full h-14 px-4 bg-white border-2 border-blue-300 focus:border-blue-600 rounded-xl text-base text-slate-900 focus:outline-hidden font-medium"
+                    className="w-full h-12 sm:h-13 px-4 bg-white border border-blue-300 focus:border-blue-600 rounded-xl text-sm sm:text-base text-slate-900 focus:outline-hidden font-medium shadow-2xs"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-base font-bold text-slate-900">
+                  <label className="block text-sm sm:text-base font-bold text-slate-900">
                     Tanggal Selesai (Opsional)
                   </label>
                   <input
                     type="datetime-local"
                     value={tanggalSelesai}
                     onChange={(e) => setTanggalSelesai(e.target.value)}
-                    className="w-full h-14 px-4 bg-white border-2 border-blue-300 focus:border-blue-600 rounded-xl text-base text-slate-900 focus:outline-hidden font-medium"
+                    className="w-full h-12 sm:h-13 px-4 bg-white border border-blue-300 focus:border-blue-600 rounded-xl text-sm sm:text-base text-slate-900 focus:outline-hidden font-medium shadow-2xs"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-base font-bold text-slate-900">
-                    Nama Lokasi / Gedung di Timika *
+                  <label className="block text-sm sm:text-base font-bold text-slate-900">
+                    Nama Lokasi / Gedung di Timika <span className="text-blue-700">*</span>
                   </label>
                   <input
                     type="text"
                     value={lokasiGedung}
                     onChange={(e) => setLokasiGedung(e.target.value)}
                     placeholder="Contoh: Gedung Tongkonan / Balai KKS SP2"
-                    className="w-full h-14 px-4 bg-white border-2 border-blue-300 focus:border-blue-600 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium"
+                    className="w-full h-12 sm:h-13 px-4 bg-white border border-blue-300 focus:border-blue-600 rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium shadow-2xs"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-base font-bold text-slate-900">
-                    Tautan Google Maps Lokasi (Opsional)
+                  <label className="block text-sm sm:text-base font-bold text-slate-900">
+                    Tautan Google Maps Lokasi
                   </label>
                   <input
                     type="url"
                     value={linkLokasiMaps}
                     onChange={(e) => setLinkLokasiMaps(e.target.value)}
                     placeholder="https://maps.app.goo.gl/..."
-                    className="w-full h-14 px-4 bg-white border-2 border-blue-300 focus:border-blue-600 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium"
+                    className="w-full h-12 sm:h-13 px-4 bg-white border border-blue-300 focus:border-blue-600 rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium shadow-2xs"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-base font-bold text-slate-900">
+                  <label className="block text-sm sm:text-base font-bold text-slate-900">
                     Panitia / Penyelenggara Sektor
                   </label>
                   <input
@@ -739,36 +740,36 @@ Salipuri Temmadinging.`;
                     value={penanggungJawabNama}
                     onChange={(e) => setPenanggungJawabNama(e.target.value)}
                     placeholder="Contoh: BPH KKS Mimika / Sektor Mimika Baru"
-                    className="w-full h-14 px-4 bg-white border-2 border-blue-300 focus:border-blue-600 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium"
+                    className="w-full h-12 sm:h-13 px-4 bg-white border border-blue-300 focus:border-blue-600 rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium shadow-2xs"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-base font-bold text-slate-900">
-                    Nomor WhatsApp Narahubung Panitia *
+                  <label className="block text-sm sm:text-base font-bold text-slate-900">
+                    Nomor WhatsApp Narahubung Panitia <span className="text-blue-700">*</span>
                   </label>
                   <input
                     type="text"
                     value={penanggungJawabWa}
                     onChange={(e) => setPenanggungJawabWa(e.target.value)}
                     placeholder="Contoh: 081248011234"
-                    className="w-full h-14 px-4 bg-white border-2 border-blue-300 focus:border-blue-600 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-mono font-medium"
+                    className="w-full h-12 sm:h-13 px-4 bg-white border border-blue-300 focus:border-blue-600 rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-mono font-medium shadow-2xs"
                   />
                 </div>
               </div>
 
               {/* Rincian Khusus Turnamen Olahraga */}
               {subJenisAgenda === "turnamen_olahraga" && (
-                <div className="pt-4 border-t-2 border-blue-200 space-y-4">
-                  <div className="flex items-center gap-2 text-blue-950 font-bold text-base">
-                    <Trophy className="w-5 h-5 text-amber-600" />
+                <div className="pt-4 sm:pt-5 border-t border-blue-200/80 space-y-4 sm:space-y-5">
+                  <div className="flex items-center gap-2 text-blue-950 font-bold text-sm sm:text-base">
+                    <Trophy className="w-5 h-5 text-amber-600 shrink-0" />
                     <span>Rincian Turnamen & Hadiah</span>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div className="space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <label className="block text-base font-bold text-slate-900">
+                        <label className="block text-sm sm:text-base font-bold text-slate-900">
                           Biaya Pendaftaran / Tiket Masuk
                         </label>
                         <label className="flex items-center gap-1.5 cursor-pointer">
@@ -779,9 +780,9 @@ Salipuri Temmadinging.`;
                               setIsGratis(e.target.checked);
                               if (e.target.checked) setBiayaPendaftaran("0");
                             }}
-                            className="w-4 h-4 rounded text-blue-600"
+                            className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500"
                           />
-                          <span className="text-sm font-bold text-blue-900">
+                          <span className="text-xs sm:text-sm font-bold text-blue-900">
                             Gratis / Free
                           </span>
                         </label>
@@ -792,13 +793,13 @@ Salipuri Temmadinging.`;
                           value={biayaPendaftaran}
                           onChange={(e) => setBiayaPendaftaran(e.target.value)}
                           placeholder="Rp 100.000"
-                          className="w-full h-14 px-4 bg-white border-2 border-blue-300 focus:border-blue-600 rounded-xl text-base text-slate-900 focus:outline-hidden font-medium"
+                          className="w-full h-12 sm:h-13 px-4 bg-white border border-blue-300 focus:border-blue-600 rounded-xl text-sm sm:text-base text-slate-900 focus:outline-hidden font-medium shadow-2xs"
                         />
                       )}
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="block text-base font-bold text-slate-900">
+                      <label className="block text-sm sm:text-base font-bold text-slate-900">
                         Total Hadiah Piala & Uang Pembinaan
                       </label>
                       <input
@@ -806,18 +807,18 @@ Salipuri Temmadinging.`;
                         value={totalHadiahPembinaan}
                         onChange={(e) => setTotalHadiahPembinaan(e.target.value)}
                         placeholder="Contoh: Total Hadiah Rp 15.000.000 + Piala Bergilir KKS"
-                        className="w-full h-14 px-4 bg-white border-2 border-blue-300 focus:border-blue-600 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium"
+                        className="w-full h-12 sm:h-13 px-4 bg-white border border-blue-300 focus:border-blue-600 rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden font-medium shadow-2xs"
                       />
                     </div>
                   </div>
 
                   {/* Switch Status Pendaftaran */}
-                  <div className="p-4 rounded-xl bg-white border-2 border-blue-200 flex items-center justify-between">
+                  <div className="p-4 rounded-2xl bg-white border border-blue-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
-                      <span className="block text-base font-bold text-slate-900">
+                      <span className="block text-sm sm:text-base font-bold text-slate-900">
                         Status Pendaftaran Peserta Warga
                       </span>
-                      <span className="text-xs text-slate-500">
+                      <span className="text-xs text-slate-500 mt-0.5 block">
                         {isPendaftaranBuka
                           ? "Pendaftaran saat ini sedang DIBUKA untuk warga."
                           : "Pendaftaran telah DITUTUP (kuota penuh / batas waktu lewat)."}
@@ -826,10 +827,10 @@ Salipuri Temmadinging.`;
                     <button
                       type="button"
                       onClick={() => setIsPendaftaranBuka(!isPendaftaranBuka)}
-                      className={`px-5 py-2.5 rounded-xl font-bold text-sm transition flex items-center gap-2 ${
+                      className={`px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 self-start sm:self-auto ${
                         isPendaftaranBuka
-                          ? "bg-emerald-600 text-white shadow-sm"
-                          : "bg-slate-300 text-slate-700"
+                          ? "bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs"
+                          : "bg-slate-200 text-slate-700 hover:bg-slate-300"
                       }`}
                     >
                       {isPendaftaranBuka ? (
@@ -844,8 +845,8 @@ Salipuri Temmadinging.`;
                   </div>
 
                   {/* Upload Bagan Pertandingan (Record Asset) */}
-                  <div className="p-4 rounded-xl bg-white border-2 border-dashed border-blue-300 space-y-2">
-                    <label className="block text-base font-bold text-slate-900">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-dashed border-blue-300 space-y-2">
+                    <label className="block text-sm sm:text-base font-bold text-slate-900">
                       Unggah Bagan Pertandingan / Jadwal Pool (Opsional)
                     </label>
                     <input
@@ -892,9 +893,14 @@ Salipuri Temmadinging.`;
 
         {/* AREA UPLOAD FOTO UTAMA (BESAR & JELAS RAMAH LANSIA) */}
         <div className="space-y-3 pt-2">
-          <label className="block text-base sm:text-lg font-bold text-slate-900">
-            Foto Sampul / Brosur Utama
-          </label>
+          <div>
+            <label className="block text-sm sm:text-base font-bold text-slate-900">
+              Foto Sampul / Brosur Utama
+            </label>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Tampil di bagian atas warta dan kartu pengumuman (format JPG, PNG, atau WebP maks 3 MB).
+            </p>
+          </div>
 
           <input
             ref={fileInputRef}
@@ -905,24 +911,24 @@ Salipuri Temmadinging.`;
           />
 
           {fotoUtamaUrl ? (
-            <div className="rounded-2xl border-2 border-slate-300 overflow-hidden bg-slate-100 relative group">
-              <div className="h-64 sm:h-80 w-full overflow-hidden">
+            <div className="rounded-2xl border border-slate-200 overflow-hidden bg-slate-100 shadow-2xs">
+              <div className="w-full aspect-16/9 sm:h-80 overflow-hidden bg-slate-900 relative">
                 <img
                   src={fotoUtamaUrl}
                   alt="Foto Utama"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="p-4 bg-white border-t border-slate-200 flex items-center justify-between">
-                <span className="text-sm font-semibold text-slate-700">
-                  Foto sampul aktif telah dipilih
+              <div className="p-3.5 sm:p-4 bg-white border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                <span className="text-xs sm:text-sm font-semibold text-slate-700 truncate">
+                  ✓ Foto sampul aktif siap ditayangkan
                 </span>
                 <button
                   type="button"
                   onClick={() => setFotoUtamaUrl("")}
-                  className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm rounded-xl flex items-center gap-1.5 transition shadow-sm"
+                  className="px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200/80 font-bold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-1.5 transition self-start sm:self-auto"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className="w-4 h-4 text-rose-600" />
                   <span>Hapus / Ganti Foto</span>
                 </button>
               </div>
@@ -932,16 +938,16 @@ Salipuri Temmadinging.`;
               type="button"
               disabled={uploadingImage}
               onClick={() => fileInputRef.current?.click()}
-              className="w-full min-h-[140px] rounded-2xl border-3 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-700 flex flex-col items-center justify-center p-6 text-center transition group active:scale-[0.99]"
+              className="w-full min-h-[140px] sm:min-h-[160px] rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50/70 hover:bg-slate-50 text-slate-700 flex flex-col items-center justify-center p-6 sm:p-8 text-center transition group active:scale-[0.99]"
             >
-              <div className="w-14 h-14 rounded-full bg-white shadow-xs border border-slate-200 flex items-center justify-center mb-2 group-hover:scale-110 transition">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white shadow-xs border border-slate-200 flex items-center justify-center mb-2.5 group-hover:scale-105 transition">
                 {uploadingImage ? (
-                  <Loader2 className="w-7 h-7 text-amber-600 animate-spin" />
+                  <Loader2 className="w-6 h-6 text-amber-600 animate-spin" />
                 ) : (
-                  <Upload className="w-7 h-7 text-slate-600" />
+                  <Upload className="w-6 h-6 text-slate-600" />
                 )}
               </div>
-              <span className="text-base sm:text-lg font-bold text-slate-900">
+              <span className="text-sm sm:text-base font-bold text-slate-900 leading-snug">
                 {uploadingImage
                   ? "Sedang Mengunggah Foto..."
                   : "Sentuh di Sini untuk Memilih Foto dari HP atau Laptop"}
@@ -955,7 +961,7 @@ Salipuri Temmadinging.`;
 
         {/* Keterangan Tambahan / Penjelasan Lengkap */}
         <div className="space-y-2 pt-2">
-          <label className="block text-base font-bold text-slate-900">
+          <label className="block text-sm sm:text-base font-bold text-slate-900">
             Keterangan / Catatan Tambahan (Opsional)
           </label>
           <textarea
@@ -963,55 +969,73 @@ Salipuri Temmadinging.`;
             value={kontenUtama}
             onChange={(e) => setKontenUtama(e.target.value)}
             placeholder="Tuliskan keterangan tambahan jika ada hal penting yang ingin disampaikan kepada warga..."
-            className="w-full p-4 bg-slate-50 border-2 border-slate-300 focus:border-amber-500 rounded-xl text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden leading-relaxed font-normal"
+            className="w-full p-4 bg-slate-50 border border-slate-300 focus:border-amber-500 focus:bg-white rounded-xl text-sm sm:text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden leading-relaxed font-normal shadow-2xs"
           />
         </div>
       </section>
 
       {/* ============================================================ */}
-      {/* TOMBOL AKSI UTAMA (BESAR & JELAS DENGAN DIALOG KONFIRMASI)   */}
+      {/* TOMBOL AKSI UTAMA (RESPONSIF MOBILE: BERTUMPUK / LEGA)       */}
       {/* ============================================================ */}
-      <div className="pt-2">
+      <div className="pt-2 flex flex-col-reverse sm:flex-row items-center gap-3 sm:gap-4">
+        {isModal ? (
+          <button
+            type="button"
+            onClick={onCloseModal}
+            className="w-full sm:w-auto px-6 h-13 sm:h-14 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-sm sm:text-base transition"
+          >
+            Batal
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => router.push("/warta")}
+            className="w-full sm:w-auto px-6 h-13 sm:h-14 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-sm sm:text-base transition"
+          >
+            Kembali
+          </button>
+        )}
+
         <button
           type="button"
           onClick={() => setShowConfirmModal(true)}
-          className="w-full h-16 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-lg sm:text-xl flex items-center justify-center gap-3 shadow-lg shadow-amber-600/25 transition active:scale-[0.99]"
+          className="w-full sm:flex-1 h-13 sm:h-14 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-sm sm:text-base lg:text-lg flex items-center justify-center gap-2.5 shadow-md shadow-amber-600/20 transition active:scale-[0.99]"
         >
-          <CheckCircle2 className="w-7 h-7" />
+          <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
           <span>SIMPAN DAN TERBITKAN KABAR SEKARANG</span>
         </button>
       </div>
 
-      {/* DIALOG KONFIRMASI RAMAH LANSIA */}
+      {/* DIALOG KONFIRMASI RAMAH LANSIA & ERGONOMIS */}
       {showConfirmModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6 animate-in fade-in zoom-in-95 duration-150">
+          <div className="bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl border border-slate-200 space-y-5 sm:space-y-6 animate-in fade-in zoom-in-95 duration-150">
             <div className="text-center space-y-2">
-              <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-3">
-                <HelpCircle className="w-8 h-8" />
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-2">
+                <HelpCircle className="w-7 h-7 sm:w-8 sm:h-8" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900">
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
                 Konfirmasi Penayangan
               </h3>
-              <p className="text-base text-slate-600 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm mx-auto">
                 Apakah kabar ini sudah benar untuk dibaca oleh seluruh warga perantau di Timika?
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm space-y-1">
-              <span className="text-xs font-semibold text-slate-400 block uppercase">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm space-y-1">
+              <span className="text-xs font-bold text-slate-400 block uppercase tracking-wider">
                 Judul Kabar:
               </span>
-              <strong className="text-slate-900 font-bold text-base block">
+              <strong className="text-slate-900 font-bold text-sm sm:text-base block leading-snug">
                 {judul || "(Judul belum diisi)"}
               </strong>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3 pt-1">
               <button
                 type="button"
                 onClick={() => setShowConfirmModal(false)}
-                className="w-full sm:w-1/2 h-14 rounded-xl border-2 border-slate-300 text-slate-700 font-bold text-base hover:bg-slate-100 transition"
+                className="w-full sm:w-1/2 h-12 sm:h-13 rounded-xl border border-slate-300 text-slate-700 font-bold text-sm sm:text-base hover:bg-slate-100 transition"
               >
                 Cek Lagi
               </button>
@@ -1019,7 +1043,7 @@ Salipuri Temmadinging.`;
                 type="button"
                 disabled={isSubmitting}
                 onClick={handleFinalSubmit}
-                className="w-full sm:w-1/2 h-14 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-base shadow-md shadow-amber-600/30 flex items-center justify-center gap-2 transition disabled:opacity-50"
+                className="w-full sm:w-1/2 h-12 sm:h-13 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm sm:text-base shadow-sm shadow-amber-600/30 flex items-center justify-center gap-2 transition disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <Loader2 className="w-5 h-5 animate-spin" />

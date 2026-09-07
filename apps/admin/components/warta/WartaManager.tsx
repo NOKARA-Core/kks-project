@@ -678,10 +678,10 @@ export function WartaManager({ initialWarta }: Props) {
 
       {/* Modal Buat / Edit Warta (Accessible Senior-Friendly) */}
       {isCreateModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 my-8 max-h-[92vh] overflow-y-auto relative animate-in fade-in zoom-in-95 duration-150">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl sm:rounded-3xl max-w-3xl w-full p-4 sm:p-7 shadow-2xl border border-slate-200 my-auto max-h-[94vh] overflow-y-auto relative animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3 sm:pb-4 mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-2xl font-bold text-slate-900 tracking-tight">
                 {editingWarta ? "Perbarui Warta Paguyuban" : "Tulis Kabar Paguyuban Baru"}
               </h3>
               <button
@@ -689,9 +689,9 @@ export function WartaManager({ initialWarta }: Props) {
                   setIsCreateModalOpen(false);
                   setEditingWarta(null);
                 }}
-                className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                className="p-1.5 sm:p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
 
