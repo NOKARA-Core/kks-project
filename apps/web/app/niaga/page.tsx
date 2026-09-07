@@ -9,8 +9,10 @@ import {
   Phone,
   Search,
 } from "lucide-react";
-import { db, direktoriNiaga } from "@repo/database";
+import { db, direktoriNiaga, formatWhatsAppUrl } from "@repo/database";
+import { siteConfig } from "@/lib/config";
 import { eq, desc } from "drizzle-orm";
+
 
 export const dynamic = "force-dynamic";
 
@@ -199,7 +201,10 @@ export default async function NiagaPage() {
                 Biro Ekonomi & Niaga KKS Timika melalui WhatsApp resmi di bawah:
               </p>
               <a
-                href="https://wa.me/6281234567890?text=Halo%20Admin%20KKS%20Timika,%20saya%20ingin%20mendaftarkan%20usaha%20saya%20ke%20Direktori%20Niaga%20Warga."
+                href={formatWhatsAppUrl(
+                  siteConfig.hotlineWa,
+                  "Halo Admin KKS Timika, saya ingin mendaftarkan usaha saya ke Direktori Niaga Warga."
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-xs transition shadow-sm"
@@ -207,6 +212,7 @@ export default async function NiagaPage() {
                 <MessageCircle className="w-4 h-4" />
                 <span>Hubungi Biro Ekonomi KKS via WhatsApp</span>
               </a>
+
             </div>
           </div>
         </section>

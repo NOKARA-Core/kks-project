@@ -23,6 +23,8 @@ import {
 } from "lucide-react";
 import { createWarta, updateWarta, createWartaAsset } from "@/app/actions/warta";
 import { uploadFileClient } from "@/lib/upload-client";
+import { siteConfig } from "@/lib/config";
+
 import type { WartaPaguyuban, NewWartaPaguyuban } from "@repo/database/schema";
 
 interface Props {
@@ -236,16 +238,17 @@ Salipuri Temmadinging.`;
           finalRingkasan = `Kabar gembira dan syukuran keluarga ${namaKeluargaSuka || ""} dalam rangka ${jenisAcaraSuka} di Timika.`;
         }
         if (!finalKonten) {
-          finalKonten = `Keluarga besar Kerukunan Keluarga Soppeng (KKS) Kabupaten Mimika turut berbahagia atas terselenggaranya ${jenisAcaraSuka} keluarga ${namaKeluargaSuka || ""}.\n\nLokasi Acara: ${lokasiAcaraSuka || "Timika"}\nTanggal: ${tanggalAcaraSuka || "-"}\n\nSemoga senantiasa dilimpahi keberkahan dan kebahagiaan.`;
+          finalKonten = `Keluarga besar ${siteConfig.orgName} turut berbahagia atas terselenggaranya ${jenisAcaraSuka} keluarga ${namaKeluargaSuka || ""}.\n\nLokasi Acara: ${lokasiAcaraSuka || "Timika"}\nTanggal: ${tanggalAcaraSuka || "-"}\n\nSemoga senantiasa dilimpahi keberkahan dan kebahagiaan.`;
         }
       } else {
         if (!finalRingkasan) {
-          finalRingkasan = `Pengumuman resmi agenda kegiatan paguyuban KKS Kabupaten Mimika: ${judul}.`;
+          finalRingkasan = `Pengumuman resmi agenda kegiatan paguyuban ${siteConfig.shortOrgName}: ${judul}.`;
         }
         if (!finalKonten) {
-          finalKonten = `Pemberitahuan kepada seluruh bapak/ibu warga Kerukunan Keluarga Soppeng di Kabupaten Mimika terkait pelaksanaan kegiatan:\n\nNama Kegiatan: ${judul}\nTempat: ${lokasiGedung || "Timika"}\nWaktu: ${tanggalMulai ? new Date(tanggalMulai).toLocaleString("id-ID") : "-"}\nNarahubung: ${penanggungJawabWa || "-"}`;
+          finalKonten = `Pemberitahuan kepada seluruh bapak/ibu warga ${siteConfig.orgName} terkait pelaksanaan kegiatan:\n\nNama Kegiatan: ${judul}\nTempat: ${lokasiGedung || "Timika"}\nWaktu: ${tanggalMulai ? new Date(tanggalMulai).toLocaleString("id-ID") : "-"}\nNarahubung: ${penanggungJawabWa || "-"}`;
         }
       }
+
 
       const parsedBiaya = isGratis
         ? "0"

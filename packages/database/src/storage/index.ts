@@ -233,19 +233,23 @@ export class SupabaseStorageAdapter implements StorageAdapter {
 
 /**
  * Factory / Active Storage Manager
- * Otomatis menggunakan Supabase jika kredensial terisi, atau default Local Disk
+ * Otomatis menggunakan Supabase jika STORAGE_PROVIDER='supabase' atau kredensial terisi, atau default Local Disk
  */
 export function getStorageAdapter(): StorageAdapter {
+  const provider = (process.env.STORAGE_PROVIDER || "").toLowerCase().trim();
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const hasSupabase =
+  const bucketName = process.env.SUPABASE_STORAGE_BUCKET || "kks-media";
+
+  const hasValidSupabaseCredentials =
     Boolean(supabaseUrl) &&
     typeof supabaseUrl === "string" &&
     !supabaseUrl.includes("xxxxxxxx") &&
     Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
-  if (hasSupabase) {
-    return new SupabaseStorageAdapter();
+  if (provider === "supabase" || (provider !== "local" && hasValidSupabaseCredentials)) {
+    return new SupabaseStorageAdapter(bucketName);
   }
 
   return new LocalDiskStorageAdapter();
 }
+

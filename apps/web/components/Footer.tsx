@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { HeartHandshake, Phone, Mail, MapPin } from 'lucide-react';
+import { siteConfig } from '@/lib/config';
+import { formatWhatsAppUrl } from '@repo/database';
+
 
 export function Footer() {
   return (
@@ -111,16 +114,25 @@ export function Footer() {
             <div className="flex flex-col gap-3 text-sm">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
-                <span className="leading-snug">Distrik Mimika Baru, Kota Timika, Papua Tengah</span>
+                <span className="leading-snug">{siteConfig.alamatSekretariat}</span>
               </div>
-              <div className="flex items-center gap-2.5">
+              <a
+                href={formatWhatsAppUrl(
+                  siteConfig.hotlineWa,
+                  "Halo Sekretariat KKS Mimika, saya ingin menghubungi layanan warga."
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2.5 hover:text-gold transition-colors"
+              >
                 <Phone className="w-4 h-4 text-slate-400 flex-shrink-0" />
-                <span>Siaga Kas Duka & Layanan Warga</span>
-              </div>
+                <span>Hotline: +{siteConfig.hotlineWa}</span>
+              </a>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-slate-400 flex-shrink-0" />
-                <span>sekretariat@kks-mimika.org</span>
+                <span>{siteConfig.emailSekretariat}</span>
               </div>
+
               <div className="mt-2 p-3 bg-canvas-soft rounded-xl border border-slate-200/80 flex items-center gap-2.5">
                 <HeartHandshake className="w-5 h-5 text-siri flex-shrink-0" />
                 <div className="flex flex-col">

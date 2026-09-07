@@ -29,6 +29,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { formatTanggal, formatWhatsAppUrl } from "@/lib/utils";
+import { siteConfig } from "@/lib/config";
+
 import {
   createWarta,
   updateWarta,
@@ -92,13 +94,11 @@ export function WartaManager({ initialWarta }: Props) {
   };
 
   const generateWhatsAppMessage = (w: WartaPaguyuban) => {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_APP_URL ||
-      (typeof window !== "undefined" ? window.location.origin : "https://kks-mimika.com");
+    const baseUrl = siteConfig.appUrl;
     const portalUrl = `${baseUrl}/warta/${w.slug || w.id}`;
 
     if (w.kategori === "duka_cita") {
-      return `*INNALILLAHI WA INNA ILAIHI RAJI'UN*\n*WARTA LELAYU KKS KABUPATEN MIMIKA*\n\n${w.judul}\n\n${w.ringkasan || ""}\n\n📍 *Rumah Duka/Lokasi:* ${w.alamatDukaTimika || "Timika"}\n🗓️ *Waktu Wafat:* ${w.waktuWafat ? formatTanggal(w.waktuWafat) : "-"}\n📞 *Kontak Keluarga/Takziah:* ${w.kontakKeluargaWa || "-"}\n\nKeterangan Lengkap:\n${w.kontenUtama || ""}\n\n🔗 *Baca di Portal:* ${portalUrl}\n\n_Semoga almarhum/ah diampuni segala dosanya dan keluarga diberikan ketabahan. Salipuri Temmadinging._\n*Pengurus Kerukunan Keluarga Soppeng (KKS) Kab. Mimika*`;
+      return `*INNALILLAHI WA INNA ILAIHI RAJI'UN*\n*WARTA LELAYU ${siteConfig.orgName.toUpperCase()}*\n\n${w.judul}\n\n${w.ringkasan || ""}\n\n📍 *Rumah Duka/Lokasi:* ${w.alamatDukaTimika || "Timika"}\n🗓️ *Waktu Wafat:* ${w.waktuWafat ? formatTanggal(w.waktuWafat) : "-"}\n📞 *Kontak Keluarga/Takziah:* ${w.kontakKeluargaWa || "-"}\n\nKeterangan Lengkap:\n${w.kontenUtama || ""}\n\n🔗 *Baca di Portal:* ${portalUrl}\n\n_Semoga almarhum/ah diampuni segala dosanya dan keluarga diberikan ketabahan. Salipuri Temmadinging._\n*Pengurus ${siteConfig.orgName}*`;
     }
 
     if (w.kategori === "agenda_kegiatan") {
@@ -107,11 +107,12 @@ export function WartaManager({ initialWarta }: Props) {
           ? `Rp ${Number(w.biayaPendaftaran).toLocaleString("id-ID")}`
           : "Gratis / Terbuka";
 
-      return `*📢 WARTA & AGENDA RESMI KKS KABUPATEN MIMIKA*\n\n*${w.judul}*\n\n${w.ringkasan || ""}\n\n🗓️ *Tanggal Pelaksanaan:* ${w.tanggalMulai ? new Date(w.tanggalMulai).toLocaleString("id-ID") : "-"}${w.tanggalSelesai ? ` s/d ${new Date(w.tanggalSelesai).toLocaleString("id-ID")}` : ""}\n📍 *Lokasi Kegiatan:* ${w.lokasiNamaTempat || "Timika"}\n🏢 *Penyelenggara:* ${w.penyelenggaraSektor || "Pengurus Pusat KKS Timika"}\n💰 *Biaya/Infaq:* ${biayaText}\n👥 *Kuota Peserta:* ${w.kuotaPeserta ? `${w.kuotaPeserta} Peserta` : "Terbuka untuk Umum"}\n📞 *Narahubung / PIC:* ${w.kontakPanitiaWa || "-"}\n${w.linkPendaftaranExternal ? `📝 *Form Pendaftaran:* ${w.linkPendaftaranExternal}\n` : ""}🔗 *Detail Lengkap Agenda:* ${portalUrl}\n\n*Pengurus Kerukunan Keluarga Soppeng Kab. Mimika — Yassisoppengi*`;
+      return `*📢 WARTA & AGENDA RESMI ${siteConfig.orgName.toUpperCase()}*\n\n*${w.judul}*\n\n${w.ringkasan || ""}\n\n🗓️ *Tanggal Pelaksanaan:* ${w.tanggalMulai ? new Date(w.tanggalMulai).toLocaleString("id-ID") : "-"}${w.tanggalSelesai ? ` s/d ${new Date(w.tanggalSelesai).toLocaleString("id-ID")}` : ""}\n📍 *Lokasi Kegiatan:* ${w.lokasiNamaTempat || "Timika"}\n🏢 *Penyelenggara:* ${w.penyelenggaraSektor || `Pengurus Pusat ${siteConfig.shortOrgName}`}\n💰 *Biaya/Infaq:* ${biayaText}\n👥 *Kuota Peserta:* ${w.kuotaPeserta ? `${w.kuotaPeserta} Peserta` : "Terbuka untuk Umum"}\n📞 *Narahubung / PIC:* ${w.kontakPanitiaWa || "-"}\n${w.linkPendaftaranExternal ? `📝 *Form Pendaftaran:* ${w.linkPendaftaranExternal}\n` : ""}🔗 *Detail Lengkap Agenda:* ${portalUrl}\n\n*Pengurus ${siteConfig.orgName} — Yassisoppengi*`;
     }
 
-    return `*WARTA PAGUYUBAN KKS KABUPATEN MIMIKA*\n\n*${w.judul}*\n\n${w.ringkasan || ""}\n\n📍 *Lokasi:* ${w.lokasiNamaTempat || "Timika"}\n📞 *Narahubung:* ${w.kontakPanitiaWa || "-"}\n\n${w.kontenUtama || ""}\n\n🔗 *Baca Selengkapnya:* ${portalUrl}\n\n*Pengurus KKS Kabupaten Mimika*`;
+    return `*WARTA PAGUYUBAN ${siteConfig.orgName.toUpperCase()}*\n\n*${w.judul}*\n\n${w.ringkasan || ""}\n\n📍 *Lokasi:* ${w.lokasiNamaTempat || "Timika"}\n📞 *Narahubung:* ${w.kontakPanitiaWa || "-"}\n\n${w.kontenUtama || ""}\n\n🔗 *Baca Selengkapnya:* ${portalUrl}\n\n*Pengurus ${siteConfig.orgName}*`;
   };
+
 
   const copyToClipboard = (w: WartaPaguyuban) => {
     const text = generateWhatsAppMessage(w);

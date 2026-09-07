@@ -2,6 +2,8 @@
 
 import { Megaphone, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { siteConfig } from "@/lib/config";
+
 
 export interface WartaBroadcastButtonProps {
   judul: string;
@@ -27,9 +29,7 @@ export function WartaBroadcastButton({
   label = "Siarkan ke WhatsApp",
 }: WartaBroadcastButtonProps) {
   const handleBroadcast = () => {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_APP_URL ||
-      (typeof window !== "undefined" ? window.location.origin : "https://kks-mimika.com");
+    const baseUrl = siteConfig.appUrl;
     const portalUrl = `${baseUrl}/warta/${slugOrId}`;
     const lokasi = detailLokasi?.trim() || "Timika, Papua Tengah";
     const ringkasanText = ringkasan?.trim() || "";
@@ -39,7 +39,7 @@ export function WartaBroadcastButton({
 
     if (kategori === "duka_cita") {
       message = [
-        "🕯️ *KABAR DUKA CITA (LELAYU) — KKS MIMIKA*",
+        `🕯️ *KABAR DUKA CITA (LELAYU) — ${siteConfig.shortOrgName.toUpperCase()}*`,
         "",
         "_Inna lillahi wa inna ilaihi raji'un_",
         "",
@@ -47,33 +47,46 @@ export function WartaBroadcastButton({
         "",
         ringkasanText ? `${ringkasanText}\n` : "",
         `📍 *Rumah Duka/Lokasi:* ${lokasi}`,
-        pic ? `📞 *Kontak Takziah/Keluarga:* ${pic}` : "",
+        pic ? `📞 *Kontak Keluarga:* ${pic}` : "",
         "",
-        "🔗 *Informasi & Penyaluran Santunan Kas Duka:*",
-        portalUrl,
+        `🔗 *Warta Resmi:* ${portalUrl}`,
         "",
-        "_Semoga almarhum/almarhumah husnul khatimah dan keluarga yang ditinggalkan diberikan ketabahan._",
-        "*(Pengurus KKS Kabupaten Mimika — Salipuri Temmadinging)*",
+        `_Semoga almarhum/ah diampuni segala dosanya dan keluarga diberikan ketabahan. Salipuri Temmadinging._`,
+        `*(Pengurus ${siteConfig.orgName})*`,
       ]
-        .filter((line) => line !== undefined && line !== "")
+        .filter(Boolean)
         .join("\n");
-    } else {
-      const tagKategori =
-        kategori === "suka_cita" ? "KABAR SUKA CITA" : "AGENDA RESMI";
+    } else if (kategori === "agenda_kegiatan") {
       message = [
-        `📢 *WARTA & AGENDA RESMI KKS KABUPATEN MIMIKA*`,
-        `*[${tagKategori}]*`,
+        `📢 *AGENDA & KEGIATAN WARGA — ${siteConfig.shortOrgName.toUpperCase()}*`,
         "",
         `*${judul.trim()}*`,
         "",
         ringkasanText ? `${ringkasanText}\n` : "",
-        `• 📍 *Tempat / Lokasi:* ${lokasi}`,
-        pic ? `• 📞 *Narahubung / PIC:* ${pic}` : "",
-        `• 🌐 *Tautan Lengkap Portal:* ${portalUrl}`,
+        `📍 *Lokasi:* ${lokasi}`,
+        pic ? `📞 *Narahubung / PIC:* ${pic}` : "",
         "",
-        "*(Pengurus Kerukunan Keluarga Soppeng Kab. Mimika — Yassisoppengi)*",
+        `🔗 *Detail Lengkap:* ${portalUrl}`,
+        "",
+        `*(Pengurus ${siteConfig.orgName} — Yassisoppengi)*`,
       ]
-        .filter((line) => line !== undefined && line !== "")
+        .filter(Boolean)
+        .join("\n");
+    } else {
+      message = [
+        `🎉 *KABAR SUKACITA & SYUKURAN — ${siteConfig.shortOrgName.toUpperCase()}*`,
+        "",
+        `*${judul.trim()}*`,
+        "",
+        ringkasanText ? `${ringkasanText}\n` : "",
+        `📍 *Lokasi:* ${lokasi}`,
+        pic ? `📞 *Narahubung:* ${pic}` : "",
+        "",
+        `🔗 *Selengkapnya:* ${portalUrl}`,
+        "",
+        `*(Pengurus ${siteConfig.orgName})*`,
+      ]
+        .filter(Boolean)
         .join("\n");
     }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { HeartHandshake, ShieldCheck, CreditCard, ArrowUpRight, ArrowDownLeft, FileText, CheckCircle2 } from 'lucide-react';
+import { siteConfig } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: 'Kas Sosial & Transparansi Paguyuban',
@@ -148,17 +149,18 @@ export default function SosialPage() {
               
               <div className="p-5 bg-white rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                  <span className="text-xs text-slate-500 font-semibold">Bank Rakyat Indonesia (BRI)</span>
+                  <span className="text-xs text-slate-500 font-semibold">{siteConfig.bank.name}</span>
                   <div className="font-mono text-xl sm:text-2xl font-extrabold text-slate-900 tracking-wider">
-                    0321-01-001234-53-9
+                    {siteConfig.bank.accountNo}
                   </div>
-                  <span className="text-xs text-slate-600">Atas Nama: <strong>KKS KABUPATEN MIMIKA</strong></span>
+                  <span className="text-xs text-slate-600">Atas Nama: <strong>{siteConfig.bank.accountHolder}</strong></span>
                 </div>
                 <div className="px-3 py-1.5 bg-canvas-soft border border-slate-200 rounded-lg text-xs font-semibold text-slate-700">
                   Rekening Resmi
                 </div>
               </div>
             </div>
+
 
             <div className="lg:col-span-5 bg-white p-6 rounded-xl border border-slate-200">
               <h3 className="text-base font-bold text-slate-900 mb-3">Ketentuan Penyaluran Santunan</h3>
