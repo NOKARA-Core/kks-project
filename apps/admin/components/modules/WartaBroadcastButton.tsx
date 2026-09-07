@@ -27,8 +27,10 @@ export function WartaBroadcastButton({
   label = "Siarkan ke WhatsApp",
 }: WartaBroadcastButtonProps) {
   const handleBroadcast = () => {
-    // Generate WhatsApp text format safely
-    const portalUrl = `https://kks-mimika.com/warta/${slugOrId}`;
+    const baseUrl =
+      process.env.NEXT_PUBLIC_APP_URL ||
+      (typeof window !== "undefined" ? window.location.origin : "https://kks-mimika.com");
+    const portalUrl = `${baseUrl}/warta/${slugOrId}`;
     const lokasi = detailLokasi?.trim() || "Timika, Papua Tengah";
     const ringkasanText = ringkasan?.trim() || "";
     const pic = kontakPic?.trim();

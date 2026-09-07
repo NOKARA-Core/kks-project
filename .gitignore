@@ -43,3 +43,7 @@ AGENT.md
 DESIGN_SYSTEM.md
 PAGES_SPEC.md
 PRD_KKS.md
+
+# Dynamic Uploaded Assets (Media, Warta, Brackets, Direktori)
+**/public/uploads/*
+!**/public/uploads/.gitkeep

@@ -1,4 +1,5 @@
 import * as fs from "fs/promises";
+import * as fsSync from "fs";
 import * as path from "path";
 
 export interface StorageUploadResult {
@@ -93,18 +94,35 @@ export class LocalDiskStorageAdapter implements StorageAdapter {
     } else {
       // Default auto-detect repo apps root if running inside monorepo
       const cwd = process.cwd();
-      const possibleAdminPublic = path.resolve(cwd, "public/uploads");
-      const possibleAdminFromApps = path.resolve(cwd, "../admin/public/uploads");
-      const possibleWebFromApps = path.resolve(cwd, "../web/public/uploads");
-      const possibleAdminFromRoot = path.resolve(cwd, "apps/admin/public/uploads");
-      const possibleWebFromRoot = path.resolve(cwd, "apps/web/public/uploads");
-
       const targets = new Set<string>();
-      targets.add(possibleAdminPublic);
-      targets.add(possibleAdminFromApps);
-      targets.add(possibleWebFromApps);
-      targets.add(possibleAdminFromRoot);
-      targets.add(possibleWebFromRoot);
+
+      // Cari root monorepo berdasarkan keberadaan turbo.json atau pnpm-workspace / package.json
+      let repoRoot = cwd;
+      let curr = cwd;
+      for (let i = 0; i < 4; i++) {
+        if (fsSync.existsSync(path.join(curr, "turbo.json")) || fsSync.existsSync(path.join(curr, "pnpm-workspace.yaml"))) {
+          repoRoot = curr;
+          break;
+        }
+        const parent = path.dirname(curr);
+        if (parent === curr) break;
+        curr = parent;
+      }
+
+      const adminUploads = path.join(repoRoot, "apps/admin/public/uploads");
+      const webUploads = path.join(repoRoot, "apps/web/public/uploads");
+
+      if (fsSync.existsSync(path.dirname(adminUploads))) {
+        targets.add(adminUploads);
+      }
+      if (fsSync.existsSync(path.dirname(webUploads))) {
+        targets.add(webUploads);
+      }
+
+      // Fallback jika standalone atau tidak terdeteksi
+      if (targets.size === 0) {
+        targets.add(path.resolve(cwd, "public/uploads"));
+      }
 
       this.baseDirs = Array.from(targets);
     }

@@ -92,7 +92,10 @@ export function WartaManager({ initialWarta }: Props) {
   };
 
   const generateWhatsAppMessage = (w: WartaPaguyuban) => {
-    const portalUrl = `https://kks-mimika.com/warta/${w.slug || w.id}`;
+    const baseUrl =
+      process.env.NEXT_PUBLIC_APP_URL ||
+      (typeof window !== "undefined" ? window.location.origin : "https://kks-mimika.com");
+    const portalUrl = `${baseUrl}/warta/${w.slug || w.id}`;
 
     if (w.kategori === "duka_cita") {
       return `*INNALILLAHI WA INNA ILAIHI RAJI'UN*\n*WARTA LELAYU KKS KABUPATEN MIMIKA*\n\n${w.judul}\n\n${w.ringkasan || ""}\n\n📍 *Rumah Duka/Lokasi:* ${w.alamatDukaTimika || "Timika"}\n🗓️ *Waktu Wafat:* ${w.waktuWafat ? formatTanggal(w.waktuWafat) : "-"}\n📞 *Kontak Keluarga/Takziah:* ${w.kontakKeluargaWa || "-"}\n\nKeterangan Lengkap:\n${w.kontenUtama || ""}\n\n🔗 *Baca di Portal:* ${portalUrl}\n\n_Semoga almarhum/ah diampuni segala dosanya dan keluarga diberikan ketabahan. Salipuri Temmadinging._\n*Pengurus Kerukunan Keluarga Soppeng (KKS) Kab. Mimika*`;

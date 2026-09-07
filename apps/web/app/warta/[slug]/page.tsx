@@ -72,8 +72,11 @@ export default async function WartaDetailPage({ params }: PageProps) {
       ? `Rp ${Number(warta.biayaPendaftaran).toLocaleString("id-ID")}`
       : "Gratis / Terbuka";
 
+  const baseUrl =
+    process.env.NEXT_PUBLIC_APP_URL || "https://kks-mimika.com";
+
   const shareText = encodeURIComponent(
-    `*${warta.judul}*\n\n${warta.ringkasan || ""}\n\nBaca selengkapnya di Portal Resmi KKS Mimika:\nhttps://kks-mimika.com/warta/${warta.slug}`
+    `*${warta.judul}*\n\n${warta.ringkasan || ""}\n\nBaca selengkapnya di Portal Resmi KKS Mimika:\n${baseUrl}/warta/${warta.slug}`
   );
   const waShareUrl = `https://api.whatsapp.com/send?text=${shareText}`;
 
