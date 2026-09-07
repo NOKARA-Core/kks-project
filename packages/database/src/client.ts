@@ -8,8 +8,9 @@ import * as path from "path";
 if (!process.env.DATABASE_URL) {
   try {
     dotenv.config({ path: path.resolve(process.cwd(), ".env") });
-    dotenv.config({ path: path.resolve(process.cwd(), "apps/admin/.env") });
-    dotenv.config({ path: path.resolve(__dirname, "../../apps/admin/.env") });
+    dotenv.config({ path: path.resolve(process.cwd(), "../../.env") });
+    dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
+    dotenv.config({ path: path.resolve(__dirname, "../../.env") });
   } catch {
     // Abaikan jika tidak ditemukan file
   }

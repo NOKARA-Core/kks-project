@@ -182,3 +182,6 @@ kks-platform/
 ├── turbo.json
 └── package.json
 ```
+
+
+`bun --filter @repo/database storage:sync`
