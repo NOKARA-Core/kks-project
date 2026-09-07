@@ -13,7 +13,7 @@ export function HeroSection() {
         <div className="w-full mb-8 sm:mb-12">
           <div className="group relative w-full aspect-[16/9] sm:aspect-[21/9] md:aspect-[24/8] min-h-[180px] max-h-[360px] rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white">
             <img
-              src="https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=2070&auto=format&fit=crop"
+              src="/images/hero-banner.svg"
               alt="Dokumentasi Silaturahmi Kerukunan Keluarga Soppeng Mimika"
               className="w-full h-full object-cover object-center group-hover:scale-[1.01] transition-transform duration-500"
             />

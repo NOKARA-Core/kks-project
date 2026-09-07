@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
@@ -45,9 +46,25 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-24">
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="flex flex-col">
-              <span className="text-xl font-bold text-slate-900 tracking-tight">KKS Timika</span>
-              <span className="text-xs text-gold font-medium uppercase tracking-widest mt-0.5">Yassisoppengi</span>
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-12 h-12 flex-shrink-0">
+                <Image
+                  src="/logo-kks.svg"
+                  alt="Logo Kerukunan Keluarga Soppeng Kab. Mimika"
+                  width={48}
+                  height={48}
+                  className="w-full h-full object-contain"
+                  priority
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xl font-bold text-slate-900 tracking-tight group-hover:text-gold transition-colors leading-tight">
+                  KKS Timika
+                </span>
+                <span className="text-xs text-gold font-semibold uppercase tracking-widest leading-none mt-0.5">
+                  Yassisoppengi
+                </span>
+              </div>
             </Link>
           </div>
           

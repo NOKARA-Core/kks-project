@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { HeartHandshake, Phone, Mail, MapPin } from 'lucide-react';
 
 export function Footer() {
@@ -9,11 +10,24 @@ export function Footer() {
           
           {/* Kolom 1 & 2: Identitas & Filosofi */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <Link href="/" className="flex flex-col">
-              <span className="text-2xl font-bold text-slate-900 tracking-tight">KKS Timika</span>
-              <span className="text-xs text-gold font-medium uppercase tracking-widest mt-0.5">
-                Kerukunan Keluarga Soppeng Kab. Mimika
-              </span>
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-14 h-14 flex-shrink-0">
+                <Image
+                  src="/logo-kks.svg"
+                  alt="Logo KKS Timika"
+                  width={56}
+                  height={56}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold text-slate-900 tracking-tight group-hover:text-gold transition-colors leading-tight">
+                  KKS Timika
+                </span>
+                <span className="text-xs text-gold font-medium uppercase tracking-widest mt-0.5">
+                  Kerukunan Keluarga Soppeng Kab. Mimika
+                </span>
+              </div>
             </Link>
             <p className="text-sm text-slate-600 leading-relaxed max-w-sm mt-2">
               Wadah silaturahmi, pengayoman, dan gotong royong warga perantau asal Kabupaten Soppeng (Bumi Latemmamala) yang bermukim dan berkarya di Tanah Amungsa/Mimika, Papua Tengah.
