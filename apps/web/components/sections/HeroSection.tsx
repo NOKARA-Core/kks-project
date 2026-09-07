@@ -117,11 +117,13 @@ export async function HeroSection() {
             {/* Warta 1: Kabar Duka & Lelayu (Prioritas Tinggi) */}
             <Link
               href="/warta#duka"
-              className="group block p-4 bg-white rounded-xl border-l-4 border-l-siri border border-slate-200 hover:border-slate-300 transition-all hover:shadow-sm"
+              className="group block p-4.5 bg-white rounded-2xl border border-slate-200/80 hover:border-slate-300 transition-all hover:shadow-xs"
             >
-              <div className="flex items-center gap-2 text-xs font-bold text-siri uppercase tracking-wide mb-1.5">
-                <HeartHandshake className="w-3.5 h-3.5" />
-                <span>Kabar Duka & Santunan Lelayu</span>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-100">
+                  <HeartHandshake className="w-3.5 h-3.5" />
+                  <span>Kabar Duka & Lelayu</span>
+                </span>
               </div>
               <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-gold transition-colors line-clamp-2 mb-1">
                 Layanan Tanggap Duka Paguyuban KKS Mimika Siap Mendampingi Warga
@@ -134,11 +136,13 @@ export async function HeroSection() {
             {/* Warta 2: Agenda Pertemuan Rutin */}
             <Link
               href="/warta#agenda"
-              className="group block p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 transition-all hover:shadow-sm"
+              className="group block p-4.5 bg-white rounded-2xl border border-slate-200/80 hover:border-slate-300 transition-all hover:shadow-xs"
             >
-              <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
-                <Calendar className="w-3.5 h-3.5 text-gold" />
-                <span>Agenda Silaturahmi</span>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-100">
+                  <Calendar className="w-3.5 h-3.5" />
+                  <span>Agenda Silaturahmi</span>
+                </span>
               </div>
               <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-gold transition-colors line-clamp-2 mb-1">
                 Pertemuan Bulanan Pengurus & Warga Sektor Distrik Mimika Baru
@@ -151,11 +155,13 @@ export async function HeroSection() {
             {/* Warta 3: Niaga Rantau / UMKM */}
             <Link
               href="/niaga"
-              className="group block p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 transition-all hover:shadow-sm"
+              className="group block p-4.5 bg-white rounded-2xl border border-slate-200/80 hover:border-slate-300 transition-all hover:shadow-xs"
             >
-              <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">
-                <Store className="w-3.5 h-3.5 text-sky" />
-                <span>Pojok Niaga Perantau</span>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200/60">
+                  <Store className="w-3.5 h-3.5" />
+                  <span>Pojok Niaga Perantau</span>
+                </span>
               </div>
               <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-gold transition-colors line-clamp-2 mb-1">
                 Dukungan Usaha Kuliner & Jasa Sesama Warga Soppeng di Timika
@@ -164,6 +170,7 @@ export async function HeroSection() {
                 Katalog usaha lokal perantau. Mari berbelanja dan saling menguatkan ekonomi sesama warga.
               </p>
             </Link>
+
 
           </aside>
 
