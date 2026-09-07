@@ -518,7 +518,7 @@ export function RingkasanClient({
                         Lelayu
                       </span>
                       <span className="text-[10px] text-slate-400">
-                        {formatTanggal(warta.tanggalPeristiwa)}
+                        {formatTanggal(warta.waktuWafat || warta.createdAt)}
                       </span>
                     </div>
                     <p className="font-semibold text-slate-900 text-xs leading-snug">
@@ -530,7 +530,7 @@ export function RingkasanClient({
                     <div className="flex items-center justify-between pt-1 text-[10px] text-slate-500">
                       <span>Lokasi:</span>
                       <span className="font-medium text-slate-700 truncate max-w-[180px]">
-                        {warta.lokasiAcara}
+                        {warta.alamatDukaTimika || warta.lokasiNamaTempat || "Timika"}
                       </span>
                     </div>
                   </div>

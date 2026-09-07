@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useRef } from "react";
 import {
   Megaphone,
   AlertTriangle,
@@ -18,13 +18,23 @@ import {
   Archive,
   FileEdit,
   X,
+  Upload,
+  FileText,
+  DollarSign,
+  Users,
+  ExternalLink,
+  ImageIcon,
+  Loader2,
+  Globe,
 } from "lucide-react";
 import { formatTanggal, formatWhatsAppUrl } from "@/lib/utils";
 import {
   createWarta,
+  updateWarta,
   updateWartaStatus,
   deleteWarta,
 } from "@/app/actions/warta";
+import { uploadImageAction, uploadDocumentAction } from "@/app/actions/upload";
 import { WartaBroadcastButton } from "@/components/modules/WartaBroadcastButton";
 import type { WartaPaguyuban, NewWartaPaguyuban } from "@repo/database/schema";
 
@@ -39,6 +49,7 @@ export function WartaManager({ initialWarta }: Props) {
   >("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [editingWarta, setEditingWarta] = useState<WartaPaguyuban | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [selectedWarta, setSelectedWarta] = useState<WartaPaguyuban | null>(null);
@@ -79,10 +90,22 @@ export function WartaManager({ initialWarta }: Props) {
   };
 
   const generateWhatsAppMessage = (w: WartaPaguyuban) => {
+    const portalUrl = `https://kks-mimika.com/warta/${w.slug || w.id}`;
+
     if (w.kategori === "duka_cita") {
-      return `*INNALILLAHI WA INNA ILAIHI RAJI'UN*\n*WARTA LELAYU KKS KABUPATEN MIMIKA*\n\n${w.judul}\n\n${w.ringkasan || ""}\n\n📍 *Lokasi/Rumah Duka:* ${w.lokasiAcara || "Timika"}\n🗓️ *Waktu/Tanggal:* ${formatTanggal(w.tanggalPeristiwa)}\n📞 *Kontak Keluarga/Takziah:* ${w.kontakDaruratWa || "-"}\n\nKeterangan Lengkap:\n${w.konten || ""}\n\n_Semoga almarhum/ah diampuni segala dosanya dan keluarga diberikan ketabahan. Salipuri Temmadinging._\n*Pengurus Kerukunan Keluarga Soppeng (KKS) Kab. Mimika*`;
+      return `*INNALILLAHI WA INNA ILAIHI RAJI'UN*\n*WARTA LELAYU KKS KABUPATEN MIMIKA*\n\n${w.judul}\n\n${w.ringkasan || ""}\n\n📍 *Rumah Duka/Lokasi:* ${w.alamatDukaTimika || "Timika"}\n🗓️ *Waktu Wafat:* ${w.waktuWafat ? formatTanggal(w.waktuWafat) : "-"}\n📞 *Kontak Keluarga/Takziah:* ${w.kontakKeluargaWa || "-"}\n\nKeterangan Lengkap:\n${w.kontenUtama || ""}\n\n🔗 *Baca di Portal:* ${portalUrl}\n\n_Semoga almarhum/ah diampuni segala dosanya dan keluarga diberikan ketabahan. Salipuri Temmadinging._\n*Pengurus Kerukunan Keluarga Soppeng (KKS) Kab. Mimika*`;
     }
-    return `*WARTA PAGUYUBAN KKS KABUPATEN MIMIKA*\n\n*${w.judul}*\n\n${w.ringkasan || ""}\n\n📍 *Lokasi:* ${w.lokasiAcara || "Timika"}\n🗓️ *Tanggal:* ${formatTanggal(w.tanggalPeristiwa)}\n📞 *Narahubung:* ${w.kontakDaruratWa || "-"}\n\n${w.konten || ""}\n\n*Pengurus KKS Kabupaten Mimika*`;
+
+    if (w.kategori === "agenda_kegiatan") {
+      const biayaText =
+        w.biayaPendaftaran && Number(w.biayaPendaftaran) > 0
+          ? `Rp ${Number(w.biayaPendaftaran).toLocaleString("id-ID")}`
+          : "Gratis / Terbuka";
+
+      return `*📢 WARTA & AGENDA RESMI KKS KABUPATEN MIMIKA*\n\n*${w.judul}*\n\n${w.ringkasan || ""}\n\n🗓️ *Tanggal Pelaksanaan:* ${w.tanggalMulai ? new Date(w.tanggalMulai).toLocaleString("id-ID") : "-"}${w.tanggalSelesai ? ` s/d ${new Date(w.tanggalSelesai).toLocaleString("id-ID")}` : ""}\n📍 *Lokasi Kegiatan:* ${w.lokasiNamaTempat || "Timika"}\n🏢 *Penyelenggara:* ${w.penyelenggaraSektor || "Pengurus Pusat KKS Timika"}\n💰 *Biaya/Infaq:* ${biayaText}\n👥 *Kuota Peserta:* ${w.kuotaPeserta ? `${w.kuotaPeserta} Peserta` : "Terbuka untuk Umum"}\n📞 *Narahubung / PIC:* ${w.kontakPanitiaWa || "-"}\n${w.linkPendaftaranExternal ? `📝 *Form Pendaftaran:* ${w.linkPendaftaranExternal}\n` : ""}🔗 *Detail Lengkap Agenda:* ${portalUrl}\n\n*Pengurus Kerukunan Keluarga Soppeng Kab. Mimika — Yassisoppengi*`;
+    }
+
+    return `*WARTA PAGUYUBAN KKS KABUPATEN MIMIKA*\n\n*${w.judul}*\n\n${w.ringkasan || ""}\n\n📍 *Lokasi:* ${w.lokasiNamaTempat || "Timika"}\n📞 *Narahubung:* ${w.kontakPanitiaWa || "-"}\n\n${w.kontenUtama || ""}\n\n🔗 *Baca Selengkapnya:* ${portalUrl}\n\n*Pengurus KKS Kabupaten Mimika*`;
   };
 
   const copyToClipboard = (w: WartaPaguyuban) => {
@@ -101,14 +124,16 @@ export function WartaManager({ initialWarta }: Props) {
             Warta Paguyuban & Lelayu
           </h2>
           <p className="text-sm text-slate-500 mt-1">
-            Pusat publikasi berita lelayu duka cita, kabar suka cita, dan agenda
-            silaturahmi warga Soppeng di Timika.
+            Pusat publikasi agenda kegiatan resmi, berita lelayu duka cita, dan kabar suka cita paguyuban warga di Timika.
           </p>
         </div>
 
         <button
-          onClick={() => setIsCreateModalOpen(true)}
-          className="px-4 py-2.5 rounded-xl bg-gold hover:bg-gold-dark text-white font-semibold text-sm transition shadow-md shadow-gold/25 flex items-center gap-2 shrink-0 self-start sm:self-auto"
+          onClick={() => {
+            setEditingWarta(null);
+            setIsCreateModalOpen(true);
+          }}
+          className="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-sm transition shadow-sm flex items-center gap-2 shrink-0 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           Buat Warta Baru
@@ -130,6 +155,18 @@ export function WartaManager({ initialWarta }: Props) {
             Semua ({wartaList.length})
           </button>
           <button
+            onClick={() => setActiveTab("agenda_kegiatan")}
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+              activeTab === "agenda_kegiatan"
+                ? "bg-amber-600 text-white shadow-xs"
+                : "text-amber-800 hover:bg-amber-50"
+            }`}
+          >
+            <Calendar className="w-3.5 h-3.5" />
+            Agenda Paguyuban (
+            {wartaList.filter((w) => w.kategori === "agenda_kegiatan").length})
+          </button>
+          <button
             onClick={() => setActiveTab("duka_cita")}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
               activeTab === "duka_cita"
@@ -144,24 +181,12 @@ export function WartaManager({ initialWarta }: Props) {
             onClick={() => setActiveTab("suka_cita")}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
               activeTab === "suka_cita"
-                ? "bg-sky-dark text-white shadow-xs"
-                : "text-sky-dark hover:bg-sky-light"
+                ? "bg-sky-600 text-white shadow-xs"
+                : "text-sky-700 hover:bg-sky-50"
             }`}
           >
             <Heart className="w-3.5 h-3.5" />
             Suka Cita ({wartaList.filter((w) => w.kategori === "suka_cita").length})
-          </button>
-          <button
-            onClick={() => setActiveTab("agenda_kegiatan")}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
-              activeTab === "agenda_kegiatan"
-                ? "bg-amber-700 text-white shadow-xs"
-                : "text-amber-800 hover:bg-amber-50"
-            }`}
-          >
-            <Calendar className="w-3.5 h-3.5" />
-            Agenda Paguyuban (
-            {wartaList.filter((w) => w.kategori === "agenda_kegiatan").length})
           </button>
         </div>
 
@@ -171,7 +196,7 @@ export function WartaManager({ initialWarta }: Props) {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:outline-hidden focus:ring-1 focus:ring-gold"
+            className="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:outline-hidden focus:ring-1 focus:ring-red-500"
           >
             <option value="all">Semua Status</option>
             <option value="published">Tayang (Published)</option>
@@ -190,40 +215,52 @@ export function WartaManager({ initialWarta }: Props) {
               Tidak Ada Warta Ditemukan
             </p>
             <p className="text-xs text-slate-400 mt-1">
-              Gunakan tombol "Buat Warta Baru" untuk mempublikasikan kabar kerukunan.
+              Gunakan tombol "Buat Warta Baru" untuk mempublikasikan kegiatan atau kabar kerukunan.
             </p>
           </div>
         ) : (
           filteredList.map((w) => {
             const isDuka = w.kategori === "duka_cita";
             const isSuka = w.kategori === "suka_cita";
+            const isAgenda = w.kategori === "agenda_kegiatan";
 
             return (
               <div
                 key={w.id}
-                className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-slate-300 hover:shadow-card transition-all duration-200 relative overflow-hidden"
+                className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-slate-300 hover:shadow-card transition-all duration-200 relative overflow-hidden flex flex-col md:flex-row gap-6"
               >
-                <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
+                {/* Photo Thumbnail if available */}
+                {w.fotoUtamaUrl && (
+                  <div className="w-full md:w-52 h-36 md:h-auto rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200/70">
+                    <img
+                      src={w.fotoUtamaUrl}
+                      alt={w.judul}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+
+                <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 flex-1">
                   {/* Content info */}
                   <div className="space-y-3 flex-1">
                     <div className="flex flex-wrap items-center gap-2.5">
                       {/* Category Badge */}
                       {isDuka && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-siri-light text-siri">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200/60">
                           <AlertTriangle className="w-3 h-3" />
                           LELAYU / DUKA CITA
                         </span>
                       )}
                       {isSuka && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-light text-sky-dark">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200/60">
                           <Heart className="w-3 h-3" />
                           SUKA CITA & AQIQAH
                         </span>
                       )}
-                      {w.kategori === "agenda_kegiatan" && (
+                      {isAgenda && (
                         <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200/60">
                           <Calendar className="w-3 h-3" />
-                          AGENDA SILATURAHMI
+                          AGENDA PAGUYUBAN
                         </span>
                       )}
 
@@ -245,32 +282,64 @@ export function WartaManager({ initialWarta }: Props) {
                       </span>
                     </div>
 
-                    <h3 className="text-lg font-bold text-slate-900 tracking-tight">
+                    <h3 className="text-lg font-bold text-slate-900 tracking-tight leading-snug">
                       {w.judul}
                     </h3>
 
                     {w.ringkasan && (
-                      <p className="text-sm text-slate-600 leading-relaxed">
+                      <p className="text-sm text-slate-600 leading-relaxed line-clamp-2">
                         {w.ringkasan}
                       </p>
                     )}
 
                     {/* Metadata chips */}
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 pt-1">
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 pt-1">
+                      {/* Location */}
                       <div className="flex items-center gap-1.5 font-medium text-slate-700">
-                        <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                        <span>{w.lokasiAcara || "Timika"}</span>
+                        <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                        <span>{w.lokasiNamaTempat || w.alamatDukaTimika || "Timika"}</span>
                       </div>
-                      {w.tanggalPeristiwa && (
-                        <div className="flex items-center gap-1.5">
-                          <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                          <span>Peristiwa: {formatTanggal(w.tanggalPeristiwa)}</span>
+
+                      {/* Agenda specific metadata */}
+                      {isAgenda && w.tanggalMulai && (
+                        <div className="flex items-center gap-1.5 text-slate-700">
+                          <Calendar className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                          <span>
+                            {new Date(w.tanggalMulai).toLocaleDateString("id-ID", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </span>
                         </div>
                       )}
-                      {w.kontakDaruratWa && (
+
+                      {isAgenda && w.biayaPendaftaran !== null && (
+                        <div className="flex items-center gap-1 font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/50">
+                          {Number(w.biayaPendaftaran) === 0 ? "Gratis" : `Rp ${Number(w.biayaPendaftaran).toLocaleString("id-ID")}`}
+                        </div>
+                      )}
+
+                      {isAgenda && w.kuotaPeserta && (
+                        <div className="flex items-center gap-1 text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md">
+                          <Users className="w-3 h-3 text-slate-500" />
+                          <span>Kuota: {w.kuotaPeserta}</span>
+                        </div>
+                      )}
+
+                      {/* Duka specific */}
+                      {isDuka && w.namaAlmarhum && (
+                        <span className="font-semibold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200/50">
+                          Alm. {w.namaAlmarhum}
+                        </span>
+                      )}
+
+                      {(w.kontakPanitiaWa || w.kontakKeluargaWa) && (
                         <div className="flex items-center gap-1.5 font-mono">
-                          <Phone className="w-3.5 h-3.5 text-slate-400" />
-                          <span>WA: {w.kontakDaruratWa}</span>
+                          <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span>{w.kontakPanitiaWa || w.kontakKeluargaWa}</span>
                         </div>
                       )}
                     </div>
@@ -283,9 +352,9 @@ export function WartaManager({ initialWarta }: Props) {
                       judul={w.judul}
                       kategori={w.kategori}
                       ringkasan={w.ringkasan}
-                      detailLokasi={w.lokasiAcara}
-                      kontakPic={w.kontakDaruratWa}
-                      slugOrId={w.id}
+                      detailLokasi={w.lokasiNamaTempat || w.alamatDukaTimika}
+                      kontakPic={w.kontakPanitiaWa || w.kontakKeluargaWa}
+                      slugOrId={w.slug || w.id}
                       variant="compact"
                       label="Siarkan"
                     />
@@ -321,6 +390,18 @@ export function WartaManager({ initialWarta }: Props) {
                         title="Baca Rincian Warta"
                       >
                         <Eye className="w-3.5 h-3.5" />
+                      </button>
+
+                      {/* Edit */}
+                      <button
+                        onClick={() => {
+                          setEditingWarta(w);
+                          setIsCreateModalOpen(true);
+                        }}
+                        className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition"
+                        title="Edit Warta"
+                      >
+                        <FileEdit className="w-3.5 h-3.5" />
                       </button>
 
                       {/* Toggle status */}
@@ -365,7 +446,7 @@ export function WartaManager({ initialWarta }: Props) {
       {/* Modal Detail Warta */}
       {selectedWarta && (
         <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-xl w-full p-6 shadow-elevated border border-slate-200 space-y-4 animate-in fade-in zoom-in-95 duration-150">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-elevated border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-150">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <h3 className="font-bold text-lg text-slate-900">
                 Rincian Warta Paguyuban
@@ -378,12 +459,28 @@ export function WartaManager({ initialWarta }: Props) {
               </button>
             </div>
 
+            {/* Banner preview if any */}
+            {selectedWarta.fotoUtamaUrl && (
+              <div className="h-48 rounded-xl overflow-hidden border border-slate-200">
+                <img
+                  src={selectedWarta.fotoUtamaUrl}
+                  alt={selectedWarta.judul}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+
             <div className="space-y-3 text-sm">
               <div>
                 <span className="text-xs text-slate-400 block">Judul Warta</span>
                 <span className="font-bold text-slate-900 text-base">
                   {selectedWarta.judul}
                 </span>
+                {selectedWarta.slug && (
+                  <span className="text-xs text-slate-400 font-mono block mt-0.5">
+                    Slug: /warta/{selectedWarta.slug}
+                  </span>
+                )}
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs">
@@ -394,30 +491,119 @@ export function WartaManager({ initialWarta }: Props) {
                   </span>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-50">
-                  <span className="text-slate-400 block">Tanggal Peristiwa</span>
-                  <span className="font-semibold text-slate-800">
-                    {formatTanggal(selectedWarta.tanggalPeristiwa)}
+                  <span className="text-slate-400 block">Status Tayang</span>
+                  <span className="font-semibold text-slate-800 uppercase">
+                    {selectedWarta.statusTayang}
                   </span>
                 </div>
               </div>
 
+              {/* Agenda specifics in detail */}
+              {selectedWarta.kategori === "agenda_kegiatan" && (
+                <div className="p-3.5 rounded-xl bg-amber-50/60 border border-amber-200/60 space-y-2 text-xs">
+                  <span className="font-bold text-amber-900 block">
+                    Informasi Teknis Agenda & Registrasi:
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-amber-950">
+                    <div>
+                      <strong>Waktu Mulai:</strong>{" "}
+                      {selectedWarta.tanggalMulai
+                        ? new Date(selectedWarta.tanggalMulai).toLocaleString("id-ID")
+                        : "-"}
+                    </div>
+                    <div>
+                      <strong>Waktu Selesai:</strong>{" "}
+                      {selectedWarta.tanggalSelesai
+                        ? new Date(selectedWarta.tanggalSelesai).toLocaleString("id-ID")
+                        : "-"}
+                    </div>
+                    <div>
+                      <strong>Penyelenggara:</strong>{" "}
+                      {selectedWarta.penyelenggaraSektor || "-"}
+                    </div>
+                    <div>
+                      <strong>Biaya Pendaftaran:</strong>{" "}
+                      {selectedWarta.biayaPendaftaran !== null
+                        ? Number(selectedWarta.biayaPendaftaran) === 0
+                          ? "Gratis"
+                          : `Rp ${Number(selectedWarta.biayaPendaftaran).toLocaleString("id-ID")}`
+                        : "-"}
+                    </div>
+                    <div>
+                      <strong>Kuota Peserta:</strong>{" "}
+                      {selectedWarta.kuotaPeserta
+                        ? `${selectedWarta.kuotaPeserta} Orang`
+                        : "Tidak dibatasi"}
+                    </div>
+                    {selectedWarta.linkPendaftaranExternal && (
+                      <div className="truncate">
+                        <strong>Link Eksternal:</strong>{" "}
+                        <a
+                          href={selectedWarta.linkPendaftaranExternal}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-red-700 underline font-medium"
+                        >
+                          Buka Formulir
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Duka specifics in detail */}
+              {selectedWarta.kategori === "duka_cita" && (
+                <div className="p-3.5 rounded-xl bg-rose-50/60 border border-rose-200/60 space-y-2 text-xs">
+                  <span className="font-bold text-rose-900 block">
+                    Informasi Takziah & Keluarga:
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-rose-950">
+                    <div>
+                      <strong>Nama Almarhum/ah:</strong> {selectedWarta.namaAlmarhum || "-"}
+                    </div>
+                    <div>
+                      <strong>Waktu Wafat:</strong>{" "}
+                      {selectedWarta.waktuWafat ? formatTanggal(selectedWarta.waktuWafat) : "-"}
+                    </div>
+                    <div className="sm:col-span-2">
+                      <strong>Alamat Rumah Duka:</strong>{" "}
+                      {selectedWarta.alamatDukaTimika || "-"}
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="p-3 rounded-xl bg-slate-50 text-xs">
-                <span className="text-slate-400 block">Lokasi / Alamat</span>
+                <span className="text-slate-400 block">Lokasi / Tempat</span>
                 <span className="font-medium text-slate-800">
-                  {selectedWarta.lokasiAcara || "Timika"}
+                  {selectedWarta.lokasiNamaTempat || selectedWarta.alamatDukaTimika || "Timika"}
                 </span>
+                {selectedWarta.lokasiMapsUrl && (
+                  <a
+                    href={selectedWarta.lokasiMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-red-600 hover:text-red-700 font-semibold mt-1"
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    Buka Google Maps
+                  </a>
+                )}
               </div>
 
-              {selectedWarta.kontakDaruratWa && (
+              {(selectedWarta.kontakPanitiaWa || selectedWarta.kontakKeluargaWa) && (
                 <div className="p-3 rounded-xl bg-slate-50 text-xs flex items-center justify-between">
                   <div>
-                    <span className="text-slate-400 block">Kontak Perwakilan</span>
+                    <span className="text-slate-400 block">Kontak WA Narahubung</span>
                     <span className="font-mono text-slate-800">
-                      {selectedWarta.kontakDaruratWa}
+                      {selectedWarta.kontakPanitiaWa || selectedWarta.kontakKeluargaWa}
                     </span>
                   </div>
                   <a
-                    href={formatWhatsAppUrl(selectedWarta.kontakDaruratWa)}
+                    href={formatWhatsAppUrl(
+                      (selectedWarta.kontakPanitiaWa || selectedWarta.kontakKeluargaWa)!
+                    )}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-3 py-1 bg-emerald-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1"
@@ -428,12 +614,32 @@ export function WartaManager({ initialWarta }: Props) {
                 </div>
               )}
 
+              {/* Attachment link if present */}
+              {selectedWarta.lampiranDokumenUrl && (
+                <div className="p-3 rounded-xl bg-slate-50 text-xs flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-slate-500" />
+                    <span className="font-medium text-slate-800">
+                      Lampiran Dokumen / Juknis (PDF)
+                    </span>
+                  </div>
+                  <a
+                    href={selectedWarta.lampiranDokumenUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1 bg-slate-800 text-white rounded-lg text-xs font-semibold"
+                  >
+                    Unduh
+                  </a>
+                </div>
+              )}
+
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-slate-700 block">
                   Konten / Isi Lengkap:
                 </span>
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/70 text-xs text-slate-700 whitespace-pre-wrap leading-relaxed">
-                  {selectedWarta.konten || selectedWarta.ringkasan || "Tidak ada konten rincian."}
+                  {selectedWarta.kontenUtama || selectedWarta.ringkasan || "Tidak ada konten rincian."}
                 </div>
               </div>
             </div>
@@ -444,9 +650,9 @@ export function WartaManager({ initialWarta }: Props) {
                   judul={selectedWarta.judul}
                   kategori={selectedWarta.kategori}
                   ringkasan={selectedWarta.ringkasan}
-                  detailLokasi={selectedWarta.lokasiAcara}
-                  kontakPic={selectedWarta.kontakDaruratWa}
-                  slugOrId={selectedWarta.id}
+                  detailLokasi={selectedWarta.lokasiNamaTempat || selectedWarta.alamatDukaTimika}
+                  kontakPic={selectedWarta.kontakPanitiaWa || selectedWarta.kontakKeluargaWa}
+                  slugOrId={selectedWarta.slug || selectedWarta.id}
                   variant="primary"
                   label="Siarkan ke WhatsApp"
                 />
@@ -469,13 +675,24 @@ export function WartaManager({ initialWarta }: Props) {
         </div>
       )}
 
-      {/* Modal Buat Warta Baru */}
+      {/* Modal Buat / Edit Warta */}
       {isCreateModalOpen && (
-        <ModalBuatWarta
-          onClose={() => setIsCreateModalOpen(false)}
-          onSuccess={(newWarta) => {
-            setWartaList((prev) => [newWarta, ...prev]);
+        <ModalFormWarta
+          editingWarta={editingWarta}
+          onClose={() => {
             setIsCreateModalOpen(false);
+            setEditingWarta(null);
+          }}
+          onSuccess={(savedWarta) => {
+            if (editingWarta) {
+              setWartaList((prev) =>
+                prev.map((w) => (w.id === savedWarta.id ? savedWarta : w))
+              );
+            } else {
+              setWartaList((prev) => [savedWarta, ...prev]);
+            }
+            setIsCreateModalOpen(false);
+            setEditingWarta(null);
           }}
         />
       )}
@@ -483,38 +700,79 @@ export function WartaManager({ initialWarta }: Props) {
   );
 }
 
-// Subcomponent: Form Modal Buat Warta
-function ModalBuatWarta({
+// Subcomponent: Form Modal Buat & Edit Warta
+function ModalFormWarta({
+  editingWarta,
   onClose,
   onSuccess,
 }: {
+  editingWarta?: WartaPaguyuban | null;
   onClose: () => void;
   onSuccess: (warta: WartaPaguyuban) => void;
 }) {
   const [kategori, setKategori] = useState<
     "duka_cita" | "suka_cita" | "agenda_kegiatan"
-  >("duka_cita");
-  const [judul, setJudul] = useState("");
-  const [ringkasan, setRingkasan] = useState("");
-  const [konten, setKonten] = useState("");
-  const [lokasiAcara, setLokasiAcara] = useState("Timika");
-  const [tanggalPeristiwa, setTanggalPeristiwa] = useState(
-    new Date().toISOString().split("T")[0]
-  );
-  const [kontakDaruratWa, setKontakDaruratWa] = useState("");
+  >(editingWarta?.kategori || "agenda_kegiatan");
+
+  const [judul, setJudul] = useState(editingWarta?.judul || "");
+  const [slug, setSlug] = useState(editingWarta?.slug || "");
+  const [ringkasan, setRingkasan] = useState(editingWarta?.ringkasan || "");
+  const [kontenUtama, setKontenUtama] = useState(editingWarta?.kontenUtama || "");
+  const [fotoUtamaUrl, setFotoUtamaUrl] = useState(editingWarta?.fotoUtamaUrl || "");
   const [statusTayang, setStatusTayang] = useState<
     "draft" | "published" | "archived"
-  >("published");
+  >(editingWarta?.statusTayang || "published");
 
   // Spesifik Kabar Duka
-  const [namaAlmarhum, setNamaAlmarhum] = useState("");
-  const [usiaAlmarhum, setUsiaAlmarhum] = useState("");
-  const [rumahDukaTimika, setRumahDukaTimika] = useState("");
-  const [pemakamanInfo, setPemakamanInfo] = useState("");
+  const [namaAlmarhum, setNamaAlmarhum] = useState(editingWarta?.namaAlmarhum || "");
+  const [waktuWafat, setWaktuWafat] = useState(
+    editingWarta?.waktuWafat
+      ? new Date(editingWarta.waktuWafat).toISOString().slice(0, 16)
+      : ""
+  );
+  const [alamatDukaTimika, setAlamatDukaTimika] = useState(editingWarta?.alamatDukaTimika || "");
+  const [kontakKeluargaWa, setKontakKeluargaWa] = useState(editingWarta?.kontakKeluargaWa || "");
+
+  // Spesifik Agenda Kegiatan
+  const [tanggalMulai, setTanggalMulai] = useState(
+    editingWarta?.tanggalMulai
+      ? new Date(editingWarta.tanggalMulai).toISOString().slice(0, 16)
+      : ""
+  );
+  const [tanggalSelesai, setTanggalSelesai] = useState(
+    editingWarta?.tanggalSelesai
+      ? new Date(editingWarta.tanggalSelesai).toISOString().slice(0, 16)
+      : ""
+  );
+  const [lokasiNamaTempat, setLokasiNamaTempat] = useState(editingWarta?.lokasiNamaTempat || "");
+  const [lokasiMapsUrl, setLokasiMapsUrl] = useState(editingWarta?.lokasiMapsUrl || "");
+  const [penyelenggaraSektor, setPenyelenggaraSektor] = useState(
+    editingWarta?.penyelenggaraSektor || "Pengurus Pusat KKS Mimika"
+  );
+  const [isGratis, setIsGratis] = useState(
+    editingWarta ? Number(editingWarta.biayaPendaftaran) === 0 : true
+  );
+  const [biayaPendaftaran, setBiayaPendaftaran] = useState(
+    editingWarta?.biayaPendaftaran ? Number(editingWarta.biayaPendaftaran).toString() : "0"
+  );
+  const [kuotaPeserta, setKuotaPeserta] = useState(
+    editingWarta?.kuotaPeserta ? editingWarta.kuotaPeserta.toString() : ""
+  );
+  const [linkPendaftaranExternal, setLinkPendaftaranExternal] = useState(
+    editingWarta?.linkPendaftaranExternal || ""
+  );
+  const [kontakPanitiaWa, setKontakPanitiaWa] = useState(editingWarta?.kontakPanitiaWa || "");
+  const [lampiranDokumenUrl, setLampiranDokumenUrl] = useState(
+    editingWarta?.lampiranDokumenUrl || ""
+  );
 
   const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingDoc, setUploadingDoc] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [createdResult, setCreatedResult] = useState<WartaPaguyuban | null>(null);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const docInputRef = useRef<HTMLInputElement>(null);
 
   // Auto-fill template duka cita
   const handleAutoFormatDuka = () => {
@@ -522,24 +780,58 @@ function ModalBuatWarta({
       alert("Silakan isi nama almarhum/ah terlebih dahulu.");
       return;
     }
-    const autoJudul = `Berita Duka: Berpulangnya Almarhum/ah ${namaAlmarhum} ${
-      usiaAlmarhum ? `(${usiaAlmarhum} Thn)` : ""
-    }`;
+    const autoJudul = `Berita Duka: Berpulangnya Almarhum/ah ${namaAlmarhum}`;
     const autoRingkasan = `Innalillahi wa inna ilaihi raji'un. Telah berpulang ke Rahmatullah saudara kita ${namaAlmarhum} di Timika.`;
     const autoKonten = `Innalillahi wa inna ilaihi raji'un. Telah berpulang ke Rahmatullah saudara/keluarga kerukunan kita:
-Nama: ${namaAlmarhum}
-${usiaAlmarhum ? `Usia: ${usiaAlmarhum} Tahun\n` : ""}Rumah Duka: ${
-      rumahDukaTimika || "Timika"
-    }
-Fardhu Kifayah / Pemakaman: ${pemakamanInfo || "TPU Timika"}
-Kontak Takziah: ${kontakDaruratWa || "-"}
 
-Semoga Allah SWT mengampuni segala dosa beliau, melipatgandakan amal ibadahnya, dan menempatkan beliau di tempat terbaik di sisi-Nya. Kepada segenap keluarga yang ditinggalkan senantiasa diberi ketabahan dan keikhlasan.`;
+Nama: ${namaAlmarhum}
+Waktu Berpulang: ${waktuWafat ? formatTanggal(waktuWafat) : "Hari ini di Timika"}
+Rumah Duka: ${alamatDukaTimika || "Timika"}
+Kontak Takziah Keluarga: ${kontakKeluargaWa || "-"}
+
+Semoga Allah SWT mengampuni segala dosa almarhum/ah, melipatgandakan amal ibadahnya, dan menempatkan beliau di tempat terbaik di sisi-Nya. Kepada segenap keluarga yang ditinggalkan senantiasa diberi ketabahan dan keikhlasan.
+
+Salipuri Temmadinging.`;
 
     setJudul(autoJudul);
     setRingkasan(autoRingkasan);
-    setKonten(autoKonten);
-    if (rumahDukaTimika) setLokasiAcara(`Rumah Duka: ${rumahDukaTimika}`);
+    setKontenUtama(autoKonten);
+  };
+
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await uploadImageAction(formData);
+    setUploadingImage(false);
+
+    if (res.success && res.url) {
+      setFotoUtamaUrl(res.url);
+    } else {
+      alert(res.error || "Gagal mengunggah foto.");
+    }
+  };
+
+  const handleDocFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingDoc(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await uploadDocumentAction(formData);
+    setUploadingDoc(false);
+
+    if (res.success && res.url) {
+      setLampiranDokumenUrl(res.url);
+    } else {
+      alert(res.error || "Gagal mengunggah dokumen PDF.");
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -552,99 +844,62 @@ Semoga Allah SWT mengampuni segala dosa beliau, melipatgandakan amal ibadahnya, 
     setLoading(true);
     setError(null);
 
-    const payload: NewWartaPaguyuban = {
+    const parsedBiaya = isGratis
+      ? "0"
+      : biayaPendaftaran.trim() !== ""
+      ? biayaPendaftaran.trim()
+      : "0";
+
+    const parsedKuota = kuotaPeserta.trim() !== "" ? parseInt(kuotaPeserta, 10) : null;
+
+    const payload: Partial<NewWartaPaguyuban> = {
       judul,
+      slug: slug.trim() || undefined,
       kategori,
-      ringkasan,
-      konten,
-      lokasiAcara,
-      tanggalPeristiwa,
-      kontakDaruratWa,
+      ringkasan: ringkasan.trim() || "Warta resmi Kerukunan Keluarga Soppeng Mimika",
+      kontenUtama: kontenUtama.trim() || "Informasi lengkap warta paguyuban.",
+      fotoUtamaUrl: fotoUtamaUrl.trim() || null,
       statusTayang,
+      namaAlmarhum: kategori === "duka_cita" ? namaAlmarhum.trim() || null : null,
+      waktuWafat: kategori === "duka_cita" && waktuWafat ? new Date(waktuWafat) : null,
+      alamatDukaTimika: kategori === "duka_cita" ? alamatDukaTimika.trim() || null : null,
+      kontakKeluargaWa: kategori === "duka_cita" ? kontakKeluargaWa.trim() || null : null,
+      tanggalMulai:
+        kategori === "agenda_kegiatan" && tanggalMulai ? new Date(tanggalMulai) : null,
+      tanggalSelesai:
+        kategori === "agenda_kegiatan" && tanggalSelesai ? new Date(tanggalSelesai) : null,
+      lokasiNamaTempat:
+        kategori === "agenda_kegiatan" ? lokasiNamaTempat.trim() || null : null,
+      lokasiMapsUrl:
+        kategori === "agenda_kegiatan" ? lokasiMapsUrl.trim() || null : null,
+      penyelenggaraSektor:
+        kategori === "agenda_kegiatan" ? penyelenggaraSektor.trim() || null : null,
+      biayaPendaftaran: kategori === "agenda_kegiatan" ? parsedBiaya : "0",
+      kuotaPeserta: kategori === "agenda_kegiatan" ? parsedKuota : null,
+      linkPendaftaranExternal:
+        kategori === "agenda_kegiatan" ? linkPendaftaranExternal.trim() || null : null,
+      kontakPanitiaWa:
+        kategori === "agenda_kegiatan" || kategori === "suka_cita"
+          ? kontakPanitiaWa.trim() || null
+          : null,
+      lampiranDokumenUrl: lampiranDokumenUrl.trim() || null,
     };
 
-    const res = await createWarta(payload);
+    let res;
+    if (editingWarta) {
+      res = await updateWarta(editingWarta.id, payload);
+    } else {
+      res = await createWarta(payload as NewWartaPaguyuban);
+    }
+
     setLoading(false);
 
     if (res.success && res.data) {
-      setCreatedResult(res.data);
+      onSuccess(res.data);
     } else {
       setError(res.error || "Gagal menyimpan warta.");
     }
   };
-
-  // If created successfully, show broadcast prompt modal
-  if (createdResult) {
-    return (
-      <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-elevated border border-slate-200 space-y-5 animate-in fade-in zoom-in-95 duration-150">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
-                <Check className="w-4 h-4" />
-              </div>
-              <h3 className="font-bold text-lg text-slate-900">
-                Warta Berhasil Diterbitkan!
-              </h3>
-            </div>
-            <button
-              onClick={() => {
-                onSuccess(createdResult);
-              }}
-              className="p-1 rounded-lg text-slate-400 hover:text-slate-700"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
-            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-600">
-              {createdResult.kategori.replace("_", " ")}
-            </span>
-            <h4 className="font-bold text-slate-900 text-sm leading-snug">
-              {createdResult.judul}
-            </h4>
-            {createdResult.ringkasan && (
-              <p className="text-xs text-slate-600 line-clamp-2">
-                {createdResult.ringkasan}
-              </p>
-            )}
-          </div>
-
-          <div className="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200 space-y-2 text-xs">
-            <p className="font-semibold text-emerald-950 flex items-center gap-1.5">
-              <Megaphone className="w-4 h-4 text-emerald-600 shrink-0" />
-              Siarkan langsung ke Saluran / Grup WhatsApp Paguyuban
-            </p>
-            <p className="text-emerald-800 text-[11px] leading-relaxed">
-              Format pesan warta resmi dengan tautan portal telah disiapkan. Klik tombol di bawah untuk membuka WhatsApp Web atau WhatsApp Mobile secara instan.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-end gap-2.5 pt-2">
-            <button
-              type="button"
-              onClick={() => onSuccess(createdResult)}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition"
-            >
-              Selesai & Tutup
-            </button>
-            <WartaBroadcastButton
-              judul={createdResult.judul}
-              kategori={createdResult.kategori}
-              ringkasan={createdResult.ringkasan}
-              detailLokasi={createdResult.lokasiAcara}
-              kontakPic={createdResult.kontakDaruratWa}
-              slugOrId={createdResult.id}
-              variant="primary"
-              label="Siarkan Sekarang ke WhatsApp"
-              className="w-full sm:w-auto"
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
@@ -652,7 +907,7 @@ Semoga Allah SWT mengampuni segala dosa beliau, melipatgandakan amal ibadahnya, 
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <div>
             <h3 className="font-bold text-lg text-slate-900">
-              Buat Warta & Kabar Paguyuban
+              {editingWarta ? "Perbarui Warta Paguyuban" : "Buat Warta & Kabar Paguyuban"}
             </h3>
             <p className="text-xs text-slate-500">
               Kerukunan Keluarga Soppeng Kab. Mimika
@@ -681,6 +936,18 @@ Semoga Allah SWT mengampuni segala dosa beliau, melipatgandakan amal ibadahnya, 
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
+                onClick={() => setKategori("agenda_kegiatan")}
+                className={`py-2 px-3 rounded-xl font-semibold border flex items-center justify-center gap-1.5 transition ${
+                  kategori === "agenda_kegiatan"
+                    ? "bg-amber-600 text-white border-amber-600 shadow-xs"
+                    : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                }`}
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                Agenda Kegiatan
+              </button>
+              <button
+                type="button"
                 onClick={() => setKategori("duka_cita")}
                 className={`py-2 px-3 rounded-xl font-semibold border flex items-center justify-center gap-1.5 transition ${
                   kategori === "duka_cita"
@@ -696,40 +963,84 @@ Semoga Allah SWT mengampuni segala dosa beliau, melipatgandakan amal ibadahnya, 
                 onClick={() => setKategori("suka_cita")}
                 className={`py-2 px-3 rounded-xl font-semibold border flex items-center justify-center gap-1.5 transition ${
                   kategori === "suka_cita"
-                    ? "bg-sky-dark text-white border-sky-dark shadow-xs"
+                    ? "bg-sky-600 text-white border-sky-600 shadow-xs"
                     : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
                 }`}
               >
                 <Heart className="w-3.5 h-3.5" />
                 Suka Cita
               </button>
-              <button
-                type="button"
-                onClick={() => setKategori("agenda_kegiatan")}
-                className={`py-2 px-3 rounded-xl font-semibold border flex items-center justify-center gap-1.5 transition ${
-                  kategori === "agenda_kegiatan"
-                    ? "bg-amber-700 text-white border-amber-700 shadow-xs"
-                    : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
-                }`}
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                Agenda Pertemuan
-              </button>
+            </div>
+          </div>
+
+          {/* Banner Photo Upload */}
+          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <label className="block font-semibold text-slate-700">
+              Foto Sampul / Banner Kegiatan (Opsional)
+            </label>
+            <div className="flex items-center gap-3">
+              {fotoUtamaUrl ? (
+                <div className="w-24 h-16 rounded-lg overflow-hidden bg-slate-200 border border-slate-300 relative group shrink-0">
+                  <img
+                    src={fotoUtamaUrl}
+                    alt="Sampul"
+                    className="w-full h-full object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setFotoUtamaUrl("")}
+                    className="absolute inset-0 bg-black/50 text-white opacity-0 group-hover:opacity-100 flex items-center justify-center transition"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <div className="w-24 h-16 rounded-lg border border-dashed border-slate-300 bg-white flex flex-col items-center justify-center text-slate-400 shrink-0">
+                  <ImageIcon className="w-5 h-5 mb-0.5" />
+                  <span className="text-[9px]">16:9</span>
+                </div>
+              )}
+
+              <div className="flex-1 space-y-1.5">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleImageFileChange}
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  disabled={uploadingImage}
+                  onClick={() => fileInputRef.current?.click()}
+                  className="px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold rounded-lg flex items-center gap-1.5 text-xs transition"
+                >
+                  {uploadingImage ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <Upload className="w-3.5 h-3.5" />
+                  )}
+                  <span>{uploadingImage ? "Mengunggah..." : "Unggah Foto Banner"}</span>
+                </button>
+                <p className="text-[11px] text-slate-400">
+                  Format JPG, PNG, atau WebP. Maks 3MB.
+                </p>
+              </div>
             </div>
           </div>
 
           {/* Form Khusus Warta Duka */}
           {kategori === "duka_cita" && (
-            <div className="p-4 rounded-xl bg-red-50/70 border border-red-200/80 space-y-3">
+            <div className="p-4 rounded-xl bg-rose-50/70 border border-rose-200/80 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-red-950 flex items-center gap-1.5">
-                  <AlertTriangle className="w-3.5 h-3.5 text-siri" />
+                <span className="font-bold text-rose-950 flex items-center gap-1.5">
+                  <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
                   Format Cepat Berita Duka Lelayu
                 </span>
                 <button
                   type="button"
                   onClick={handleAutoFormatDuka}
-                  className="px-2.5 py-1 rounded-lg bg-siri hover:bg-siri-dark text-white font-semibold text-[11px] shadow-xs"
+                  className="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-semibold text-[11px] shadow-xs"
                 >
                   ⚡ Auto-Format Teks Duka
                 </button>
@@ -742,22 +1053,22 @@ Semoga Allah SWT mengampuni segala dosa beliau, melipatgandakan amal ibadahnya, 
                   </label>
                   <input
                     type="text"
-                    placeholder="Misal: Bapak Ambo Dalle bin Pettasiri"
+                    placeholder="Misal: Bapak Ambo Dalle"
                     value={namaAlmarhum}
                     onChange={(e) => setNamaAlmarhum(e.target.value)}
-                    className="w-full px-3 py-1.5 bg-white border border-red-200 rounded-lg focus:outline-hidden"
+                    className="w-full px-3 py-1.5 bg-white border border-rose-200 rounded-lg focus:outline-hidden"
                   />
                 </div>
                 <div>
                   <label className="block text-slate-700 mb-0.5 font-medium">
-                    Usia (Tahun):
+                    Waktu Berpulang:
                   </label>
                   <input
                     type="text"
-                    placeholder="Misal: 62"
-                    value={usiaAlmarhum}
-                    onChange={(e) => setUsiaAlmarhum(e.target.value)}
-                    className="w-full px-3 py-1.5 bg-white border border-red-200 rounded-lg focus:outline-hidden"
+                    placeholder="Misal: Senin subuh, 04:30 WIT di RSMM"
+                    value={waktuWafat}
+                    onChange={(e) => setWaktuWafat(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-rose-200 rounded-lg focus:outline-hidden"
                   />
                 </div>
                 <div>
@@ -767,22 +1078,198 @@ Semoga Allah SWT mengampuni segala dosa beliau, melipatgandakan amal ibadahnya, 
                   <input
                     type="text"
                     placeholder="Misal: Jl. Hasanuddin Jalur 2, Timika"
-                    value={rumahDukaTimika}
-                    onChange={(e) => setRumahDukaTimika(e.target.value)}
-                    className="w-full px-3 py-1.5 bg-white border border-red-200 rounded-lg focus:outline-hidden"
+                    value={alamatDukaTimika}
+                    onChange={(e) => setAlamatDukaTimika(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-rose-200 rounded-lg focus:outline-hidden"
                   />
                 </div>
                 <div>
                   <label className="block text-slate-700 mb-0.5 font-medium">
-                    Rencana Pemakaman:
+                    Kontak WA Keluarga / Takziah:
                   </label>
                   <input
                     type="text"
-                    placeholder="Misal: TPU SP 1 Timika bakda Ashar"
-                    value={pemakamanInfo}
-                    onChange={(e) => setPemakamanInfo(e.target.value)}
-                    className="w-full px-3 py-1.5 bg-white border border-red-200 rounded-lg focus:outline-hidden"
+                    placeholder="0812xxxxxxxx"
+                    value={kontakKeluargaWa}
+                    onChange={(e) => setKontakKeluargaWa(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-rose-200 rounded-lg focus:outline-hidden font-mono"
                   />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Form Khusus Agenda Kegiatan */}
+          {kategori === "agenda_kegiatan" && (
+            <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 space-y-3">
+              <span className="font-bold text-amber-950 flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-amber-600" />
+                Rincian Operasional Kegiatan & Pendaftaran
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-slate-700 mb-0.5 font-medium">
+                    Waktu Mulai:
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value={tanggalMulai}
+                    onChange={(e) => setTanggalMulai(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-amber-200 rounded-lg focus:outline-hidden"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 mb-0.5 font-medium">
+                    Waktu Selesai (Opsional):
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value={tanggalSelesai}
+                    onChange={(e) => setTanggalSelesai(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-amber-200 rounded-lg focus:outline-hidden"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 mb-0.5 font-medium">
+                    Nama Lokasi / Gedung:
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Misal: Gedung Tongkonan / Aula KKS SP2"
+                    value={lokasiNamaTempat}
+                    onChange={(e) => setLokasiNamaTempat(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-amber-200 rounded-lg focus:outline-hidden"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 mb-0.5 font-medium">
+                    Link Google Maps:
+                  </label>
+                  <input
+                    type="url"
+                    placeholder="https://maps.app.goo.gl/..."
+                    value={lokasiMapsUrl}
+                    onChange={(e) => setLokasiMapsUrl(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-amber-200 rounded-lg focus:outline-hidden"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 mb-0.5 font-medium">
+                    Penyelenggara / Sektor:
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Misal: Divisi Olahraga KKS Mimika"
+                    value={penyelenggaraSektor}
+                    onChange={(e) => setPenyelenggaraSektor(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-amber-200 rounded-lg focus:outline-hidden"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 mb-0.5 font-medium">
+                    Narahubung Panitia (WA):
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="0812xxxxxxxx"
+                    value={kontakPanitiaWa}
+                    onChange={(e) => setKontakPanitiaWa(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-amber-200 rounded-lg focus:outline-hidden font-mono"
+                  />
+                </div>
+              </div>
+
+              {/* Biaya & Kuota */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-amber-200/60">
+                <div>
+                  <div className="flex items-center justify-between mb-0.5">
+                    <label className="text-slate-700 font-medium">Biaya Registrasi:</label>
+                    <label className="flex items-center gap-1 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={isGratis}
+                        onChange={(e) => {
+                          setIsGratis(e.target.checked);
+                          if (e.target.checked) setBiayaPendaftaran("0");
+                        }}
+                        className="rounded text-amber-600 focus:ring-amber-500"
+                      />
+                      <span className="text-[11px] font-semibold text-amber-900">
+                        Gratis / Free
+                      </span>
+                    </label>
+                  </div>
+                  {!isGratis && (
+                    <input
+                      type="number"
+                      placeholder="Rp (misal: 50000)"
+                      value={biayaPendaftaran}
+                      onChange={(e) => setBiayaPendaftaran(e.target.value)}
+                      className="w-full px-3 py-1.5 bg-white border border-amber-200 rounded-lg focus:outline-hidden"
+                    />
+                  )}
+                </div>
+                <div>
+                  <label className="block text-slate-700 mb-0.5 font-medium">
+                    Batas Kuota Peserta (Opsional):
+                  </label>
+                  <input
+                    type="number"
+                    placeholder="Misal: 64 (kosongkan jika tanpa batas)"
+                    value={kuotaPeserta}
+                    onChange={(e) => setKuotaPeserta(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-amber-200 rounded-lg focus:outline-hidden"
+                  />
+                </div>
+              </div>
+
+              {/* External Link & PDF Attachment */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-amber-200/60">
+                <div>
+                  <label className="block text-slate-700 mb-0.5 font-medium">
+                    Link Pendaftaran External (Google Form):
+                  </label>
+                  <input
+                    type="url"
+                    placeholder="https://forms.gle/..."
+                    value={linkPendaftaranExternal}
+                    onChange={(e) => setLinkPendaftaranExternal(e.target.value)}
+                    className="w-full px-3 py-1.5 bg-white border border-amber-200 rounded-lg focus:outline-hidden"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-700 mb-0.5 font-medium">
+                    Lampiran Panduan / Juknis (PDF):
+                  </label>
+                  <input
+                    ref={docInputRef}
+                    type="file"
+                    accept="application/pdf"
+                    onChange={handleDocFileChange}
+                    className="hidden"
+                  />
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      disabled={uploadingDoc}
+                      onClick={() => docInputRef.current?.click()}
+                      className="px-3 py-1.5 bg-white border border-amber-300 hover:bg-amber-100 text-amber-900 font-semibold rounded-lg flex items-center gap-1 text-[11px] transition"
+                    >
+                      {uploadingDoc ? (
+                        <Loader2 className="w-3 h-3 animate-spin" />
+                      ) : (
+                        <Upload className="w-3 h-3" />
+                      )}
+                      <span>{lampiranDokumenUrl ? "Ganti PDF" : "Unggah PDF"}</span>
+                    </button>
+                    {lampiranDokumenUrl && (
+                      <span className="text-[11px] text-emerald-700 font-medium truncate flex-1">
+                        ✓ File terlampir
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -799,61 +1286,34 @@ Semoga Allah SWT mengampuni segala dosa beliau, melipatgandakan amal ibadahnya, 
               value={judul}
               onChange={(e) => setJudul(e.target.value)}
               placeholder="Judul pengumuman warta paguyuban..."
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold focus:outline-hidden text-sm font-medium"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 focus:outline-hidden text-sm font-medium"
             />
           </div>
 
           <div>
             <label className="block font-semibold text-slate-700 mb-1">
-              Ringkasan Singkat (Muncul di kartu berita)
+              Custom Slug URL (Opsional)
+            </label>
+            <input
+              type="text"
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+              placeholder="turnamen-domino-kks-cup-2026 (kosongkan untuk auto-generate)"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 focus:outline-hidden font-mono text-xs"
+            />
+          </div>
+
+          <div>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Ringkasan Singkat (Muncul di kartu berita & preview WA)
             </label>
             <input
               type="text"
               value={ringkasan}
               onChange={(e) => setRingkasan(e.target.value)}
               placeholder="Ikhtisar singkat berita untuk notifikasi..."
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold focus:outline-hidden"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 focus:outline-hidden"
             />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label className="block font-semibold text-slate-700 mb-1">
-                Lokasi Acara / Wilayah
-              </label>
-              <input
-                type="text"
-                value={lokasiAcara}
-                onChange={(e) => setLokasiAcara(e.target.value)}
-                placeholder="Misal: Aula KKS Timika / SP 2"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold focus:outline-hidden"
-              />
-            </div>
-
-            <div>
-              <label className="block font-semibold text-slate-700 mb-1">
-                Tanggal Peristiwa
-              </label>
-              <input
-                type="date"
-                value={tanggalPeristiwa}
-                onChange={(e) => setTanggalPeristiwa(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold focus:outline-hidden"
-              />
-            </div>
-
-            <div>
-              <label className="block font-semibold text-slate-700 mb-1">
-                Kontak Darurat / Narahubung WA
-              </label>
-              <input
-                type="text"
-                value={kontakDaruratWa}
-                onChange={(e) => setKontakDaruratWa(e.target.value)}
-                placeholder="62812xxxxxxx"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold focus:outline-hidden font-mono"
-              />
-            </div>
           </div>
 
           <div>
@@ -862,24 +1322,25 @@ Semoga Allah SWT mengampuni segala dosa beliau, melipatgandakan amal ibadahnya, 
             </label>
             <textarea
               rows={5}
-              value={konten}
-              onChange={(e) => setKonten(e.target.value)}
-              placeholder="Rincian informasi acara, tata tertib, fardhu kifayah, atau pesan takziah..."
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold focus:outline-hidden leading-relaxed"
+              value={kontenUtama}
+              onChange={(e) => setKontenUtama(e.target.value)}
+              placeholder="Rincian informasi acara, peraturan lomba, susunan acara, fardhu kifayah, atau pesan takziah..."
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 focus:outline-hidden leading-relaxed"
             />
           </div>
 
           <div>
             <label className="block font-semibold text-slate-700 mb-1">
-              Status Penayangan Awal
+              Status Penayangan
             </label>
             <select
               value={statusTayang}
               onChange={(e) => setStatusTayang(e.target.value as any)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-gold/30 focus:border-gold focus:outline-hidden"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500 focus:outline-hidden"
             >
               <option value="published">Langsung Tayangkan (Published)</option>
               <option value="draft">Simpan sebagai Draf (Draft)</option>
+              <option value="archived">Diarsipkan (Archived)</option>
             </select>
           </div>
 
@@ -893,10 +1354,14 @@ Semoga Allah SWT mengampuni segala dosa beliau, melipatgandakan amal ibadahnya, 
             </button>
             <button
               type="submit"
-              disabled={loading}
-              className="px-5 py-2 rounded-xl bg-gold hover:bg-gold-dark text-white font-semibold shadow-md shadow-gold/20 disabled:opacity-50"
+              disabled={loading || uploadingImage || uploadingDoc}
+              className="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold shadow-sm disabled:opacity-50"
             >
-              {loading ? "Menyimpan..." : "Publikasikan Warta"}
+              {loading
+                ? "Menyimpan..."
+                : editingWarta
+                ? "Simpan Perubahan"
+                : "Publikasikan Warta"}
             </button>
           </div>
         </form>
