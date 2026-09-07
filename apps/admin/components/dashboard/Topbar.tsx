@@ -21,7 +21,6 @@ const ROUTE_NAMES: Record<string, string> = {
 
 export function Topbar() {
   const pathname = usePathname();
-  const { isOpen, toggleSidebar } = useSidebar();
   const [timikaTime, setTimikaTime] = useState<string>("");
 
   useEffect(() => {
@@ -48,17 +47,33 @@ export function Topbar() {
 
   const currentTitle = ROUTE_NAMES[pathname] || "Dashboard";
 
+  const { isOpen, toggleSidebar, isCollapsed, toggleCollapse } = useSidebar();
+
   return (
     <header className="h-16 px-4 lg:px-8 bg-white border-b border-slate-200/80 flex items-center justify-between sticky top-0 z-20 shadow-xs">
-      {/* Left side: Hamburger (Mobile) + Breadcrumbs */}
+      {/* Left side: Hamburger (Mobile) + Desktop Rail Toggle + Breadcrumbs */}
       <div className="flex items-center gap-3">
-        {/* Mobile Hamburger Toggle Button */}
+        {/* Mobile Hamburger Toggle Button (< lg) */}
         <button
           onClick={toggleSidebar}
           aria-label={isOpen ? "Tutup navigasi" : "Buka navigasi"}
           className="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 lg:hidden border border-slate-200/80 transition-colors"
         >
           {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+
+        {/* Desktop Collapse/Expand Toggle Button (lg+) */}
+        <button
+          onClick={toggleCollapse}
+          title={isCollapsed ? "Buka Sidebar Penuh" : "Kecilkan Sidebar (Hanya Ikon)"}
+          aria-label={isCollapsed ? "Buka sidebar penuh" : "Kecilkan sidebar ke mode ringkas"}
+          className="hidden lg:flex p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200/80 transition-colors"
+        >
+          {isCollapsed ? (
+            <Menu className="w-4 h-4 text-slate-700" />
+          ) : (
+            <Menu className="w-4 h-4 text-slate-500" />
+          )}
         </button>
 
         {/* Dynamic Breadcrumbs */}
