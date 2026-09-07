@@ -53,7 +53,29 @@ export const peruntukanKasEnum = pgEnum("peruntukan_kas_enum", [
   "kas_siaga",
 ]);
 
+export const adminRoleEnum = pgEnum("admin_role_enum", [
+  "superadmin",
+  "pengurus",
+]);
+
 // 2. Relational Tables
+
+/**
+ * Tabel Akun Pengurus & Pengguna Panel Admin KKS Mimika
+ */
+export const adminUsers = pgTable("admin_users", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  namaLengkap: varchar("nama_lengkap", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).unique().notNull(),
+  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  noWa: varchar("no_wa", { length: 20 }),
+  role: adminRoleEnum("role").default("pengurus").notNull(),
+  jabatan: varchar("jabatan", { length: 100 }).default("Pengurus Paguyuban").notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+  lastLoginAt: timestamp("last_login_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+});
 
 /**
  * Tabel Data Induk Warga Paguyuban KKS di Mimika
