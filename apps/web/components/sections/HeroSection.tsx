@@ -18,7 +18,7 @@ export async function HeroSection() {
   }
 
   return (
-    <section className="relative bg-canvas-soft border-b border-slate-200/80 overflow-hidden pt-6 sm:pt-8 pb-14 sm:pb-20">
+    <section className="relative bg-canvas-soft border-b border-slate-200/80 overflow-hidden py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* =========================================================
@@ -32,54 +32,56 @@ export async function HeroSection() {
         {/* =========================================================
             EDITORIAL NEWS GRID: HEADLINE UTAMA & WARTA RINGKAS
             ========================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
           {/* Kolom Kiri: Headline Utama Editorial (7 Kolom) */}
           <article className="lg:col-span-7 flex flex-col justify-center">
             
             {/* Metadata Editorial (Tanpa Badge Style) */}
-            <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500 tracking-wider uppercase mb-4">
-              <span className="text-gold">Warta Utama</span>
+            <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500 tracking-wider uppercase mb-3">
+              <span className="text-primary font-extrabold">Warta Utama</span>
               <span>&bull;</span>
               <time dateTime="2026-09-07">Senin, 7 September 2026</time>
               <span>&bull;</span>
               <span>Kabupaten Mimika</span>
             </div>
 
-            {/* H1 SEO Friendly */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.18] mb-5">
-              Menjaga Kerukunan, Mengayomi Sesama Perantau Soppeng di Tanah Mimika
-            </h1>
+            {/* H1 SEO Friendly - Law of Proximity (space-y rapat ke deskripsi) */}
+            <div className="space-y-3 mb-8">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.18]">
+                Menjaga Kerukunan, Mengayomi Sesama Perantau Soppeng di Tanah Mimika
+              </h1>
 
-            {/* Lead Paragraph Informatif */}
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8">
-              Portal resmi Kerukunan Keluarga Soppeng (KKS) Kabupaten Mimika. Menghidupkan falsafah leluhur{' '}
-              <strong className="text-slate-900 font-semibold">Dongiri Temmatipa</strong> (pengayoman),{' '}
-              <strong className="text-slate-900 font-semibold">Salipuri Temmadinging</strong> (kepedulian sosial & duka), serta{' '}
-              <strong className="text-slate-900 font-semibold">Wesse Temmakapa</strong> (kerukunan hidup berdampingan secara damai di Papua Tengah).
-            </p>
+              {/* Lead Paragraph Informatif */}
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
+                Portal resmi Kerukunan Keluarga Soppeng (KKS) Kabupaten Mimika. Menghidupkan falsafah leluhur{' '}
+                <strong className="text-slate-900 font-semibold">Dongiri Temmatipa</strong> (pengayoman),{' '}
+                <strong className="text-slate-900 font-semibold">Salipuri Temmadinging</strong> (kepedulian sosial & duka), serta{' '}
+                <strong className="text-slate-900 font-semibold">Wesse Temmakapa</strong> (kerukunan hidup berdampingan secara damai di Papua Tengah).
+              </p>
+            </div>
 
-            {/* Tombol Aksi Bersih & Fungsional */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-10">
+            {/* Tombol Aksi Bersih & Fungsional (Standar Touch Target: h-12 / 48px, px-6 / 24px, rounded-xl) */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
               <Link
                 href="/pendataan"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-gold hover:bg-gold-dark text-white font-semibold rounded-xl transition-all shadow-sm active:scale-95 text-center text-sm sm:text-base"
+                className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl transition-all shadow-sm active:scale-95 text-center text-sm sm:text-base"
               >
                 <span>Daftar Warga Rantau</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/warta"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white border border-slate-300 hover:border-slate-400 text-slate-800 font-semibold rounded-xl transition-all hover:bg-slate-50 text-center text-sm sm:text-base"
+                className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-white border border-slate-300 hover:border-slate-400 text-slate-800 font-semibold rounded-xl transition-all hover:bg-slate-50 text-center text-sm sm:text-base"
               >
                 <span>Telusuri Warta Komunitas</span>
               </Link>
             </div>
 
-            {/* Data Metrik Informatif Ringkas (Micro-Stats Hero) */}
+            {/* Data Metrik Informatif Ringkas (Micro-Stats Hero - 8-Point Grid: p-3 di mobile, p-4 di desktop, min-h-[72px] sm:min-h-[80px]) */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-6 border-t border-slate-200">
-              <div className="bg-white/90 border border-slate-200/80 rounded-xl p-2.5 sm:p-4 text-center sm:text-left flex flex-col sm:flex-row items-center gap-2 sm:gap-3 shadow-2xs">
-                <div className="w-7 h-7 sm:w-10 sm:h-10 p-1.5 sm:p-2 rounded-lg bg-slate-50 border border-slate-100 shrink-0 text-amber-600 flex items-center justify-center">
+              <div className="bg-white/90 border border-slate-200/80 rounded-xl p-3 sm:p-4 min-h-[72px] sm:min-h-[80px] text-center sm:text-left flex flex-col sm:flex-row items-center gap-2 sm:gap-3 shadow-2xs">
+                <div className="w-7 h-7 sm:w-10 sm:h-10 p-1.5 sm:p-2 rounded-lg bg-rose-50 border border-rose-100 shrink-0 text-primary flex items-center justify-center">
                   <Users className="w-full h-full" />
                 </div>
                 <div className="flex flex-col min-w-0">
@@ -88,8 +90,8 @@ export async function HeroSection() {
                 </div>
               </div>
 
-              <div className="bg-white/90 border border-slate-200/80 rounded-xl p-2.5 sm:p-4 text-center sm:text-left flex flex-col sm:flex-row items-center gap-2 sm:gap-3 shadow-2xs">
-                <div className="w-7 h-7 sm:w-10 sm:h-10 p-1.5 sm:p-2 rounded-lg bg-slate-50 border border-slate-100 shrink-0 text-amber-600 flex items-center justify-center">
+              <div className="bg-white/90 border border-slate-200/80 rounded-xl p-3 sm:p-4 min-h-[72px] sm:min-h-[80px] text-center sm:text-left flex flex-col sm:flex-row items-center gap-2 sm:gap-3 shadow-2xs">
+                <div className="w-7 h-7 sm:w-10 sm:h-10 p-1.5 sm:p-2 rounded-lg bg-rose-50 border border-rose-100 shrink-0 text-primary flex items-center justify-center">
                   <MapPin className="w-full h-full" />
                 </div>
                 <div className="flex flex-col min-w-0">
@@ -98,7 +100,7 @@ export async function HeroSection() {
                 </div>
               </div>
 
-              <div className="bg-white/90 border border-slate-200/80 rounded-xl p-2.5 sm:p-4 text-center sm:text-left flex flex-col sm:flex-row items-center gap-2 sm:gap-3 shadow-2xs">
+              <div className="bg-white/90 border border-slate-200/80 rounded-xl p-3 sm:p-4 min-h-[72px] sm:min-h-[80px] text-center sm:text-left flex flex-col sm:flex-row items-center gap-2 sm:gap-3 shadow-2xs">
                 <div className="w-7 h-7 sm:w-10 sm:h-10 p-1.5 sm:p-2 rounded-lg bg-sky-50 border border-sky-100 shrink-0 text-sky-600 flex items-center justify-center">
                   <ShieldCheck className="w-full h-full" />
                 </div>
@@ -117,7 +119,7 @@ export async function HeroSection() {
               <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
                 Kilas Warta & Agenda Warga
               </h2>
-              <Link href="/warta" className="text-xs font-semibold text-gold hover:underline flex items-center gap-0.5">
+              <Link href="/warta" className="text-xs font-semibold text-primary hover:underline flex items-center gap-0.5">
                 Lihat Semua <ChevronRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -125,7 +127,7 @@ export async function HeroSection() {
             {/* Warta 1: Kabar Duka & Lelayu (Prioritas Tinggi) */}
             <Link
               href="/warta#duka"
-              className="group block p-4.5 bg-white rounded-2xl border border-slate-200/80 hover:border-slate-300 transition-all hover:shadow-xs"
+              className="group block p-4 sm:p-5 bg-white rounded-2xl border border-slate-200/80 hover:border-slate-300 transition-all hover:shadow-xs"
             >
               <div className="flex items-center gap-2 mb-2">
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-100">
@@ -133,7 +135,7 @@ export async function HeroSection() {
                   <span>Kabar Duka & Lelayu</span>
                 </span>
               </div>
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-gold transition-colors line-clamp-2 mb-1">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-2 mb-1">
                 Layanan Tanggap Duka Paguyuban KKS Mimika Siap Mendampingi Warga
               </h3>
               <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
@@ -144,7 +146,7 @@ export async function HeroSection() {
             {/* Warta 2: Agenda Pertemuan Rutin */}
             <Link
               href="/warta#agenda"
-              className="group block p-4.5 bg-white rounded-2xl border border-slate-200/80 hover:border-slate-300 transition-all hover:shadow-xs"
+              className="group block p-4 sm:p-5 bg-white rounded-2xl border border-slate-200/80 hover:border-slate-300 transition-all hover:shadow-xs"
             >
               <div className="flex items-center gap-2 mb-2">
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-100">
@@ -152,7 +154,7 @@ export async function HeroSection() {
                   <span>Agenda Silaturahmi</span>
                 </span>
               </div>
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-gold transition-colors line-clamp-2 mb-1">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-2 mb-1">
                 Pertemuan Bulanan Pengurus & Warga Sektor Distrik Mimika Baru
               </h3>
               <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
@@ -163,22 +165,21 @@ export async function HeroSection() {
             {/* Warta 3: Niaga Rantau / UMKM */}
             <Link
               href="/niaga"
-              className="group block p-4.5 bg-white rounded-2xl border border-slate-200/80 hover:border-slate-300 transition-all hover:shadow-xs"
+              className="group block p-4 sm:p-5 bg-white rounded-2xl border border-slate-200/80 hover:border-slate-300 transition-all hover:shadow-xs"
             >
               <div className="flex items-center gap-2 mb-2">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200/60">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-800 border border-rose-200/60">
                   <Store className="w-3.5 h-3.5" />
                   <span>Pojok Niaga Perantau</span>
                 </span>
               </div>
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-gold transition-colors line-clamp-2 mb-1">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-2 mb-1">
                 Dukungan Usaha Kuliner & Jasa Sesama Warga Soppeng di Timika
               </h3>
               <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
                 Katalog usaha lokal perantau. Mari berbelanja dan saling menguatkan ekonomi sesama warga.
               </p>
             </Link>
-
 
           </aside>
 
