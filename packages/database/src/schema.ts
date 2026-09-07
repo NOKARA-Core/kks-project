@@ -152,6 +152,9 @@ export type NewKasSosial = InferInsertModel<typeof kasSosial>;
 export type DirektoriNiaga = InferSelectModel<typeof direktoriNiaga>;
 export type NewDirektoriNiaga = InferInsertModel<typeof direktoriNiaga>;
 
+export type AdminUser = InferSelectModel<typeof adminUsers>;
+export type NewAdminUser = InferInsertModel<typeof adminUsers>;
+
 // Konstanta referensi daerah untuk filter & dropdown
 export const KECAMATAN_SOPPENG = [
   "Lalabata",

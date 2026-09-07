@@ -252,6 +252,45 @@ async function seed() {
     await db.insert(direktoriNiaga).values(n);
   }
 
+  // 5. Seed Akun Admin Pengurus
+  const { hashPassword } = await import("./auth/password");
+  const defaultPassword = await hashPassword("AdminKKS2026!");
+
+  const dummyAdmins = [
+    {
+      namaLengkap: "Administrator Pusat KKS",
+      email: "admin@kks-mimika.id",
+      passwordHash: defaultPassword,
+      noWa: "6281248011234",
+      role: "superadmin" as const,
+      jabatan: "Ketua Paguyuban KKS Mimika",
+      isActive: true,
+    },
+    {
+      namaLengkap: "H. Baso Tenriangka",
+      email: "sekretaris@kks-mimika.id",
+      passwordHash: defaultPassword,
+      noWa: "6282198002345",
+      role: "pengurus" as const,
+      jabatan: "Sekretaris Jenderal",
+      isActive: true,
+    },
+    {
+      namaLengkap: "Hj. Ratna Indasari",
+      email: "bendahara@kks-mimika.id",
+      passwordHash: defaultPassword,
+      noWa: "6281355447711",
+      role: "pengurus" as const,
+      jabatan: "Bendahara Sosial",
+      isActive: true,
+    },
+  ];
+
+  console.log("Inserting Admin Users...");
+  for (const admin of dummyAdmins) {
+    await db.insert(adminUsers).values(admin).onConflictDoNothing();
+  }
+
   console.log("✅ Seeding database KKS Mimika selesai dengan sukses!");
 }
 
