@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSidebar } from "./SidebarContext";
+import { LogoutButton } from "./LogoutButton";
 
 const ROUTE_NAMES: Record<string, string> = {
   "/": "Ringkasan Eksekutif",

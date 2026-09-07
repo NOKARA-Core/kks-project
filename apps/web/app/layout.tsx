@@ -48,6 +48,9 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/manifest.webmanifest",
+  alternates: {
+    canonical: siteConfig.appUrl || "http://localhost:3009",
+  },
   openGraph: {
     title: `${siteConfig.shortOrgName} — ${siteConfig.orgName}`,
     description:
@@ -74,6 +77,36 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLdData = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "NGO"],
+  name: siteConfig.orgName,
+  alternateName: siteConfig.shortOrgName,
+  url: siteConfig.appUrl,
+  logo: `${siteConfig.appUrl}/icon-512x512.png`,
+  image: `${siteConfig.appUrl}/icon-512x512.png`,
+  description: `Portal resmi warta, silaturahmi, dan pendataan warga paguyuban ${siteConfig.orgName}, Papua Tengah.`,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: siteConfig.alamatSekretariat,
+    addressLocality: "Kota Timika",
+    addressRegion: "Papua Tengah",
+    postalCode: "99910",
+    addressCountry: "ID",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: -4.5467,
+    longitude: 136.8833,
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: `+${siteConfig.hotlineWa}`,
+    contactType: "customer support",
+    areaServed: "ID",
+    availableLanguage: ["id", "bug"],
+  },
+};
 
 export default function RootLayout({
   children,
@@ -82,6 +115,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className="scroll-smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col bg-canvas text-slate-900 antialiased`}>
         <Navbar />
         <div className="flex-1">
