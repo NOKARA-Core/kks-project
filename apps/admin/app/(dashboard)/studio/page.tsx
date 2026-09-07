@@ -5,7 +5,6 @@ import {
   Wand2,
   Copy,
   Check,
-  Image as ImageIcon,
   Sparkles,
   Camera,
   Box,
@@ -17,52 +16,128 @@ import {
   ExternalLink,
   RotateCcw,
   CheckCircle2,
+  Trophy,
+  Users2,
+  Flame,
+  Palette,
+  Layers,
+  Award,
+  Gamepad2,
 } from "lucide-react";
 
 // ==========================================
-// PRESET DEFINITIONS
+// PRESET DEFINITIONS (10 GAYA BERVARIASI & TERKURASI)
 // ==========================================
 
-interface StylePreset {
+export interface StylePreset {
   id: string;
+  category: "Dokumentasi & Komunitas" | "Poster Kegiatan & Lomba" | "Gaya Generasi & Kreatif" | "Warta & Takziah";
   name: string;
   tagline: string;
   icon: typeof Camera;
   promptSnippet: string;
 }
 
-const STYLE_PRESETS: StylePreset[] = [
+export const STYLE_PRESETS: StylePreset[] = [
+  // 1. Dokumentasi Foto Realistis
   {
-    id: "photo",
-    name: "Dokumentasi Foto Realistis",
-    tagline: "Kamera 35mm, pencahayaan alami siang hari di Timika, candid hangat",
+    id: "photo_realistic",
+    category: "Dokumentasi & Komunitas",
+    name: "Foto Dokumenter Natural",
+    tagline: "Fotografi kamera mirrorless 35mm, pencahayaan alami siang hari di Timika, candid bersahabat",
     icon: Camera,
     promptSnippet:
-      "Award-winning realistic documentary photography style, captured on 35mm lens, f/2.8, natural daylight in Timika Papua, authentic friendly expressions, warm community atmosphere, lifelike skin textures, realistic depth of field, sharp focus, cinematic Indonesian diaspora gathering",
+      "Award-winning realistic documentary photography style, captured on 35mm lens, f/2.8, natural daylight in Timika Papua, authentic friendly expressions, natural skin tones with realistic fine textures, cinematic Indonesian diaspora community gathering, documentary photojournalism style, unposed and organic, genuine human connection, true-to-life color grading, no plastic shine",
   },
+  // 2. Poster Turnamen Domino & Olahraga Paguyuban
   {
-    id: "3d_minimal",
-    name: "Ilustrasi 3D Minimalis Elegan",
-    tagline: "Elemen 3D bertekstur frosted glass, palet warna Emas Soppeng & Biru",
+    id: "poster_domino_turnamen",
+    category: "Poster Kegiatan & Lomba",
+    name: "Poster Turnamen Domino & Lomba",
+    tagline: "Desain poster kompetisi seru, fokus meja batu domino & pion catur, pencahayaan dramatis lapang",
+    icon: Gamepad2,
+    promptSnippet:
+      "Dynamic community sports & game tournament poster art, dramatic close-up composition focusing on classic dominoes tiles on a wooden table, intense friendly rivalry atmosphere, subtle motion blur on hands playing tiles, bold modern graphic layout with generous clean whitespace for event typography, Bugis gold (#D97706) and deep navy accents, energetic yet mature civic sports poster",
+  },
+  // 3. Poster Acara Silaturahmi & Musyawarah
+  {
+    id: "poster_silaturahmi",
+    category: "Poster Kegiatan & Lomba",
+    name: "Poster Kegiatan Musyawarah & Silaturahmi",
+    tagline: "Komposisi grafis editorial lapang, ruang kosong pembaca lega untuk judul/jadwal/lokasi",
+    icon: Trophy,
+    promptSnippet:
+      "High-end corporate editorial event poster design, elegant civic convention theme, spacious breathable layout with intentional negative white space reserved for typography and schedules, tasteful traditional Bugis geometric border motifs, dignified warm golden ambient lighting, modern Swiss graphic design sensibility, crisp vector precision, balanced hierarchy",
+  },
+  // 4. Gen Z Pop & Neo-Brutalism Bersih
+  {
+    id: "gen_z_vibrant",
+    category: "Gaya Generasi & Kreatif",
+    name: "Gen Z Neo-Brutalist Pop",
+    tagline: "Warna segar energik, tipografi blok tegas, stiker grafis kekinian, clean whitespace",
+    icon: Flame,
+    promptSnippet:
+      "Youthful Gen Z trendy visual art, clean neo-brutalist aesthetic with playful high-contrast elements, bold modern layout, subtle retro halftone dot textures, vibrant contemporary color palette with refreshing coral, sunshine yellow, and emerald accents, ample uncluttered negative space, streetwear magazine aesthetic, stylish and punchy without visual noise",
+  },
+  // 5. Millennial Modern Minimalist (Monocle / Kinfolk)
+  {
+    id: "millennial_kinfolk",
+    category: "Gaya Generasi & Kreatif",
+    name: "Milenial Minimalis Estetik",
+    tagline: "Palet warna earthy hangat, pencahayaan lembut ala majalah Kinfolk/Monocle, sangat rapi",
+    icon: Palette,
+    promptSnippet:
+      "Sophisticated millennial editorial aesthetic, inspired by Kinfolk and Monocle magazine photography, warm earthy neutral tones (beige, sage, terracotta, warm taupe), soft diffused morning window light, serene atmosphere, artistic negative space, clean thoughtful composition, organic linen and natural wood textures, understated luxury and calm community dignity",
+  },
+  // 6. Ilustrasi 3D Frosted Glass Minimalis
+  {
+    id: "3d_clay_glass",
+    category: "Gaya Generasi & Kreatif",
+    name: "Ilustrasi 3D Frosted Glass",
+    tagline: "Bentuk 3D lembut semi-transparan, warna Emas Soppeng & Biru, kanvas terang lapang",
     icon: Box,
     promptSnippet:
-      "Modern 3D minimalist graphic illustration, clean geometric shapes, soft frosted glass textures, ambient occlusion, premium color palette featuring warm Bugis gold (#D97706), sky blue (#38BDF8), and pristine semi-white background, subtle soft shadows, high-end tech aesthetic, octane render",
+      "High-end 3D graphic illustration with matte clay and frosted glass elements, smooth rounded geometric shapes, soft ambient occlusion, curated palette featuring Bugis gold (#D97706), sky blue (#38BDF8), and bright off-white canvas, clean breathable spatial layout, subtle soft directional shadows, premium UI design illustration, octane render",
   },
+  // 7. Poster Warta & Informasi Ringkas
   {
-    id: "poster_info",
-    name: "Poster Warta & Informasi",
-    tagline: "Format grafis flat berkelas, ruang kosong lapang untuk teks, anti-slop",
+    id: "poster_warta_flat",
+    category: "Poster Kegiatan & Lomba",
+    name: "Infografis & Warta Ringkas",
+    tagline: "Desain visual datar flat modern, blok pembagian informasi rapi, bebas dari kepadatan",
     icon: Megaphone,
     promptSnippet:
-      "Editorial communication graphic poster, elegant flat vector art, organized layout with generous breathable negative space for typography, sophisticated color harmony, minimalist borders, high visual clarity, modern civic announcement style, balanced composition",
+      "Contemporary editorial infographic visual, flat modern design with clear structural zones, generous airy padding, balanced contrast, refined sans-serif typographic breathing room, civic community news bulletin format, crisp vector clarity, orderly and straightforward visual communication",
   },
+  // 8. Poster Lelayu / Takziah Berwibawa
   {
-    id: "poster_lelayu",
-    name: "Poster Lelayu / Takziah",
-    tagline: "Nuansa damai, aksen bunga putih lembut, berwibawa & khidmat",
+    id: "poster_lelayu_solemn",
+    category: "Warta & Takziah",
+    name: "Poster Lelayu / Takziah Khidmat",
+    tagline: "Nuansa damai dan menentang, aksen bunga putih lembut, penghormatan Salipuri Temmadinging",
     icon: HeartHandshake,
     promptSnippet:
-      "Solemn and dignified condolence memorial tribute banner (Salipuri Temmadinging), peaceful serene atmosphere, elegant subtle white floral accents, soft respectful lighting, pure off-white and charcoal gray canvas, dignified Bugis cultural motifs, solemn and comforting vibe, no eerie elements",
+      "Dignified condolence memorial tribute banner (Salipuri Temmadinging), peaceful serene and comforting atmosphere, pure white floral accents with subtle olive foliage, soft respectful ambient glow, muted charcoal slate and warm ivory canvas, elegant Bugis cultural respect motifs, solemn prayerful vibe, completely free of eerie or spooky elements, peaceful solace",
+  },
+  // 9. Foto Komunitas Golden Hour (Malam Ramah Tamah)
+  {
+    id: "photo_golden_hour",
+    category: "Dokumentasi & Komunitas",
+    name: "Foto Ramah Tamah Golden Hour",
+    tagline: "Pencahayaan senja keemasan hangat, kebersamaan santap malam & silaturahmi perantau",
+    icon: Users2,
+    promptSnippet:
+      "Intimate dusk / golden hour documentary photography, warm twilight glow illuminating smiling faces of community members, traditional Indonesian shared feast atmosphere, cozy warm bokeh in background, authentic laughter and conversation, cinematic natural color grading, Leica 50mm f/1.4 lens rendering, soul-stirring nostalgic warmth",
+  },
+  // 10. Grafis Retro Nostalgia Bugis Heritage
+  {
+    id: "retro_heritage",
+    category: "Gaya Generasi & Kreatif",
+    name: "Vintage Bugis Heritage Modern",
+    tagline: "Sentuhan ornamen warisan Saoraja Soppeng dipadu tipografi poster modern kontemporer",
+    icon: Award,
+    promptSnippet:
+      "Modern heritage cultural graphic poster, subtle traditional Bugis Saoraja architectural silhouettes and silk weaving patterns reimagined in clean contemporary lines, rich burgundy and antique gold hues on creamy paper texture, generous margins for clear typography, stately and culturally proud, anti-clutter, refined archival elegance",
   },
 ];
 
@@ -80,7 +155,7 @@ const ASPECT_RATIOS: AspectRatioOption[] = [
     name: "Lanskap 16:9",
     ratio: "16:9",
     promptParam: "--ar 16:9 (Aspect Ratio 16:9 widescreen landscape)",
-    description: "Website Banner, Hero, & Presentasi Layar",
+    description: "Website Banner, Hero, & Layar Lebar",
   },
   {
     id: "1_1",
@@ -100,9 +175,10 @@ const ASPECT_RATIOS: AspectRatioOption[] = [
 
 export default function PromptStudioPage() {
   const [userInput, setUserInput] = useState("");
-  const [selectedStyleId, setSelectedStyleId] = useState<string>("photo");
+  const [selectedStyleId, setSelectedStyleId] = useState<string>("poster_domino_turnamen");
   const [hasPhotoReference, setHasPhotoReference] = useState(false);
   const [selectedRatioId, setSelectedRatioId] = useState<string>("16_9");
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [isCopied, setIsCopied] = useState(false);
 
   // Active items
@@ -111,31 +187,72 @@ export default function PromptStudioPage() {
   const activeRatio =
     ASPECT_RATIOS.find((r) => r.id === selectedRatioId) || ASPECT_RATIOS[0]!;
 
-  // Build real-time prompt
+  // Filtered presets by category tab
+  const categories = [
+    { id: "all", label: "Semua Gaya (10)" },
+    { id: "Poster Kegiatan & Lomba", label: "Poster & Turnamen" },
+    { id: "Gaya Generasi & Kreatif", label: "Gen Z & Milenial" },
+    { id: "Dokumentasi & Komunitas", label: "Foto Dokumenter" },
+    { id: "Warta & Takziah", label: "Warta & Lelayu" },
+  ];
+
+  const filteredPresets =
+    categoryFilter === "all"
+      ? STYLE_PRESETS
+      : STYLE_PRESETS.filter((p) => p.category === categoryFilter);
+
+  // Quick prompt fill suggestions
+  const suggestions = [
+    {
+      title: "Turnamen Domino KKS Mimika",
+      text: "Turnamen Lomba Domino Semi-Open KKS Mimika memperebutkan Piala Bergilir di Gedung Tongkonan / Balai Paguyuban, suasana kompetitif penuh tawa dan persaudaraan.",
+      styleId: "poster_domino_turnamen",
+    },
+    {
+      title: "Musyawarah Tahunan & Silaturahmi",
+      text: "Musyawarah Warga Perantau Soppeng di Timika, pemaparan program kas sosial dan santunan, peserta duduk rapi di ruangan ber-AC dengan backdrop paguyuban.",
+      styleId: "poster_silaturahmi",
+    },
+    {
+      title: "Nonton Bareng & Santai Gen Z",
+      text: "Pemuda-pemudi rantau generasi muda KKS berkumpul di cafe Timika dengan laptop, kopi, dan camilan santai dalam suasana nongkrong kasual kekinian.",
+      styleId: "gen_z_vibrant",
+    },
+  ];
+
+  // =========================================================================
+  // LOGIKA ENGINE GENERATOR (ANTI AI-SLOP, HIGH WHITESPACE, NATURAL LOOK)
+  // =========================================================================
   const buildPrompt = () => {
     const parts: string[] = [];
 
-    // 1. Klausul Referensi Gambar (jika aktif)
+    // 1. Klausul Referensi Gambar (jika toggle aktif)
     if (hasPhotoReference) {
       parts.push(
-        "IMPORTANT CONTEXT: Please strictly refer to the attached reference image below. Maintain the likeness, identity, facial features, or key environmental elements from the uploaded image while applying the following style:"
+        "IMPORTANT REFERENCE CONTEXT:\nPlease strictly reference the attached image below. Faithfully preserve the facial identity, likeness, key subject features, or physical location from the uploaded photo, while harmoniously rendering it into the visual style described below:"
       );
     }
 
-    // 2. Deskripsi / Ide Utama Pengguna
+    // 2. Deskripsi Ide Utama (Bahasa Inggris Terstruktur)
     const coreSubject = userInput.trim()
       ? userInput.trim()
-      : "A gathering of Kerukunan Keluarga Soppeng (KKS) community members in Timika Papua, sharing warm companionship and discussing community welfare";
-    parts.push(`Subject: ${coreSubject}.`);
+      : "A lively community event of Kerukunan Keluarga Soppeng (KKS) diaspora in Timika Papua, featuring friendly gatherings, cultural camaraderie, and shared civic unity";
+    parts.push(`PRIMARY SUBJECT:\n${coreSubject}.`);
 
-    // 3. Preset Gaya Visual & Pencahayaan
-    parts.push(`Visual Style: ${activeStyle.promptSnippet}.`);
+    // 3. Preset Gaya Visual & Karakteristik
+    parts.push(`ART DIRECTION & STYLE:\n${activeStyle.promptSnippet}.`);
 
-    // 4. Parameter Rasio & Anti-Slop Guard
-    const antiSlopGuard =
-      "Composition & Quality: Clean composition, elegant lighting, professional look, no weird extra fingers, no distorted faces, no text clutter, anti-slop, 8k resolution, photorealistic masterpiece.";
-    parts.push(antiSlopGuard);
-    parts.push(`Format: ${activeRatio.promptParam}.`);
+    // 4. Anti-Slop Guard & Whitespace Rule (Mencegah tampilan AI Murahan)
+    const antiSlopAndWhitespace =
+      "COMPOSITION & ANTI-SLOP RULES:\n" +
+      "1. High editorial whitespace: Ensure generous, intentional empty negative space (at least 35% of the frame) suitable for clean headline and date typography overlay without visual interference.\n" +
+      "2. Natural and authentic look: Strictly avoid synthetic plastic AI skin, avoid oversaturated cartoonish neon tints, avoid generic AI clutter, and avoid surreal distorted background objects.\n" +
+      "3. Anatomical accuracy: Perfectly formed human hands with exactly five fingers per hand, natural eye contact, realistic posture, and non-distorted facial structures.\n" +
+      "4. Quality & Clarity: 8k resolution, authentic lighting physics, realistic depth of field, balanced visual hierarchy, tasteful color grading.";
+    parts.push(antiSlopAndWhitespace);
+
+    // 5. Format Rasio Aspek
+    parts.push(`OUTPUT FORMAT:\n${activeRatio.promptParam}.`);
 
     return parts.join("\n\n");
   };
@@ -154,9 +271,10 @@ export default function PromptStudioPage() {
 
   const handleReset = () => {
     setUserInput("");
-    setSelectedStyleId("photo");
+    setSelectedStyleId("poster_domino_turnamen");
     setHasPhotoReference(false);
     setSelectedRatioId("16_9");
+    setCategoryFilter("all");
     setIsCopied(false);
   };
 
@@ -173,11 +291,11 @@ export default function PromptStudioPage() {
               <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
                 <span>Prompt Studio (Asisten Gambar AI)</span>
                 <span className="text-[10px] uppercase font-bold bg-amber-50 text-amber-800 border border-amber-200/60 px-2 py-0.5 rounded-md">
-                  Generator Konsisten
+                  10 Preset Gaya • Anti AI-Slop
                 </span>
               </h1>
               <p className="text-xs text-slate-500 mt-0.5">
-                Studio peracik deskripsi gambar untuk pengurus paguyuban KKS Timika. Cukup masukkan ide singkat bahasa Indonesia, sistem menyusun prompt siap tempel untuk ChatGPT / Midjourney.
+                Rancang prompt visual poster kegiatan (lomba domino, silaturahmi, gaya Gen Z/Milenial). Diformulasikan dengan ruang kosong pembaca (*whitespace*) agar hasil generate tidak berantakan khas AI murahan.
               </p>
             </div>
           </div>
@@ -185,7 +303,7 @@ export default function PromptStudioPage() {
 
         <button
           onClick={handleReset}
-          className="px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-200/70 transition flex items-center gap-1.5 self-start md:self-auto shrink-0"
+          className="px-3.5 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-200/70 transition flex items-center gap-1.5 self-start md:self-auto shrink-0 cursor-pointer"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Reset Form</span>
@@ -198,44 +316,91 @@ export default function PromptStudioPage() {
             KOLOM KIRI: FORM KONTROL RAMAH PENGGUNA (7 Kolom)
             =================================================================== */}
         <div className="lg:col-span-7 space-y-5">
-          {/* Section 1: Ide / Kalimat Utama */}
+          {/* Section 1: Ide / Kalimat Utama & Quick Suggestions */}
           <div className="bg-white rounded-xl border border-slate-200/80 p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3">
             <div className="flex items-center justify-between">
               <label className="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <span className="w-5 h-5 rounded-full bg-slate-900 text-white text-[11px] flex items-center justify-center font-bold">
                   1
                 </span>
-                <span>Ide Kegiatan atau Objek Gambar</span>
+                <span>Ide Kegiatan, Lomba, atau Objek Gambar</span>
               </label>
-              <span className="text-[11px] text-slate-400">Bahasa Indonesia / Bebas</span>
+              <span className="text-[11px] text-slate-400">Bahasa Indonesia Bebas</span>
             </div>
 
             <textarea
               rows={4}
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-              placeholder="Contoh: Pertemuan musyawarah warga Soppeng di Timika dalam suasana hangat penuh kekeluargaan, duduk bersama di balai sekretariat..."
+              placeholder="Contoh: Turnamen Lomba Domino Semi-Open KKS Mimika di balai sekretariat, fokus batu domino berjejer di meja kayu dengan riuh tawa warga..."
               className="w-full p-3.5 text-sm bg-slate-50/60 border border-slate-200 rounded-lg text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
             />
-            <p className="text-xs text-slate-500 flex items-center gap-1.5">
+
+            {/* Quick Suggestion Chips */}
+            <div className="space-y-1.5 pt-1">
+              <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                Inspirasi Cepat Sekali Klik:
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {suggestions.map((sug, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      setUserInput(sug.text);
+                      setSelectedStyleId(sug.styleId);
+                    }}
+                    className="text-[11px] px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition cursor-pointer text-left"
+                  >
+                    + {sug.title}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-500 flex items-center gap-1.5 pt-1 border-t border-slate-100">
               <HelpCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />
               <span>
-                Cukup tuliskan ide secara singkat. Asisten AI akan otomatis menerjemahkan dan menambahkan detail pencahayaan profesional.
+                Cukup ketikkan ide singkat Anda. Prompt engine kami menyuntikkan instruksi komposisi profesional agar hasilnya tampak seperti karya desainer grafis sungguhan.
               </span>
             </p>
           </div>
 
-          {/* Section 2: Pilihan Gaya Visual */}
-          <div className="bg-white rounded-xl border border-slate-200/80 p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3">
-            <label className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-slate-900 text-white text-[11px] flex items-center justify-center font-bold">
-                2
+          {/* Section 2: Pilihan 10 Gaya Visual (Preset Style) dengan Tab Kategori */}
+          <div className="bg-white rounded-xl border border-slate-200/80 p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <label className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-slate-900 text-white text-[11px] flex items-center justify-center font-bold">
+                  2
+                </span>
+                <span>Pilih Gaya Tampilan (10 Preset Style Terkurasi)</span>
+              </label>
+              <span className="text-[11px] text-slate-400">
+                Pilih gaya yang paling cocok
               </span>
-              <span>Pilih Gaya Tampilan (Preset Style)</span>
-            </label>
+            </div>
 
+            {/* Category Filter Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setCategoryFilter(cat.id)}
+                  className={`px-3 py-1 rounded-md text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+                    categoryFilter === cat.id
+                      ? "bg-slate-900 text-white shadow-xs"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Responsive Grid of Preset Cards (1-col on mobile, 2-col on sm+) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-              {STYLE_PRESETS.map((preset) => {
+              {filteredPresets.map((preset) => {
                 const Icon = preset.icon;
                 const isSelected = preset.id === selectedStyleId;
 
@@ -260,13 +425,18 @@ export default function PromptStudioPage() {
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p
-                        className={`text-xs font-bold leading-tight ${
-                          isSelected ? "text-rose-900" : "text-slate-800"
-                        }`}
-                      >
-                        {preset.name}
-                      </p>
+                      <div className="flex items-center justify-between gap-1">
+                        <p
+                          className={`text-xs font-bold leading-tight truncate ${
+                            isSelected ? "text-rose-900" : "text-slate-800"
+                          }`}
+                        >
+                          {preset.name}
+                        </p>
+                        {isSelected && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-600 shrink-0" />
+                        )}
+                      </div>
                       <p className="text-[11px] text-slate-500 mt-1 line-clamp-2 leading-relaxed">
                         {preset.tagline}
                       </p>
@@ -291,7 +461,7 @@ export default function PromptStudioPage() {
                   </span>
                 </div>
                 <p className="text-xs text-slate-500 pl-7 leading-relaxed">
-                  Centang opsi ini jika Anda ingin mengunggah foto tokoh/lokasi ke ChatGPT agar AI meniru wajah atau tempat tersebut secara presisi.
+                  Centang opsi ini jika Anda berencana mengunggah foto wajah sesepuh, pengurus, atau lokasi sekretariat asli ke ChatGPT agar AI menirunya secara presisi.
                 </p>
               </div>
 
@@ -311,13 +481,13 @@ export default function PromptStudioPage() {
               <div className="mt-4 p-3 rounded-lg bg-rose-50/70 border border-rose-100 text-xs text-rose-800 flex items-center gap-2 animate-in fade-in duration-200">
                 <Sparkles className="w-4 h-4 text-rose-600 shrink-0" />
                 <span>
-                  <strong>Instruksi Lampiran Disuntikkan:</strong> Sistem menambahkan klausul resmi agar AI wajib menjaga kemiripan wajah/lingkungan dari foto yang Anda lampirkan.
+                  <strong>Instruksi Referensi Aktif:</strong> Sistem menyuntikkan klausul ketat di baris paling atas agar AI mengunci kemiripan wajah/tempat dari foto yang Anda unggah.
                 </span>
               </div>
             )}
           </div>
 
-          {/* Section 4: Format Rasio Gambar (Aspect Ratio) */}
+          {/* Section 4: Format Rasio Dimensi Gambar */}
           <div className="bg-white rounded-xl border border-slate-200/80 p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3">
             <label className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-slate-900 text-white text-[11px] flex items-center justify-center font-bold">
@@ -372,7 +542,7 @@ export default function PromptStudioPage() {
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <h3 className="font-bold text-slate-900 text-sm">
-                  Hasil Prompt Terstruktur
+                  Hasil Prompt Terstruktur (Anti-Slop Engine)
                 </h3>
               </div>
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -383,7 +553,7 @@ export default function PromptStudioPage() {
 
             {/* Prompt Box Display */}
             <div className="relative">
-              <div className="w-full p-4 rounded-lg bg-slate-50/80 border border-slate-200 font-mono text-xs text-slate-800 leading-relaxed max-h-[340px] overflow-y-auto whitespace-pre-wrap select-all">
+              <div className="w-full p-4 rounded-lg bg-slate-50/80 border border-slate-200 font-mono text-xs text-slate-800 leading-relaxed max-h-[380px] overflow-y-auto whitespace-pre-wrap select-all">
                 {generatedPrompt}
               </div>
             </div>
@@ -410,10 +580,21 @@ export default function PromptStudioPage() {
               )}
             </button>
 
+            {/* Highlights Anti-Slop Protections */}
+            <div className="p-3 rounded-lg bg-amber-50/60 border border-amber-200/50 text-[11px] text-amber-900 space-y-1">
+              <div className="font-bold flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-amber-600" />
+                <span>Karakteristik Anti AI-Slop Terpasang:</span>
+              </div>
+              <p className="text-amber-800/90 leading-relaxed">
+                Prompt otomatis mewajibkan <strong>35% negative whitespace</strong> (ruang kosong teks), pencahayaan alami tanpa kulit plastik mengkilap, dan akurasi anatomi 5 jari sempurna.
+              </p>
+            </div>
+
             {/* 3 Langkah Mudah Panduan Pengurus */}
             <div className="p-4 rounded-lg bg-slate-50 border border-slate-200/70 space-y-2.5">
               <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                <Sparkles className="w-3.5 h-3.5 text-slate-500" />
                 Panduan Praktis 3 Langkah
               </h4>
               <ol className="text-xs text-slate-600 space-y-2 list-decimal list-inside leading-relaxed">
@@ -434,8 +615,8 @@ export default function PromptStudioPage() {
                   atau Midjourney).
                 </li>
                 <li>
-                  <strong>Tempel (Paste / Ctrl+V)</strong> teks tersebut ke kotak obrolan AI
-                  {hasPhotoReference ? " dan jangan lupa lampirkan foto yang ingin Anda gunakan." : "."}
+                  <strong>Tempel (Paste / Ctrl+V)</strong> teks tersebut ke obrolan AI
+                  {hasPhotoReference ? " dan lampirkan foto yang ingin Anda tiru." : "."}
                 </li>
               </ol>
             </div>
