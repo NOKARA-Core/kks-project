@@ -1,11 +1,12 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, Award, ShieldCheck, HeartHandshake } from "lucide-react";
+import { ChevronRight, Award } from "lucide-react";
 
 export function LeadershipGreeting() {
   return (
     <section className="bg-canvas-soft pt-4 pb-8 sm:pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-7 shadow-xs hover:shadow-sm transition-all">
+        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-7 shadow-xs hover:border-slate-300 hover:shadow-sm transition-all">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-8">
             
             {/* Sisi Kiri: Profil Singkat Ketua & Wakil Ketua */}
@@ -14,20 +15,34 @@ export function LeadershipGreeting() {
               <div className="flex items-center -space-x-3">
                 {/* Ketua Avatar */}
                 <div className="relative w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 p-0.5 shadow-xs">
-                  <div className="w-full h-full rounded-full bg-slate-900 text-amber-300 flex items-center justify-center font-bold text-base sm:text-lg border-2 border-white">
-                    BT
-                  </div>
-                  <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-[10px] font-extrabold border-2 border-white">
+                  <Image
+                    src="/foto-cwo.jpg"
+                    alt="Firman Amali - Ketua Umum KKS Mimika"
+                    width={56}
+                    height={56}
+                    className="w-full h-full rounded-full object-cover border-2 border-white"
+                  />
+                  <span
+                    title="Ketua Umum"
+                    className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-[10px] font-extrabold border-2 border-white shadow-2xs"
+                  >
                     1
                   </span>
                 </div>
 
                 {/* Wakil Ketua Avatar */}
                 <div className="relative w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-slate-600 to-slate-800 p-0.5 shadow-xs">
-                  <div className="w-full h-full rounded-full bg-slate-800 text-slate-200 flex items-center justify-center font-bold text-base sm:text-lg border-2 border-white">
-                    AP
-                  </div>
-                  <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-slate-700 text-slate-100 flex items-center justify-center text-[10px] font-extrabold border-2 border-white">
+                  <Image
+                    src="/foto-cwe.jpg"
+                    alt="xxxxxxxx - Wakil Ketua KKS Mimika"
+                    width={56}
+                    height={56}
+                    className="w-full h-full rounded-full object-cover border-2 border-white"
+                  />
+                  <span
+                    title="Wakil Ketua"
+                    className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-slate-700 text-slate-100 flex items-center justify-center text-[10px] font-extrabold border-2 border-white shadow-2xs"
+                  >
                     2
                   </span>
                 </div>
@@ -40,10 +55,10 @@ export function LeadershipGreeting() {
                   <span>Badan Pengurus Harian KKS Mimika</span>
                 </div>
                 <h3 className="text-sm sm:text-base font-extrabold text-slate-900 leading-snug">
-                  H. Andi Baso Tenriangka, S.E.
+                  Firman Amali
                 </h3>
                 <p className="text-xs text-slate-600 font-medium">
-                  Ketua Umum &bull; <span className="text-slate-500">Ir. H. M. Arsyad Patarai (Wakil Ketua)</span>
+                  Ketua Umum &bull; <span className="text-slate-500">xxxxxxxx (Wakil Ketua)</span>
                 </p>
               </div>
             </div>
