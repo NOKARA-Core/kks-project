@@ -178,7 +178,7 @@ async function seed() {
 
   console.log("Inserting Warta Paguyuban...");
   for (const wt of dummyWarta) {
-    await db.insert(wartaPaguyuban).values(wt);
+    await db.insert(wartaPaguyuban).values(wt).onConflictDoNothing();
   }
 
   // 3. Seed Kas Sosial
