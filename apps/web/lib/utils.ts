@@ -48,5 +48,3 @@ export function formatWhatsAppUrl(phone: string, text?: string): string {
   const baseUrl = `https://wa.me/${cleaned}`;
   return text ? `${baseUrl}?text=${encodeURIComponent(text)}` : baseUrl;
 }
-
-

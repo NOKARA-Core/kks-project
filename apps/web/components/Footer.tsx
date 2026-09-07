@@ -2,7 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { HeartHandshake, Phone, Mail, MapPin } from 'lucide-react';
 import { siteConfig } from '@/lib/config';
-import { formatWhatsAppUrl } from '@repo/database';
+import { formatWhatsAppUrl } from '@/lib/utils';
+
 
 
 export function Footer() {

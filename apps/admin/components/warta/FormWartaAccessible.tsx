@@ -24,7 +24,8 @@ import {
 import { createWarta, updateWarta, createWartaAsset } from "@/app/actions/warta";
 import { uploadFileClient } from "@/lib/upload-client";
 import { siteConfig } from "@/lib/config";
-import { formatRupiah } from "@repo/database";
+import { formatRupiah } from "@/lib/utils";
+
 
 
 import type { WartaPaguyuban, NewWartaPaguyuban } from "@repo/database/schema";

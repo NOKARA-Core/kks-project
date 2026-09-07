@@ -9,9 +9,11 @@ import {
   Phone,
   Search,
 } from "lucide-react";
-import { db, direktoriNiaga, formatWhatsAppUrl } from "@repo/database";
+import { db, direktoriNiaga } from "@repo/database";
 import { siteConfig } from "@/lib/config";
+import { formatWhatsAppUrl } from "@/lib/utils";
 import { eq, desc } from "drizzle-orm";
+
 
 
 export const dynamic = "force-dynamic";
