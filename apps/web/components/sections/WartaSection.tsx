@@ -19,13 +19,13 @@ interface WartaSectionProps {
 
 export function WartaSection({ wartaList, className = "" }: WartaSectionProps) {
   return (
-    <section className={`py-14 sm:py-20 bg-white border-b border-slate-100 ${className}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    <section className={`py-16 sm:py-24 bg-white border-b border-slate-100 ${className}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
         
-        {/* Section Header */}
+        {/* Section Header - Law of Proximity (space-y-2 antar teks header) */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div className="max-w-2xl space-y-1.5">
-            <span className="text-xs font-bold text-gold uppercase tracking-wider">
+          <div className="max-w-2xl space-y-2">
+            <span className="text-xs font-bold text-primary uppercase tracking-wider">
               Kabar Paguyuban Terkini
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -38,14 +38,14 @@ export function WartaSection({ wartaList, className = "" }: WartaSectionProps) {
 
           <Link
             href="/warta"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-gold hover:text-gold-dark group shrink-0"
+            className="inline-flex items-center gap-1.5 h-11 px-4 text-xs sm:text-sm font-bold text-primary hover:text-primary-hover group shrink-0"
           >
             <span>Buka Seluruh Warta</span>
             <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
 
-        {/* Grid Kartu Warta Dinamis (Anti AI-Slop: Modern Enterprise Card) */}
+        {/* Grid Kartu Warta Dinamis (8-point Grid: gap-3 di mobile, gap-6 di desktop) */}
         {wartaList.length === 0 ? (
           <div className="p-12 text-center bg-canvas-soft rounded-2xl border border-dashed border-slate-200">
             <p className="text-sm font-semibold text-slate-600">
@@ -53,7 +53,7 @@ export function WartaSection({ wartaList, className = "" }: WartaSectionProps) {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6">
             {wartaList.map((item) => {
               const isDuka = item.kategori === "duka_cita";
               const isAgenda = item.kategori === "agenda_kegiatan";
@@ -108,8 +108,8 @@ export function WartaSection({ wartaList, className = "" }: WartaSectionProps) {
                       </div>
                     </div>
 
-                    {/* Content Body (Padding mikro di mobile p-2.5 sm:p-5) */}
-                    <div className="p-2.5 sm:p-5 space-y-1.5 sm:space-y-2.5">
+                    {/* Content Body (Padding 8-point: p-3 di mobile, p-5 di desktop) */}
+                    <div className="p-3 sm:p-5 space-y-2 sm:space-y-3">
                       {/* Meta Waktu & Lokasi */}
                       <div className="flex items-center gap-2 text-[10px] sm:text-xs text-slate-500 font-medium">
                         <span className="flex items-center gap-1">
@@ -128,7 +128,7 @@ export function WartaSection({ wartaList, className = "" }: WartaSectionProps) {
                       </div>
 
                       {/* Judul Warta */}
-                      <h3 className="text-xs sm:text-base font-bold text-slate-900 group-hover:text-gold transition-colors line-clamp-2 leading-snug">
+                      <h3 className="text-xs sm:text-base font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-2 leading-snug">
                         <Link href={detailUrl}>
                           {item.judul}
                         </Link>
@@ -142,13 +142,13 @@ export function WartaSection({ wartaList, className = "" }: WartaSectionProps) {
                   </div>
 
                   {/* Card Bottom Footer Link */}
-                  <div className="p-2.5 pt-1.5 sm:px-5 sm:pb-4 sm:pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] sm:text-xs">
+                  <div className="p-3 pt-2 sm:px-5 sm:pb-4 sm:pt-3 border-t border-slate-100 flex items-center justify-between text-[10px] sm:text-xs">
                     <span className="hidden sm:inline text-slate-400 font-medium">
                       {isDuka ? "Salipuri Temmadinging" : "KKS Kab. Mimika"}
                     </span>
                     <Link
                       href={detailUrl}
-                      className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-1 font-bold text-slate-800 hover:text-gold transition-colors group/link"
+                      className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-1 font-bold text-slate-800 hover:text-primary transition-colors group/link"
                     >
                       <span>Baca</span>
                       <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform group-hover/link:translate-x-0.5" />

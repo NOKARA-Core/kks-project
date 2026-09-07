@@ -11,13 +11,13 @@ interface NiagaSectionProps {
 
 export function NiagaSection({ niagaList, className = "" }: NiagaSectionProps) {
   return (
-    <section className={`py-14 sm:py-20 bg-white border-b border-slate-100 ${className}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    <section className={`py-16 sm:py-24 bg-white border-b border-slate-100 ${className}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
         
-        {/* Header */}
+        {/* Header - Law of Proximity (space-y-2) */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div className="max-w-2xl space-y-1.5">
-            <span className="text-xs font-bold text-gold uppercase tracking-wider">
+          <div className="max-w-2xl space-y-2">
+            <span className="text-xs font-bold text-primary uppercase tracking-wider">
               Pemberdayaan Ekonomi Rantau
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -30,14 +30,14 @@ export function NiagaSection({ niagaList, className = "" }: NiagaSectionProps) {
 
           <Link
             href="/niaga"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-gold hover:text-gold-dark group shrink-0"
+            className="inline-flex items-center gap-1.5 h-11 px-4 text-xs sm:text-sm font-bold text-primary hover:text-primary-hover group shrink-0"
           >
             <span>Buka Katalog Niaga Lengkap</span>
             <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
 
-        {/* Business Grid */}
+        {/* Business Grid (8-point grid: gap-3 di mobile, gap-6 di desktop) */}
         {niagaList.length === 0 ? (
           <div className="p-12 text-center bg-canvas-soft rounded-2xl border border-dashed border-slate-200">
             <p className="text-sm font-semibold text-slate-600">
@@ -45,7 +45,7 @@ export function NiagaSection({ niagaList, className = "" }: NiagaSectionProps) {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {niagaList.map((item) => {
               const imageSrc = formatImageUrl(item.fotoUsahaUrl, "/placeholder-kks.webp");
               const waUrl = formatWhatsAppUrl(
@@ -68,15 +68,15 @@ export function NiagaSection({ niagaList, className = "" }: NiagaSectionProps) {
                         className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-1.5 left-1.5 sm:top-2.5 sm:left-2.5">
-                        <span className="px-1.5 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold bg-white/95 text-slate-800 backdrop-blur-xs shadow-2xs border border-slate-200 truncate max-w-[110px] inline-block">
+                        <span className="px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold bg-white/95 text-slate-800 backdrop-blur-xs shadow-2xs border border-slate-200 truncate max-w-[110px] inline-block">
                           {item.kategoriUsaha}
                         </span>
                       </div>
                     </div>
 
-                    {/* Content (p-2.5 sm:p-4) */}
-                    <div className="p-2.5 sm:p-4 space-y-1 sm:space-y-1.5">
-                      <h3 className="font-bold text-xs sm:text-sm text-slate-900 truncate group-hover:text-gold transition-colors">
+                    {/* Content (p-3 sm:p-4, space-y-1.5) */}
+                    <div className="p-3 sm:p-4 space-y-1 sm:space-y-1.5">
+                      <h3 className="font-bold text-xs sm:text-sm text-slate-900 truncate group-hover:text-primary transition-colors">
                         {item.namaUsaha}
                       </h3>
 
@@ -92,15 +92,15 @@ export function NiagaSection({ niagaList, className = "" }: NiagaSectionProps) {
                     </div>
                   </div>
 
-                  {/* Card Bottom CTA (h-8 sm:h-9 text-[11px] sm:text-xs w-full mt-2 rounded-lg bg-emerald-600) */}
-                  <div className="p-2.5 pt-0 sm:p-4 sm:pt-0">
+                  {/* Card Bottom CTA (h-10 sm:h-11 text-[11px] sm:text-xs w-full mt-2 rounded-xl bg-emerald-600) */}
+                  <div className="p-3 pt-0 sm:p-4 sm:pt-0">
                     <a
                       href={waUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="h-8 sm:h-9 text-[11px] sm:text-xs w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center gap-1 font-medium transition-all shadow-2xs"
+                      className="h-10 sm:h-11 text-[11px] sm:text-xs w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center gap-1.5 font-medium transition-all shadow-2xs"
                     >
-                      <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                      <MessageCircle className="w-3.5 h-3.5" />
                       <span>Hubungi WA</span>
                     </a>
                   </div>
@@ -110,10 +110,10 @@ export function NiagaSection({ niagaList, className = "" }: NiagaSectionProps) {
           </div>
         )}
 
-        {/* Banner Ajakan Daftarkan Usaha */}
-        <div className="p-6 rounded-2xl bg-canvas-soft border border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Banner Ajakan Daftarkan Usaha (p-6 sm:p-8, rounded-2xl) */}
+        <div className="p-6 sm:p-8 rounded-2xl bg-canvas-soft border border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1 text-center sm:text-left">
-            <h4 className="font-bold text-sm sm:text-base text-slate-900">
+            <h4 className="font-bold text-base sm:text-lg text-slate-900">
               Punya Usaha atau Jasa di Timika?
             </h4>
             <p className="text-xs sm:text-sm text-slate-600">
@@ -122,10 +122,10 @@ export function NiagaSection({ niagaList, className = "" }: NiagaSectionProps) {
           </div>
           <Link
             href="/niaga#daftar-usaha"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl text-xs sm:text-sm transition shrink-0 shadow-xs"
+            className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl text-xs sm:text-sm transition shrink-0 shadow-xs w-full sm:w-auto"
           >
             <span>Daftarkan Usaha Anda</span>
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
 
