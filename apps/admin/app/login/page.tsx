@@ -106,7 +106,7 @@ export default function LoginPage() {
                   autoComplete="username"
                   required
                   disabled={isLoading}
-                  placeholder="admin@kks-mimika.id atau 62812..."
+                  placeholder="Email pengurus atau nomor WhatsApp..."
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                   className="w-full h-12 pl-10 pr-4 text-sm sm:text-base rounded-xl border border-slate-300 bg-white placeholder:text-slate-400 focus:outline-hidden focus:border-rose-500 focus:ring-2 focus:ring-rose-100 transition-all disabled:bg-slate-100 disabled:opacity-70"

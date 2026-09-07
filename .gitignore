@@ -7,10 +7,19 @@ node_modules
 
 # Local env files
 .env
+.env*
+*.env*
+*.copy
+*.bak
+*.backup
+env.copy
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Database Seeder (contains initial seed data & accounts)
+packages/database/src/seed.ts
 
 # Testing
 coverage

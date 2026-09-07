@@ -322,7 +322,7 @@ function SidebarNavContent({
                 Admin Pengurus
               </p>
               <p className="text-[11px] text-slate-500 truncate">
-                admin@kks-mimika.id
+                Pengurus Terverifikasi
               </p>
             </div>
           )}
