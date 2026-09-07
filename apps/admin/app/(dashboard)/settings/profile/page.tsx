@@ -1,8 +1,8 @@
-import { getCurrentAdminUser } from "@/lib/auth";
+import { requireAuthAdminUser } from "@/lib/auth";
 import { ProfileSettingsForm } from "@/components/settings/ProfileSettingsForm";
 
 export default async function ProfileSettingsPage() {
-  const currentUser = await getCurrentAdminUser();
+  const currentUser = await requireAuthAdminUser();
 
   return (
     <div className="max-w-4xl space-y-6">

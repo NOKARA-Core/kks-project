@@ -10,7 +10,7 @@ import {
   verifyPassword,
 } from "@repo/database";
 import { eq, desc, ne } from "drizzle-orm";
-import { getCurrentAdminUser } from "@/lib/auth";
+import { getCurrentAdminUser, requireAuthAdminUser } from "@/lib/auth";
 
 export type ActionResult<T = unknown> = {
   success: boolean;
@@ -73,7 +73,7 @@ export async function updateSelfProfile(
   formData: FormData | { namaLengkap: string; noWa: string; jabatan: string }
 ): Promise<ActionResult<AdminUser>> {
   try {
-    const currentUser = await getCurrentAdminUser();
+    const currentUser = await requireAuthAdminUser();
 
     const rawData =
       formData instanceof FormData
@@ -130,7 +130,7 @@ export async function changeSelfPassword(
     | { oldPassword: string; newPassword: string; confirmPassword: string }
 ): Promise<ActionResult> {
   try {
-    const currentUser = await getCurrentAdminUser();
+    const currentUser = await requireAuthAdminUser();
 
     const rawData =
       formData instanceof FormData
@@ -210,7 +210,7 @@ export async function changeSelfPassword(
 export async function getAdminUsersList(): Promise<AdminUser[]> {
   try {
     const currentUser = await getCurrentAdminUser();
-    if (currentUser.role !== "superadmin") {
+    if (!currentUser || currentUser.role !== "superadmin") {
       return [];
     }
 
@@ -228,7 +228,7 @@ export async function createAdminUser(
   data: z.infer<typeof createAdminSchema>
 ): Promise<ActionResult<AdminUser>> {
   try {
-    const currentUser = await getCurrentAdminUser();
+    const currentUser = await requireAuthAdminUser();
     if (currentUser.role !== "superadmin") {
       return {
         success: false,
@@ -303,7 +303,7 @@ export async function updateAdminUser(
   data: z.infer<typeof updateAdminSchema>
 ): Promise<ActionResult<AdminUser>> {
   try {
-    const currentUser = await getCurrentAdminUser();
+    const currentUser = await requireAuthAdminUser();
     if (currentUser.role !== "superadmin") {
       return {
         success: false,
@@ -387,7 +387,7 @@ export async function toggleAdminUserStatus(
   isActive: boolean
 ): Promise<ActionResult> {
   try {
-    const currentUser = await getCurrentAdminUser();
+    const currentUser = await requireAuthAdminUser();
     if (currentUser.role !== "superadmin") {
       return {
         success: false,
@@ -434,7 +434,7 @@ export async function resetAdminUserPassword(
   newPlainPassword: string
 ): Promise<ActionResult> {
   try {
-    const currentUser = await getCurrentAdminUser();
+    const currentUser = await requireAuthAdminUser();
     if (currentUser.role !== "superadmin") {
       return {
         success: false,
