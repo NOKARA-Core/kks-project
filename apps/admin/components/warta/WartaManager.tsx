@@ -25,6 +25,7 @@ import {
   updateWartaStatus,
   deleteWarta,
 } from "@/app/actions/warta";
+import { WartaBroadcastButton } from "@/components/modules/WartaBroadcastButton";
 import type { WartaPaguyuban, NewWartaPaguyuban } from "@repo/database/schema";
 
 type Props = {
@@ -283,6 +284,18 @@ export function WartaManager({ initialWarta }: Props) {
 
                   {/* Actions Column */}
                   <div className="flex flex-wrap lg:flex-col items-center lg:items-end gap-2 shrink-0 border-t lg:border-t-0 pt-3 lg:pt-0 border-slate-100">
+                    {/* Broadcast 1-Klik ke WhatsApp */}
+                    <WartaBroadcastButton
+                      judul={w.judul}
+                      kategori={w.kategori}
+                      ringkasan={w.ringkasan}
+                      detailLokasi={w.lokasiAcara}
+                      kontakPic={w.kontakDaruratWa}
+                      slugOrId={w.id}
+                      variant="compact"
+                      label="Siarkan"
+                    />
+
                     {/* Auto format WA Message button */}
                     <button
                       onClick={() => copyToClipboard(w)}
@@ -431,14 +444,26 @@ export function WartaManager({ initialWarta }: Props) {
               </div>
             </div>
 
-            <div className="pt-2 flex justify-between items-center">
-              <button
-                onClick={() => copyToClipboard(selectedWarta)}
-                className="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold flex items-center gap-1.5"
-              >
-                <Share2 className="w-3.5 h-3.5" />
-                Salin Format WhatsApp
-              </button>
+            <div className="pt-2 flex flex-wrap justify-between items-center gap-2">
+              <div className="flex items-center gap-2">
+                <WartaBroadcastButton
+                  judul={selectedWarta.judul}
+                  kategori={selectedWarta.kategori}
+                  ringkasan={selectedWarta.ringkasan}
+                  detailLokasi={selectedWarta.lokasiAcara}
+                  kontakPic={selectedWarta.kontakDaruratWa}
+                  slugOrId={selectedWarta.id}
+                  variant="primary"
+                  label="Siarkan ke WhatsApp"
+                />
+                <button
+                  onClick={() => copyToClipboard(selectedWarta)}
+                  className="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold flex items-center gap-1.5"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  Salin Format Teks
+                </button>
+              </div>
               <button
                 onClick={() => setSelectedWarta(null)}
                 className="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold hover:bg-slate-200"
@@ -495,6 +520,7 @@ function ModalBuatWarta({
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [createdResult, setCreatedResult] = useState<WartaPaguyuban | null>(null);
 
   // Auto-fill template duka cita
   const handleAutoFormatDuka = () => {
@@ -547,11 +573,84 @@ Semoga Allah SWT mengampuni segala dosa beliau, melipatgandakan amal ibadahnya, 
     setLoading(false);
 
     if (res.success && res.data) {
-      onSuccess(res.data);
+      setCreatedResult(res.data);
     } else {
       setError(res.error || "Gagal menyimpan warta.");
     }
   };
+
+  // If created successfully, show broadcast prompt modal
+  if (createdResult) {
+    return (
+      <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-elevated border border-slate-200 space-y-5 animate-in fade-in zoom-in-95 duration-150">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                <Check className="w-4 h-4" />
+              </div>
+              <h3 className="font-bold text-lg text-slate-900">
+                Warta Berhasil Diterbitkan!
+              </h3>
+            </div>
+            <button
+              onClick={() => {
+                onSuccess(createdResult);
+              }}
+              className="p-1 rounded-lg text-slate-400 hover:text-slate-700"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
+            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-600">
+              {createdResult.kategori.replace("_", " ")}
+            </span>
+            <h4 className="font-bold text-slate-900 text-sm leading-snug">
+              {createdResult.judul}
+            </h4>
+            {createdResult.ringkasan && (
+              <p className="text-xs text-slate-600 line-clamp-2">
+                {createdResult.ringkasan}
+              </p>
+            )}
+          </div>
+
+          <div className="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200 space-y-2 text-xs">
+            <p className="font-semibold text-emerald-950 flex items-center gap-1.5">
+              <Megaphone className="w-4 h-4 text-emerald-600 shrink-0" />
+              Siarkan langsung ke Saluran / Grup WhatsApp Paguyuban
+            </p>
+            <p className="text-emerald-800 text-[11px] leading-relaxed">
+              Format pesan warta resmi dengan tautan portal telah disiapkan. Klik tombol di bawah untuk membuka WhatsApp Web atau WhatsApp Mobile secara instan.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-end gap-2.5 pt-2">
+            <button
+              type="button"
+              onClick={() => onSuccess(createdResult)}
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition"
+            >
+              Selesai & Tutup
+            </button>
+            <WartaBroadcastButton
+              judul={createdResult.judul}
+              kategori={createdResult.kategori}
+              ringkasan={createdResult.ringkasan}
+              detailLokasi={createdResult.lokasiAcara}
+              kontakPic={createdResult.kontakDaruratWa}
+              slugOrId={createdResult.id}
+              variant="primary"
+              label="Siarkan Sekarang ke WhatsApp"
+              className="w-full sm:w-auto"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
