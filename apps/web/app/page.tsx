@@ -14,6 +14,8 @@ import { LeadershipGreeting } from "../components/sections/LeadershipGreeting";
 import { WartaSection } from "../components/sections/WartaSection";
 import { KasSosialSection } from "../components/sections/KasSosialSection";
 import { NiagaSection } from "../components/sections/NiagaSection";
+import { SecretariatMapSection } from "../components/sections/SecretariatMapSection";
+import { ScrollReveal } from "../components/motion/ScrollReveal";
 
 export const dynamic = "force-dynamic";
 
@@ -109,111 +111,125 @@ export default async function Home() {
       <NiagaSection niagaList={verifiedNiaga} />
 
       {/* 6. Tiga Pilar Luhur Komunitas di Rantau */}
+      {/* 6. Tiga Pilar Luhur Komunitas di Rantau */}
       <section className="py-10 sm:py-14 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-6 sm:mb-8 space-y-2">
-            <span className="text-xs font-bold text-primary uppercase tracking-wider">
-              Falsafah Hidup di Rantau
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Tiga Pilar Luhur Bugis-Soppeng di Bumi Amungsa
-            </h2>
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              Menjadi pedoman teguh para sesepuh, pengurus, dan seluruh perantau Soppeng dalam menjaga keluhuran budi, saling menopang, serta hidup berdampingan secara damai di Kabupaten Mimika.
-            </p>
-          </div>
+          <ScrollReveal delay={0.05}>
+            <div className="max-w-3xl mb-6 sm:mb-8 space-y-2">
+              <span className="text-xs font-bold text-primary uppercase tracking-wider">
+                Falsafah Hidup di Rantau
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Tiga Pilar Luhur Bugis-Soppeng di Bumi Amungsa
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Menjadi pedoman teguh para sesepuh, pengurus, dan seluruh perantau Soppeng dalam menjaga keluhuran budi, saling menopang, serta hidup berdampingan secara damai di Kabupaten Mimika.
+              </p>
+            </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {/* Pilar 1: Dongiri Temmatipa */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-primary/40 transition-all hover:shadow-xs flex flex-col justify-between space-y-4">
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-rose-50 text-primary flex items-center justify-center mb-4 font-bold text-base border border-rose-100 shadow-2xs">
-                  1
+            <ScrollReveal delay={0.08} className="h-full">
+              <div className="h-full p-5 sm:p-6 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-primary/40 transition-all hover:shadow-xs flex flex-col justify-between space-y-4">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-rose-50 text-primary flex items-center justify-center mb-4 font-bold text-base border border-rose-100 shadow-2xs">
+                    1
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1.5">Dongiri Temmatipa</h3>
+                  <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-2">
+                    Pengayoman & Bimbingan
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Para sesepuh dan pengurus aktif memberikan pengayoman moril, bimbingan usaha, serta arahan hidup bagi warga baru maupun yang telah lama bermukim di rantau.
+                  </p>
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1.5">Dongiri Temmatipa</h3>
-                <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-2">
-                  Pengayoman & Bimbingan
-                </p>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Para sesepuh dan pengurus aktif memberikan pengayoman moril, bimbingan usaha, serta arahan hidup bagi warga baru maupun yang telah lama bermukim di rantau.
-                </p>
+                <div className="pt-3 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
+                  Pilar Pengayoman Paguyuban
+                </div>
               </div>
-              <div className="pt-3 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
-                Pilar Pengayoman Paguyuban
-              </div>
-            </div>
+            </ScrollReveal>
 
             {/* Pilar 2: Salipuri Temmadinging */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-primary/40 transition-all hover:shadow-xs flex flex-col justify-between space-y-4">
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-rose-50 text-primary flex items-center justify-center mb-4 font-bold text-base border border-rose-100 shadow-2xs">
-                  2
+            <ScrollReveal delay={0.16} className="h-full">
+              <div className="h-full p-5 sm:p-6 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-primary/40 transition-all hover:shadow-xs flex flex-col justify-between space-y-4">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-rose-50 text-primary flex items-center justify-center mb-4 font-bold text-base border border-rose-100 shadow-2xs">
+                    2
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1.5">Salipuri Temmadinging</h3>
+                  <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-2">
+                    Kepedulian Sosial & Duka
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Saling menyelimuti di kala dingin. Gerak cepat tanggap lelayu/duka, santunan warga sakit, dan gotong royong meringankan beban musibah sesama keluarga perantau.
+                  </p>
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1.5">Salipuri Temmadinging</h3>
-                <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-2">
-                  Kepedulian Sosial & Duka
-                </p>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Saling menyelimuti di kala dingin. Gerak cepat tanggap lelayu/duka, santunan warga sakit, dan gotong royong meringankan beban musibah sesama keluarga perantau.
-                </p>
+                <div className="pt-3 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
+                  Pilar Solidaritas & Kas Duka
+                </div>
               </div>
-              <div className="pt-3 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
-                Pilar Solidaritas & Kas Duka
-              </div>
-            </div>
+            </ScrollReveal>
 
             {/* Pilar 3: Wesse Temmakapa */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-sky/40 transition-all hover:shadow-xs flex flex-col justify-between space-y-4">
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-dark flex items-center justify-center mb-4 font-bold text-base border border-sky-100 shadow-2xs">
-                  3
+            <ScrollReveal delay={0.24} className="h-full">
+              <div className="h-full p-5 sm:p-6 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-sky/40 transition-all hover:shadow-xs flex flex-col justify-between space-y-4">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-dark flex items-center justify-center mb-4 font-bold text-base border border-sky-100 shadow-2xs">
+                    3
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1.5">Wesse Temmakapa</h3>
+                  <p className="text-xs text-sky-dark font-semibold uppercase tracking-wider mb-2">
+                    Persatuan & Keharmonisan
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Menjaga kerukunan internal paguyuban serta menjunjung tinggi adat istiadat tanah tempat berpijak dengan menghormati masyarakat adat Papua di Mimika.
+                  </p>
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1.5">Wesse Temmakapa</h3>
-                <p className="text-xs text-sky-dark font-semibold uppercase tracking-wider mb-2">
-                  Persatuan & Keharmonisan
-                </p>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Menjaga kerukunan internal paguyuban serta menjunjung tinggi adat istiadat tanah tempat berpijak dengan menghormati masyarakat adat Papua di Mimika.
-                </p>
+                <div className="pt-3 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
+                  Pilar Kerukunan Antarwarga
+                </div>
               </div>
-              <div className="pt-3 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
-                Pilar Kerukunan Antarwarga
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
       {/* 7. Ajakan Pendataan Warga Rantau */}
-      <section className="py-10 sm:py-14 bg-canvas-soft">
+      <section className="py-10 sm:py-14 bg-canvas-soft border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-bold text-primary uppercase tracking-wider">
-              Silaturahmi Warga
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Belum Terdaftar di Buku Warga KKS Mimika?
-            </h2>
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed pb-4">
-              Mari daftarkan diri dan keluarga Anda agar terhubung dengan sesama perantau Soppeng di sektor domisili Anda di Timika. Proses mudah, hangat, dan tanpa birokrasi kaku.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
-              <Link
-                href="/pendataan"
-                className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-8 bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl transition-all shadow-sm active:scale-95 text-center"
-              >
-                Formulir Pendaftaran Warga Rantau
-              </Link>
-              <Link
-                href="/profil"
-                className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-8 bg-white border border-slate-200 hover:border-slate-300 text-slate-800 font-semibold rounded-xl transition-all text-center shadow-2xs"
-              >
-                Pelajari Struktur Paguyuban
-              </Link>
+          <ScrollReveal delay={0.05}>
+            <div className="max-w-2xl mx-auto space-y-3">
+              <span className="text-xs font-bold text-primary uppercase tracking-wider">
+                Silaturahmi Warga
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Belum Terdaftar di Buku Warga KKS Mimika?
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed pb-4">
+                Mari daftarkan diri dan keluarga Anda agar terhubung dengan sesama perantau Soppeng di sektor domisili Anda di Timika. Proses mudah, hangat, dan tanpa birokrasi kaku.
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
+                <Link
+                  href="/pendataan"
+                  className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-8 bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl transition-all shadow-sm active:scale-95 text-center"
+                >
+                  Formulir Pendaftaran Warga Rantau
+                </Link>
+                <Link
+                  href="/profil"
+                  className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-8 bg-white border border-slate-200 hover:border-slate-300 text-slate-800 font-semibold rounded-xl transition-all text-center shadow-2xs"
+                >
+                  Pelajari Struktur Paguyuban
+                </Link>
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
+
+      {/* 8. Seksi Peta & Alamat Sekretariat KKS Mimika (Tepat di Atas Footer) */}
+      <SecretariatMapSection />
     </main>
   );
 }
