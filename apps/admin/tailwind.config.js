@@ -9,9 +9,9 @@ export default {
     extend: {
       colors: {
         gold: {
-          light: "#FEF3C7",
-          DEFAULT: "#D97706",
-          dark: "#B45309",
+          light: "#FEE2E2",
+          DEFAULT: "#DC2626",
+          dark: "#B91C1C",
         },
         sky: {
           light: "#E0F2FE",
@@ -21,7 +21,7 @@ export default {
         siri: {
           light: "#FEE2E2",
           DEFAULT: "#DC2626",
-          dark: "#B91C1C",
+          dark: "#991B1B",
         },
         berkah: {
           light: "#DCFCE7",

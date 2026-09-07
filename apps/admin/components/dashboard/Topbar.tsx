@@ -87,7 +87,7 @@ export function Topbar() {
       {/* Right side info */}
       <div className="flex items-center gap-2 sm:gap-4">
         {/* Falsafah Pill */}
-        <div className="hidden xl:flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50/80 border border-amber-200/60 text-[11px] font-medium text-amber-800">
+        <div className="hidden xl:flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50/80 border border-rose-200/60 text-[11px] font-medium text-rose-800">
           <Sparkles className="w-3 h-3 text-gold" />
           <span>Salipuri Temmadinging • Dongiri Temmatipa</span>
         </div>
