@@ -510,8 +510,17 @@ export function RingkasanClient({
                 {wartaDukaList.slice(0, 2).map((warta) => (
                   <div
                     key={warta.id}
-                    className="p-3.5 rounded-xl bg-red-50/50 border-l-4 border-siri border-y border-r border-red-100 space-y-1.5"
+                    className="p-4 rounded-xl bg-white border border-rose-100 hover:border-rose-200 shadow-xs space-y-2 transition-colors"
                   >
+                    <div className="flex items-center justify-between">
+                      <span className="bg-rose-50 text-rose-700 border border-rose-100 text-[10px] font-semibold px-2 py-0.5 rounded-md flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                        Lelayu
+                      </span>
+                      <span className="text-[10px] text-slate-400">
+                        {formatTanggal(warta.tanggalPeristiwa)}
+                      </span>
+                    </div>
                     <p className="font-semibold text-slate-900 text-xs leading-snug">
                       {warta.judul}
                     </p>
@@ -519,8 +528,8 @@ export function RingkasanClient({
                       {warta.ringkasan}
                     </p>
                     <div className="flex items-center justify-between pt-1 text-[10px] text-slate-500">
-                      <span>{formatTanggal(warta.tanggalPeristiwa)}</span>
-                      <span className="font-medium text-slate-700">
+                      <span>Lokasi:</span>
+                      <span className="font-medium text-slate-700 truncate max-w-[180px]">
                         {warta.lokasiAcara}
                       </span>
                     </div>

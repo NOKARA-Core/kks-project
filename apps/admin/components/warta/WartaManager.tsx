@@ -201,13 +201,7 @@ export function WartaManager({ initialWarta }: Props) {
             return (
               <div
                 key={w.id}
-                className={`bg-white rounded-2xl border p-6 shadow-xs hover:shadow-card transition-all duration-200 relative overflow-hidden ${
-                  isDuka
-                    ? "border-l-4 border-l-siri border-slate-200/80"
-                    : isSuka
-                    ? "border-l-4 border-l-sky border-slate-200/80"
-                    : "border-l-4 border-l-gold border-slate-200/80"
-                }`}
+                className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-slate-300 hover:shadow-card transition-all duration-200 relative overflow-hidden"
               >
                 <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
                   {/* Content info */}
