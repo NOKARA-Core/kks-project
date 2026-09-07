@@ -20,6 +20,7 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   Settings,
+  Wand2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "./SidebarContext";
@@ -54,6 +55,12 @@ const NAV_ITEMS = [
     href: "/niaga",
     icon: Store,
     badge: "UMKM",
+  },
+  {
+    name: "Studio Prompt AI",
+    href: "/studio",
+    icon: Wand2,
+    badge: "AI",
   },
   {
     name: "Pengaturan Akun",

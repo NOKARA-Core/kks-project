@@ -17,6 +17,7 @@ const ROUTE_NAMES: Record<string, string> = {
   "/warta": "Warta Suka & Duka",
   "/kas": "Arus Kas Sosial",
   "/niaga": "Direktori Usaha Warga",
+  "/studio": "Prompt Studio (Asisten Gambar AI)",
   "/settings": "Pengaturan Akun & Pengurus",
   "/settings/profile": "Profil Saya",
   "/settings/users": "Manajemen Pengurus",
