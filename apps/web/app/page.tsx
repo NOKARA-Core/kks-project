@@ -109,13 +109,13 @@ export default async function Home() {
       <NiagaSection niagaList={verifiedNiaga} />
 
       {/* 6. Tiga Pilar Luhur Komunitas di Rantau */}
-      <section className="py-16 sm:py-20 bg-white border-b border-slate-100">
+      <section className="py-16 sm:py-24 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <span className="text-xs font-bold text-gold uppercase tracking-wider">
+          <div className="max-w-3xl mb-8 sm:mb-12 space-y-2">
+            <span className="text-xs font-bold text-primary uppercase tracking-wider">
               Falsafah Hidup di Rantau
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1.5 mb-3">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
               Tiga Pilar Luhur Bugis-Soppeng di Bumi Amungsa
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
@@ -125,47 +125,47 @@ export default async function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {/* Pilar 1: Dongiri Temmatipa */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-gold/50 transition-all hover:shadow-xs flex flex-col justify-between">
+            <div className="p-6 sm:p-8 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-primary/40 transition-all hover:shadow-xs flex flex-col justify-between space-y-6">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-5 font-bold text-lg">
+                <div className="w-12 h-12 rounded-xl bg-rose-50 text-primary flex items-center justify-center mb-6 font-bold text-lg border border-rose-100 shadow-2xs">
                   1
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2">Dongiri Temmatipa</h3>
-                <p className="text-xs text-gold font-semibold uppercase tracking-wider mb-3">
+                <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-3">
                   Pengayoman & Bimbingan
                 </p>
                 <p className="text-sm text-slate-600 leading-relaxed">
                   Para sesepuh dan pengurus aktif memberikan pengayoman moril, bimbingan usaha, serta arahan hidup bagi warga baru maupun yang telah lama bermukim di rantau.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
+              <div className="pt-4 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
                 Pilar Pengayoman Paguyuban
               </div>
             </div>
 
             {/* Pilar 2: Salipuri Temmadinging */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-siri/40 transition-all hover:shadow-xs flex flex-col justify-between">
+            <div className="p-6 sm:p-8 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-primary/40 transition-all hover:shadow-xs flex flex-col justify-between space-y-6">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-siri/10 text-siri flex items-center justify-center mb-5 font-bold text-lg">
+                <div className="w-12 h-12 rounded-xl bg-rose-50 text-primary flex items-center justify-center mb-6 font-bold text-lg border border-rose-100 shadow-2xs">
                   2
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2">Salipuri Temmadinging</h3>
-                <p className="text-xs text-siri font-semibold uppercase tracking-wider mb-3">
+                <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-3">
                   Kepedulian Sosial & Duka
                 </p>
                 <p className="text-sm text-slate-600 leading-relaxed">
                   Saling menyelimuti di kala dingin. Gerak cepat tanggap lelayu/duka, santunan warga sakit, dan gotong royong meringankan beban musibah sesama keluarga perantau.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
+              <div className="pt-4 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
                 Pilar Solidaritas & Kas Duka
               </div>
             </div>
 
             {/* Pilar 3: Wesse Temmakapa */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-sky/50 transition-all hover:shadow-xs flex flex-col justify-between">
+            <div className="p-6 sm:p-8 rounded-2xl bg-canvas-soft border border-slate-200/80 hover:border-sky/40 transition-all hover:shadow-xs flex flex-col justify-between space-y-6">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-sky/10 text-sky-dark flex items-center justify-center mb-5 font-bold text-lg">
+                <div className="w-12 h-12 rounded-xl bg-sky-50 text-sky-dark flex items-center justify-center mb-6 font-bold text-lg border border-sky-100 shadow-2xs">
                   3
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2">Wesse Temmakapa</h3>
@@ -176,7 +176,7 @@ export default async function Home() {
                   Menjaga kerukunan internal paguyuban serta menjunjung tinggi adat istiadat tanah tempat berpijak dengan menghormati masyarakat adat Papua di Mimika.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
+              <div className="pt-4 border-t border-slate-200/60 text-xs font-semibold text-slate-500">
                 Pilar Kerukunan Antarwarga
               </div>
             </div>
@@ -185,28 +185,28 @@ export default async function Home() {
       </section>
 
       {/* 7. Ajakan Pendataan Warga Rantau */}
-      <section className="py-16 sm:py-20 bg-canvas-soft">
+      <section className="py-16 sm:py-24 bg-canvas-soft">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="max-w-2xl mx-auto">
-            <span className="text-xs font-bold text-gold uppercase tracking-wider">
+          <div className="max-w-2xl mx-auto space-y-3">
+            <span className="text-xs font-bold text-primary uppercase tracking-wider">
               Silaturahmi Warga
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1.5 mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
               Belum Terdaftar di Buku Warga KKS Mimika?
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-8">
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed pb-4">
               Mari daftarkan diri dan keluarga Anda agar terhubung dengan sesama perantau Soppeng di sektor domisili Anda di Timika. Proses mudah, hangat, dan tanpa birokrasi kaku.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
               <Link
                 href="/pendataan"
-                className="w-full sm:w-auto px-8 py-4 bg-gold hover:bg-gold-dark text-white font-semibold rounded-xl transition-all shadow-sm active:scale-95 text-center"
+                className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-8 bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl transition-all shadow-sm active:scale-95 text-center"
               >
                 Formulir Pendaftaran Warga Rantau
               </Link>
               <Link
                 href="/profil"
-                className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 hover:border-slate-300 text-slate-800 font-semibold rounded-xl transition-all text-center shadow-2xs"
+                className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-8 bg-white border border-slate-200 hover:border-slate-300 text-slate-800 font-semibold rounded-xl transition-all text-center shadow-2xs"
               >
                 Pelajari Struktur Paguyuban
               </Link>
