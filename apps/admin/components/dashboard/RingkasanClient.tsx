@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   Users,
   Wallet,
@@ -158,26 +159,31 @@ export function RingkasanClient({
       </div>
 
       {/* ===================================================================
-          1. STATS OVERVIEW WITH MINI SPARKLINE (4 Refactored KPI Cards)
+          1. STATS OVERVIEW WITH MINI SPARKLINE (4 Enterprise KPI Cards)
           =================================================================== */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* KPI 1: Total Warga Rantau */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-card transition-all duration-200 flex flex-col justify-between">
+        <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-slate-300 transition-all duration-200 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Total Warga Rantau
               </span>
-              <div className="w-10 h-10 rounded-xl bg-amber-50 text-gold flex items-center justify-center">
-                <Users className="w-5 h-5" />
+              <div className="p-2 rounded-xl bg-slate-50 text-slate-700 border border-slate-100 flex items-center justify-center">
+                <Users className="w-4 h-4 text-slate-700" />
               </div>
             </div>
 
             <div className="mt-4 flex items-end justify-between">
               <div>
-                <div className="text-3xl font-bold text-slate-900 tracking-tight">
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="text-3xl font-bold text-slate-900 tracking-tight"
+                >
                   {totalWarga}
-                </div>
+                </motion.div>
                 <div className="mt-1 flex items-center gap-1.5 text-xs text-emerald-700 font-semibold">
                   <TrendingUp className="w-3.5 h-3.5" />
                   <span>+12.5% bln ini</span>
@@ -196,21 +202,21 @@ export function RingkasanClient({
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+          <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs">
             {pendingWargaCount > 0 ? (
-              <span className="inline-flex items-center gap-1 font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">
-                <Clock className="w-3 h-3" />
+              <span className="inline-flex items-center gap-1.5 bg-amber-50 text-amber-800 border border-amber-200/60 text-xs font-medium px-2 py-0.5 rounded-md">
+                <Clock className="w-3 h-3 text-amber-700" />
                 {pendingWargaCount} menanti verifikasi
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">
-                <CheckCircle2 className="w-3 h-3" />
+              <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 text-xs font-medium px-2 py-0.5 rounded-md">
+                <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                 Semua terverifikasi
               </span>
             )}
             <Link
               href="/warga"
-              className="text-slate-400 hover:text-gold font-medium"
+              className="text-slate-400 hover:text-gold font-medium transition-colors"
             >
               Lihat &rarr;
             </Link>
@@ -218,21 +224,26 @@ export function RingkasanClient({
         </div>
 
         {/* KPI 2: Kas Siaga Sosial Aktif */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-card transition-all duration-200 flex flex-col justify-between">
+        <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-slate-300 transition-all duration-200 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Kas Siaga Sosial Aktif
               </span>
-              <div className="w-10 h-10 rounded-xl bg-sky-light text-sky-dark flex items-center justify-center">
-                <Wallet className="w-5 h-5" />
+              <div className="p-2 rounded-xl bg-slate-50 text-slate-700 border border-slate-100 flex items-center justify-center">
+                <Wallet className="w-4 h-4 text-slate-700" />
               </div>
             </div>
 
             <div className="mt-4">
-              <div className="text-2xl font-bold text-slate-900 tracking-tight truncate">
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, delay: 0.05 }}
+                className="text-3xl font-bold text-slate-900 tracking-tight truncate"
+              >
                 {formatRupiah(kasSummary.saldoKas)}
-              </div>
+              </motion.div>
               <div className="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                 <span className="font-semibold text-emerald-700">
@@ -244,33 +255,43 @@ export function RingkasanClient({
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span>Iuran masuk:</span>
-            <strong className="text-emerald-700 font-mono">
-              +{formatRupiah(kasSummary.iuranWargaMasuk)}
-            </strong>
+          <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span className="bg-amber-50 text-amber-800 border border-amber-200/60 text-xs font-medium px-2 py-0.5 rounded-md">
+              Kas Siaga
+            </span>
+            <span className="text-slate-500 flex items-center gap-1">
+              <span>Masuk:</span>
+              <strong className="text-emerald-700 font-mono">
+                +{formatRupiah(kasSummary.iuranWargaMasuk)}
+              </strong>
+            </span>
           </div>
         </div>
 
-        {/* KPI 3: Penyaluran Duka Cita (Aksen Merah Siri') */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-card transition-all duration-200 relative overflow-hidden flex flex-col justify-between border-l-4 border-l-siri">
+        {/* KPI 3: Penyaluran Duka Cita (Clean Enterprise Canvas, No AI-Slop Left Border) */}
+        <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-slate-300 transition-all duration-200 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Penyaluran Duka Cita
               </span>
-              <div className="w-10 h-10 rounded-xl bg-siri-light text-siri flex items-center justify-center">
-                <HeartHandshake className="w-5 h-5" />
+              <div className="p-2 rounded-xl bg-slate-50 text-slate-700 border border-slate-100 flex items-center justify-center">
+                <HeartHandshake className="w-4 h-4 text-slate-700" />
               </div>
             </div>
 
             <div className="mt-4">
-              <div className="text-3xl font-bold text-slate-900 tracking-tight flex items-baseline gap-2">
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, delay: 0.1 }}
+                className="text-3xl font-bold text-slate-900 tracking-tight flex items-baseline gap-2"
+              >
                 <span>{wartaDukaList.length}</span>
                 <span className="text-xs font-normal text-slate-500">
                   kasus tertangani
                 </span>
-              </div>
+              </motion.div>
               <div className="mt-1 text-xs text-rose-600 font-semibold flex items-center gap-1">
                 <span>Santunan:</span>
                 <span className="font-mono">
@@ -280,14 +301,14 @@ export function RingkasanClient({
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-            <span className="text-siri font-medium flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-siri animate-pulse" />
-              Salipuri Temmadinging
+          <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span className="bg-rose-50 text-rose-700 border border-rose-100 text-xs font-medium px-2 py-0.5 rounded-md flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+              Lelayu Paguyuban
             </span>
             <Link
               href="/warta"
-              className="text-slate-400 hover:text-siri font-medium"
+              className="text-slate-400 hover:text-rose-700 font-medium transition-colors"
             >
               Warta &rarr;
             </Link>
@@ -295,21 +316,26 @@ export function RingkasanClient({
         </div>
 
         {/* KPI 4: Usaha Niaga Terdaftar */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-card transition-all duration-200 flex flex-col justify-between">
+        <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-slate-300 transition-all duration-200 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Usaha Niaga Terdaftar
               </span>
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
-                <Store className="w-5 h-5" />
+              <div className="p-2 rounded-xl bg-slate-50 text-slate-700 border border-slate-100 flex items-center justify-center">
+                <Store className="w-4 h-4 text-slate-700" />
               </div>
             </div>
 
             <div className="mt-4">
-              <div className="text-3xl font-bold text-slate-900 tracking-tight">
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, delay: 0.15 }}
+                className="text-3xl font-bold text-slate-900 tracking-tight"
+              >
                 {totalNiaga}
-              </div>
+              </motion.div>
               <div className="mt-1 text-xs text-slate-500">
                 <span>Dominan: </span>
                 <strong className="text-slate-800 font-semibold">
@@ -319,9 +345,11 @@ export function RingkasanClient({
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span>Status Verifikasi:</span>
-            <span className="text-emerald-700 font-semibold">100% Aktif</span>
+          <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span className="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-0.5 rounded-md">
+              UMKM Warga
+            </span>
+            <span className="text-emerald-700 font-semibold text-xs">100% Aktif</span>
           </div>
         </div>
       </div>

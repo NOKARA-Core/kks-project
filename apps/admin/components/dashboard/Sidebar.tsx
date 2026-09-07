@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard,
   Users,
@@ -13,8 +14,10 @@ import {
   ShieldCheck,
   Database,
   Building2,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSidebar } from "./SidebarContext";
 
 const NAV_ITEMS = [
   {
@@ -49,11 +52,15 @@ const NAV_ITEMS = [
   },
 ];
 
-export function Sidebar() {
+interface SidebarNavContentProps {
+  onItemClick?: () => void;
+}
+
+function SidebarNavContent({ onItemClick }: SidebarNavContentProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-72 border-r border-slate-200/80 bg-white flex flex-col justify-between shrink-0 h-screen sticky top-0 shadow-sm select-none z-30">
+    <div className="flex flex-col justify-between h-full">
       {/* Brand Header */}
       <div>
         <div className="p-6 border-b border-slate-100">
@@ -105,14 +112,24 @@ export function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={onItemClick}
                 className={cn(
-                  "flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-150 group",
+                  "relative flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-colors duration-150 group",
                   isActive
-                    ? "bg-gold text-white shadow-md shadow-gold/25 font-semibold"
+                    ? "text-white font-semibold"
                     : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                 )}
               >
-                <div className="flex items-center gap-3">
+                {/* Active Sliding Indicator (layoutId="activeNav") */}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeNav"
+                    className="absolute inset-0 bg-gold rounded-xl shadow-md shadow-gold/25"
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  />
+                )}
+
+                <div className="relative z-10 flex items-center gap-3">
                   <Icon
                     className={cn(
                       "w-4 h-4 transition-colors",
@@ -126,7 +143,7 @@ export function Sidebar() {
                 {item.badge && (
                   <span
                     className={cn(
-                      "text-[10px] px-1.5 py-0.5 rounded-md font-semibold tracking-wide",
+                      "relative z-10 text-[10px] px-1.5 py-0.5 rounded-md font-semibold tracking-wide transition-colors",
                       isActive
                         ? "bg-white/20 text-white"
                         : "bg-slate-100 text-slate-500 group-hover:bg-slate-200"
@@ -192,6 +209,58 @@ export function Sidebar() {
           </div>
         </div>
       </div>
-    </aside>
+    </div>
   );
 }
+
+export function Sidebar() {
+  const { isOpen, closeSidebar } = useSidebar();
+
+  return (
+    <>
+      {/* 1. Desktop Static Sidebar (lg+) */}
+      <aside className="hidden lg:flex w-64 border-r border-slate-200/80 bg-white flex-col shrink-0 h-screen sticky top-0 shadow-xs select-none z-30">
+        <SidebarNavContent />
+      </aside>
+
+      {/* 2. Mobile Responsive Slide-Over Drawer (< lg) */}
+      <AnimatePresence>
+        {isOpen && (
+          <div className="lg:hidden fixed inset-0 z-50 flex">
+            {/* Backdrop with fade transition */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={closeSidebar}
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm"
+              aria-label="Tutup Menu"
+            />
+
+            {/* Slide-over Drawer with spring physics */}
+            <motion.aside
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="relative w-72 max-w-[85vw] bg-white h-full shadow-2xl flex flex-col z-50 border-r border-slate-200 overflow-y-auto"
+            >
+              {/* Close Button at top corner of drawer */}
+              <button
+                onClick={closeSidebar}
+                className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors z-20"
+                aria-label="Tutup navigasi"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <SidebarNavContent onItemClick={closeSidebar} />
+            </motion.aside>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
