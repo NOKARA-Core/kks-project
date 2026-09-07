@@ -121,6 +121,9 @@ export function Topbar() {
           <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
           <span className="truncate">{timikaTime || "Memuat waktu Timika..."}</span>
         </div>
+
+        {/* Logout Action Button */}
+        <LogoutButton />
       </div>
     </header>
   );
