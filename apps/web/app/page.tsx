@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { HeroSection } from '../components/sections/HeroSection';
+import { WartaSection } from '../components/sections/WartaSection';
 import { HeartHandshake, ShieldCheck, Users, ArrowRight, Store, Calendar, FileText, ChevronRight } from 'lucide-react';
 
 export default function Home() {
@@ -7,6 +8,9 @@ export default function Home() {
     <main className="w-full">
       {/* 1. Hero Section Berita Informatif */}
       <HeroSection />
+
+      {/* 2. Warta & Agenda Komunitas (Dengan CTA Saluran WhatsApp Resmi) */}
+      <WartaSection />
 
       {/* 2. Tiga Pilar Luhur Komunitas di Rantau */}
       <section className="py-16 sm:py-20 bg-white border-b border-slate-100">

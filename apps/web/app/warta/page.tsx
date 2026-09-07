@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { HeartHandshake, Calendar, Sparkles, MessageCircle, Clock, MapPin } from 'lucide-react';
+import { WartaChannelCta } from '../../components/WartaChannelCta';
 
 export const metadata: Metadata = {
   title: 'Warta Warga & Kabar Komunitas',
@@ -23,6 +24,11 @@ export default function WartaPage() {
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
               Kanal informasi resmi seputar kabar suka dan duka sesama warga perantau Soppeng, serta agenda kegiatan silaturahmi di Kabupaten Mimika.
             </p>
+          </div>
+
+          {/* Banner Saluran WhatsApp Resmi */}
+          <div className="mt-8">
+            <WartaChannelCta />
           </div>
 
           {/* Quick Jump Anchor Filter */}
