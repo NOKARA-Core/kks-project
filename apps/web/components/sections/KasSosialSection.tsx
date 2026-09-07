@@ -107,7 +107,8 @@ export function KasSosialSection({
                 </div>
               </div>
             </div>
-          </ScrollReveal>
+          </div>
+        </ScrollReveal>
 
           {/* Daftar Transaksi Terkini (Anti-Dempet di Mobile) */}
           {recentTransactions.length > 0 && (
