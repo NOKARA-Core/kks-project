@@ -14,9 +14,24 @@ const geistMono = localFont({
 import { siteConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.appUrl || "http://localhost:3008"),
   title: `Admin ${siteConfig.shortOrgName} — Manajemen ${siteConfig.orgName}`,
   description:
     `Dashboard Manajemen Resmi Pengurus ${siteConfig.orgName}, Papua Tengah.`,
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/logo-kks.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/manifest.webmanifest",
 };
 
 

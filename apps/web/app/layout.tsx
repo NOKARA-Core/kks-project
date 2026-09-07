@@ -16,6 +16,7 @@ const geistMono = localFont({
 import { siteConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.appUrl || "http://localhost:3009"),
   title: {
     default: `${siteConfig.shortOrgName} — ${siteConfig.orgName}`,
     template: `%s | ${siteConfig.shortOrgName}`,
@@ -33,14 +34,43 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: siteConfig.orgName }],
   creator: siteConfig.orgName,
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/logo-kks.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/manifest.webmanifest",
   openGraph: {
     title: `${siteConfig.shortOrgName} — ${siteConfig.orgName}`,
     description:
       `Portal resmi silaturahmi, warta komunitas, dan pendataan warga perantau Soppeng di Tanah Amungsa/Mimika, Papua Tengah.`,
     url: siteConfig.appUrl,
     siteName: siteConfig.shortOrgName,
+    images: [
+      {
+        url: "/icon-512x512.png",
+        width: 512,
+        height: 512,
+        alt: `Logo Resmi ${siteConfig.orgName}`,
+      },
+    ],
     locale: "id_ID",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: `${siteConfig.shortOrgName} — ${siteConfig.orgName}`,
+    description:
+      `Portal resmi silaturahmi, warta komunitas, dan pendataan warga perantau Soppeng di Kabupaten Mimika, Papua Tengah.`,
+    images: ["/icon-512x512.png"],
   },
 };
 

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   ChevronRight,
@@ -80,11 +82,29 @@ export function Topbar() {
           )}
         </button>
 
-        {/* Dynamic Breadcrumbs */}
-        <div className="flex items-center gap-2 text-xs sm:text-sm">
-          <span className="text-slate-400 font-medium hidden sm:inline">KKS Mimika</span>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-300 hidden sm:inline" />
-          <span className="font-semibold text-slate-800">{currentTitle}</span>
+        {/* Dynamic Breadcrumbs with Logo */}
+        <div className="flex items-center gap-2.5">
+          <Link
+            href="/"
+            className="flex items-center gap-2 group shrink-0"
+            title="Dashboard KKS Mimika"
+          >
+            <div className="relative w-7 h-7 flex-shrink-0">
+              <Image
+                src="/logo-kks.svg"
+                alt="Logo KKS Mimika"
+                width={28}
+                height={28}
+                className="w-full h-full object-contain"
+                priority
+              />
+            </div>
+          </Link>
+          <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm">
+            <span className="text-slate-400 font-medium hidden sm:inline">KKS Mimika</span>
+            <ChevronRight className="w-3.5 h-3.5 text-slate-300 hidden sm:inline" />
+            <span className="font-semibold text-slate-800 truncate max-w-[160px] sm:max-w-none">{currentTitle}</span>
+          </div>
         </div>
       </div>
 
