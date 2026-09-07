@@ -24,6 +24,11 @@ import {
   Gamepad2,
   Plus,
   Trash2,
+  Type,
+  LayoutGrid,
+  Calendar,
+  MapPin,
+  FileText,
 } from "lucide-react";
 
 // ==========================================
@@ -55,70 +60,70 @@ export const STYLE_PRESETS: StylePreset[] = [
     id: "poster_domino_turnamen",
     category: "Poster Kegiatan & Lomba",
     name: "Poster Turnamen Domino & Lomba",
-    tagline: "Desain poster kompetisi seru, fokus meja batu domino & pion catur, pencahayaan dramatis lapang",
+    tagline: "Desain poster turnamen siap pakai lengkap layout judul, bracket kompetisi, & detail acara",
     icon: Gamepad2,
     promptSnippet:
-      "Dynamic community sports & game tournament poster art, dramatic close-up composition focusing on classic dominoes tiles on a wooden table, intense friendly rivalry atmosphere, subtle motion blur on hands playing tiles, bold modern graphic layout with generous clean whitespace for event typography, Bugis gold (#D97706) and deep navy accents, energetic yet mature civic sports poster",
+      "Complete finished graphic design tournament poster artwork, official sports championship event flyer composition. Features prominent bold distressed athletic tournament typography reading the event title at top header, realistic wooden dominoes tiles in action focal point, clean event badge badges, dedicated footer section for tournament date, venue in Timika, and registration info, bold Swiss graphic hierarchy, dramatic warm rim lighting, high-contrast tournament branding, zero clutter",
   },
   // 3. Poster Acara Silaturahmi & Musyawarah
   {
     id: "poster_silaturahmi",
     category: "Poster Kegiatan & Lomba",
     name: "Poster Kegiatan Musyawarah & Silaturahmi",
-    tagline: "Komposisi grafis editorial lapang, ruang kosong pembaca lega untuk judul/jadwal/lokasi",
+    tagline: "Poster resmi acara organisasi lengkap header judul, tanggal, ornamen Bugis, & layout rapi",
     icon: Trophy,
     promptSnippet:
-      "High-end corporate editorial event poster design, elegant civic convention theme, spacious breathable layout with intentional negative white space reserved for typography and schedules, tasteful traditional Bugis geometric border motifs, dignified warm golden ambient lighting, modern Swiss graphic design sensibility, crisp vector precision, balanced hierarchy",
+      "Official finished event announcement poster design, high-end corporate civic summit layout. Features a dignified header banner with elegant bold typography for the convention title, tasteful Bugis Saoraja geometric filigree accents, structured clean content cards for meeting agenda, date, time, and hall location, professional executive layout with ample clean white space, warm golden ambient lighting, balanced modern Swiss typography, ready-to-print gala invitation flyer",
   },
   // 4. Gen Z Pop & Neo-Brutalism Bersih
   {
     id: "gen_z_vibrant",
     category: "Gaya Generasi & Kreatif",
     name: "Gen Z Neo-Brutalist Pop",
-    tagline: "Warna segar energik, tipografi blok tegas, stiker grafis kekinian, clean whitespace",
+    tagline: "Poster gaya streetwear kekinian, tipografi blok tebal, stiker grafis dinamis, layout majalah",
     icon: Flame,
     promptSnippet:
-      "Youthful Gen Z trendy visual art, clean neo-brutalist aesthetic with playful high-contrast elements, bold modern layout, subtle retro halftone dot textures, vibrant contemporary color palette with refreshing coral, sunshine yellow, and emerald accents, ample uncluttered negative space, streetwear magazine aesthetic, stylish and punchy without visual noise",
+      "Complete modern youth event poster design in trendy Neo-Brutalist graphic style. Features oversized bold grotesque sans-serif title typography across the top, high-contrast blocky layout containers, playful graphic badge stickers, barcode and date stamp graphic accents, refreshing vibrant color blocking, streetwear culture festival flyer aesthetic, perfectly aligned modular layout, ultra-crisp vector shapes",
   },
   // 5. Millennial Modern Minimalist (Monocle / Kinfolk)
   {
     id: "millennial_kinfolk",
     category: "Gaya Generasi & Kreatif",
     name: "Milenial Minimalis Estetik",
-    tagline: "Palet warna earthy hangat, pencahayaan lembut ala majalah Kinfolk/Monocle, sangat rapi",
+    tagline: "Poster editorial artistik ala majalah Kinfolk/Monocle, tipografi elegan, sangat lapang & rapi",
     icon: Palette,
     promptSnippet:
-      "Sophisticated millennial editorial aesthetic, inspired by Kinfolk and Monocle magazine photography, warm earthy neutral tones (beige, sage, terracotta, warm taupe), soft diffused morning window light, serene atmosphere, artistic negative space, clean thoughtful composition, organic linen and natural wood textures, understated luxury and calm community dignity",
+      "High-end editorial exhibition poster design, inspired by Kinfolk and Monocle art direction. Features refined serif headline typography, generous intentional breathable white margins, minimalist layout with subtle thin line dividers, warm earthy neutral tones (terracotta, sage, cream), soft natural morning light, serene community lifestyle flyer aesthetic, understated luxury and calm dignity",
   },
   // 6. Ilustrasi 3D Frosted Glass Minimalis
   {
     id: "3d_clay_glass",
     category: "Gaya Generasi & Kreatif",
     name: "Ilustrasi 3D Frosted Glass",
-    tagline: "Bentuk 3D lembut semi-transparan, warna Emas Soppeng & Biru, kanvas terang lapang",
+    tagline: "Poster teknologi/kreatif dengan elemen 3D clay & kaca semi-transparan, warna Emas & Biru",
     icon: Box,
     promptSnippet:
-      "High-end 3D graphic illustration with matte clay and frosted glass elements, smooth rounded geometric shapes, soft ambient occlusion, curated palette featuring Bugis gold (#D97706), sky blue (#38BDF8), and bright off-white canvas, clean breathable spatial layout, subtle soft directional shadows, premium UI design illustration, octane render",
+      "Modern 3D promotional event poster design featuring tactile matte clay and frosted glass elements. Features bold modern floating typography for the event title, soft rounded 3D community icons, premium UI card layout displaying event date and details, curated palette featuring Bugis gold (#D97706) and sky blue (#38BDF8) on clean off-white canvas, subtle ambient shadows, octane render poster layout",
   },
   // 7. Poster Warta & Informasi Ringkas
   {
     id: "poster_warta_flat",
     category: "Poster Kegiatan & Lomba",
     name: "Infografis & Warta Ringkas",
-    tagline: "Desain visual datar flat modern, blok pembagian informasi rapi, bebas dari kepadatan",
+    tagline: "Poster selebaran pengumuman ringkas, blok informasi modular teratur, sangat mudah dibaca",
     icon: Megaphone,
     promptSnippet:
-      "Contemporary editorial infographic visual, flat modern design with clear structural zones, generous airy padding, balanced contrast, refined sans-serif typographic breathing room, civic community news bulletin format, crisp vector clarity, orderly and straightforward visual communication",
+      "Complete official civic bulletin poster design, clean modern flat infographic layout. Features clear high-contrast header for announcement title, neatly separated infographic panels for key points, dates, and contacts, clean sans-serif typography, crisp icons and bullet points, zero visual noise, professional municipal community notice flyer format",
   },
   // 8. Poster Lelayu / Takziah Berwibawa
   {
     id: "poster_lelayu_solemn",
     category: "Warta & Takziah",
     name: "Poster Lelayu / Takziah Khidmat",
-    tagline: "Nuansa damai dan menentang, aksen bunga putih lembut, penghormatan Salipuri Temmadinging",
+    tagline: "Poster duka cita resmi paguyuban, ornamen khidmat, tempat foto almarhum/ah & doa Salipuri",
     icon: HeartHandshake,
     promptSnippet:
-      "Dignified condolence memorial tribute banner (Salipuri Temmadinging), peaceful serene and comforting atmosphere, pure white floral accents with subtle olive foliage, soft respectful ambient glow, muted charcoal slate and warm ivory canvas, elegant Bugis cultural respect motifs, solemn prayerful vibe, completely free of eerie or spooky elements, peaceful solace",
+      "Dignified finished bereavement condolence tribute poster design (Salipuri Temmadinging). Features respectful calligraphy header 'Innalillahi Wa Inna Ilaihi Rajiun' and memorial title, dedicated central ornate frame reserved for portrait photo, elegant subtle Bugis cultural respect motifs, soft white floral accents, muted charcoal and warm ivory backdrop, solemn prayerful layout, peace and solace flyer design",
   },
   // 9. Foto Komunitas Golden Hour (Malam Ramah Tamah)
   {
@@ -135,10 +140,10 @@ export const STYLE_PRESETS: StylePreset[] = [
     id: "retro_heritage",
     category: "Gaya Generasi & Kreatif",
     name: "Vintage Bugis Heritage Modern",
-    tagline: "Sentuhan ornamen warisan Saoraja Soppeng dipadu tipografi poster modern kontemporer",
+    tagline: "Poster budaya warisan klasik Bugis modern, motif sutra Saoraja, tipografi berwibawa",
     icon: Award,
     promptSnippet:
-      "Modern heritage cultural graphic poster, subtle traditional Bugis Saoraja architectural silhouettes and silk weaving patterns reimagined in clean contemporary lines, rich burgundy and antique gold hues on creamy paper texture, generous margins for clear typography, stately and culturally proud, anti-clutter, refined archival elegance",
+      "Archival cultural heritage festival poster design. Features stately vintage serif headline typography, traditional Bugis Saoraja architectural silhouettes and authentic silk weaving patterns in clean contemporary lines, rich burgundy and antique gold hues on creamy textured paper canvas, structured ceremonial event flyer layout, timeless historical prestige",
   },
 ];
 
@@ -211,6 +216,20 @@ interface AspectRatioOption {
 
 const ASPECT_RATIOS: AspectRatioOption[] = [
   {
+    id: "4_5",
+    name: "Poster Vertikal 4:5",
+    ratio: "4:5",
+    promptParam: "--ar 4:5 (Standard Event Poster ratio 4:5 vertical print & social feed)",
+    description: "Format Ideal Cetak Poster & Flyer Event",
+  },
+  {
+    id: "9_16",
+    name: "Story / Banner 9:16",
+    ratio: "9:16",
+    promptParam: "--ar 9:16 (Aspect Ratio 9:16 vertical portrait)",
+    description: "WhatsApp Story, Banner Berdiri, & Reels",
+  },
+  {
     id: "16_9",
     name: "Lanskap 16:9",
     ratio: "16:9",
@@ -224,20 +243,13 @@ const ASPECT_RATIOS: AspectRatioOption[] = [
     promptParam: "--ar 1:1 (Aspect Ratio 1:1 square format)",
     description: "Feed Instagram, Profil, & Katalog",
   },
-  {
-    id: "9_16",
-    name: "Potret 9:16",
-    ratio: "9:16",
-    promptParam: "--ar 9:16 (Aspect Ratio 9:16 vertical portrait)",
-    description: "WhatsApp Story & Instagram Reels",
-  },
 ];
 
 export default function PromptStudioPage() {
   const [userInput, setUserInput] = useState("");
   const [selectedStyleId, setSelectedStyleId] = useState<string>("poster_domino_turnamen");
   const [hasPhotoReference, setHasPhotoReference] = useState(false);
-  const [selectedRatioId, setSelectedRatioId] = useState<string>("16_9");
+  const [selectedRatioId, setSelectedRatioId] = useState<string>("4_5");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [isCopied, setIsCopied] = useState(false);
 
@@ -245,6 +257,13 @@ export default function PromptStudioPage() {
   const [selectedPaletteId, setSelectedPaletteId] = useState<string>("default_kks");
   const [customColors, setCustomColors] = useState<string[]>(["#DC2626", "#D97706", "#0F172A", "#FFFFFF"]);
   const [customPaletteNotes, setCustomPaletteNotes] = useState<string>("Warna Emas dan Merah dengan latar bersih");
+
+  // Mode Poster & Elemen Tipografi
+  const [isPosterMode, setIsPosterMode] = useState(true);
+  const [posterTitle, setPosterTitle] = useState("TURNAMEN DOMINO KKS MIMIKA 2026");
+  const [posterSubtitle, setPosterSubtitle] = useState("Ajang Silaturahmi & Asah Taktik Perantau Soppeng");
+  const [posterDateVenue, setPosterDateVenue] = useState("Sabtu - Minggu, 15-16 Oktober 2026 • Gedung Tongkonan Timika");
+  const [posterOrganizer, setPosterOrganizer] = useState("Kerukunan Keluarga Soppeng (KKS) Kab. Mimika");
 
   // Active items
   const activeStyle =
@@ -275,18 +294,33 @@ export default function PromptStudioPage() {
       text: "Turnamen Lomba Domino Semi-Open KKS Mimika memperebutkan Piala Bergilir di Gedung Tongkonan / Balai Paguyuban, suasana kompetitif penuh tawa dan persaudaraan.",
       styleId: "poster_domino_turnamen",
       paletteId: "default_kks",
+      ratioId: "4_5",
+      titleText: "TURNAMEN DOMINO KKS MIMIKA 2026",
+      subtitleText: "Ajang Silaturahmi & Asah Taktik Perantau Soppeng - Total Hadiah Rp 15 Juta",
+      dateVenueText: "15 - 16 Oktober 2026 • Balai Paguyuban KKS Timika",
+      organizerText: "Kerukunan Keluarga Soppeng (KKS) Kab. Mimika",
     },
     {
       title: "Musyawarah Tahunan & Silaturahmi",
       text: "Musyawarah Warga Perantau Soppeng di Timika, pemaparan program kas sosial dan santunan, peserta duduk rapi di ruangan ber-AC dengan backdrop paguyuban.",
       styleId: "poster_silaturahmi",
       paletteId: "royal_heritage",
+      ratioId: "4_5",
+      titleText: "MUSYAWARAH BESAR & SILATURAHMI TAHUNAN",
+      subtitleText: "Mempererat Siri' Na Pesse di Tanah Rantau Mimika",
+      dateVenueText: "Minggu, 22 November 2026 • Hotel Grand Mozza Timika",
+      organizerText: "Pengurus BPH Kerukunan Keluarga Soppeng (KKS)",
     },
     {
       title: "Nonton Bareng & Santai Gen Z",
       text: "Pemuda-pemudi rantau generasi muda KKS berkumpul di cafe Timika dengan laptop, kopi, dan camilan santai dalam suasana nongkrong kasual kekinian.",
       styleId: "gen_z_vibrant",
       paletteId: "gen_z_cyber",
+      ratioId: "4_5",
+      titleText: "KKS YOUTH HANGOUT & CREATIVE MEETUP",
+      subtitleText: "Temu Kreatif Pemuda Rantau • Diskusi, Kopi, & Kolaborasi",
+      dateVenueText: "Jumat Malam, 28 Oktober 2026 • Cafe Titik Temu Timika",
+      organizerText: "Divisi Kepemudaan & Media Kreatif KKS Mimika",
     },
   ];
 
@@ -318,20 +352,57 @@ export default function PromptStudioPage() {
     // 1. Klausul Referensi Gambar (jika toggle aktif)
     if (hasPhotoReference) {
       parts.push(
-        "IMPORTANT REFERENCE CONTEXT:\nPlease strictly reference the attached image below. Faithfully preserve the facial identity, likeness, key subject features, or physical location from the uploaded photo, while harmoniously rendering it into the visual style described below:"
+        "IMPORTANT REFERENCE CONTEXT:\nPlease strictly reference the attached image below. Faithfully preserve the facial identity, likeness, key subject features, or physical location from the uploaded photo, while harmoniously rendering it into the visual layout described below:"
       );
     }
 
-    // 2. Deskripsi Ide Utama (Bahasa Inggris Terstruktur)
+    // 2. Tipe Dokumen / Output Medium (KUNCI AGAR TIDAK HANYA GAMBAR POLOS)
+    if (isPosterMode) {
+      parts.push(
+        "DELIVERABLE FORMAT - OFFICIAL FINISHED POSTER DESIGN:\n" +
+        "You must generate a complete, publication-ready graphic event poster artwork (not just a standalone background illustration or raw photo). " +
+        "The final image must be formatted as a complete promotional event poster with integrated graphic typography hierarchy, header section, central hero artwork, and clean structured event details at the bottom."
+      );
+
+      // Injeksi Teks & Tata Letak Tipografi Poster
+      const typographySpecs: string[] = [];
+      if (posterTitle.trim()) {
+        typographySpecs.push(`- Main Header Title: "${posterTitle.trim()}" in bold, prominent, high-contrast display lettering`);
+      }
+      if (posterSubtitle.trim()) {
+        typographySpecs.push(`- Subtitle Tagline: "${posterSubtitle.trim()}" in clean secondary typographic font`);
+      }
+      if (posterDateVenue.trim()) {
+        typographySpecs.push(`- Schedule & Location Badge: "${posterDateVenue.trim()}" displayed inside a dedicated clean badge/ribbon container`);
+      }
+      if (posterOrganizer.trim()) {
+        typographySpecs.push(`- Organizer Branding: "${posterOrganizer.trim()}" at the top or bottom footer banner`);
+      }
+
+      if (typographySpecs.length > 0) {
+        parts.push(
+          "POSTER TYPOGRAPHY & TEXT SPECIFICATION (RENDER VISIBLE TEXT):\n" +
+          typographySpecs.join("\n") + "\n" +
+          "- Typography Rule: All text rendered on the poster must be clear, crisp, properly spelled, balanced in visual hierarchy, and completely legible without messy distortion."
+        );
+      }
+    } else {
+      parts.push(
+        "DELIVERABLE FORMAT - EDITORIAL VISUAL COMPOSITION:\n" +
+        "Generate a clean visual composition with spacious negative breathing room reserved for manual typography overlay by human graphic designers."
+      );
+    }
+
+    // 3. Deskripsi Ide Utama (Bahasa Inggris Terstruktur)
     const coreSubject = userInput.trim()
       ? userInput.trim()
       : "A lively community event of Kerukunan Keluarga Soppeng (KKS) diaspora in Timika Papua, featuring friendly gatherings, cultural camaraderie, and shared civic unity";
-    parts.push(`PRIMARY SUBJECT:\n${coreSubject}.`);
+    parts.push(`PRIMARY VISUAL THEME & SCENE:\n${coreSubject}.`);
 
-    // 3. Preset Gaya Visual & Karakteristik
-    parts.push(`ART DIRECTION & STYLE:\n${activeStyle.promptSnippet}.`);
+    // 4. Preset Gaya Visual & Karakteristik
+    parts.push(`ART DIRECTION & POSTER STYLE:\n${activeStyle.promptSnippet}.`);
 
-    // 4. Color Palette Directive (Default, Preset, atau Custom)
+    // 5. Color Palette Directive (Default, Preset, atau Custom)
     if (selectedPaletteId === "custom") {
       const hexList = customColors.join(", ");
       const customInstruction = `Custom Color Palette: Curated custom palette focusing on hex codes (${hexList})${
@@ -342,16 +413,18 @@ export default function PromptStudioPage() {
       parts.push(`COLOR PALETTE DIRECTIVE:\n${activePresetPalette.promptInstruction}.`);
     }
 
-    // 5. Anti-Slop Guard & Whitespace Rule (Mencegah tampilan AI Murahan)
+    // 6. Anti-Slop Guard & Whitespace Rule (Mencegah tampilan AI Murahan)
     const antiSlopAndWhitespace =
       "COMPOSITION & ANTI-SLOP RULES:\n" +
-      "1. High editorial whitespace: Ensure generous, intentional empty negative space (at least 35% of the frame) suitable for clean headline and date typography overlay without visual interference.\n" +
+      (isPosterMode
+        ? "1. Professional graphic layout: Maintain balanced Swiss editorial alignment, generous padding around text margins, and distinct separation between visual artwork and text areas.\n"
+        : "1. High editorial whitespace: Ensure generous, intentional empty negative space (at least 35% of the frame) suitable for clean headline and date typography overlay without visual interference.\n") +
       "2. Natural and authentic look: Strictly avoid synthetic plastic AI skin, avoid oversaturated cartoonish neon tints, avoid generic AI clutter, and avoid surreal distorted background objects.\n" +
       "3. Anatomical accuracy: Perfectly formed human hands with exactly five fingers per hand, natural eye contact, realistic posture, and non-distorted facial structures.\n" +
       "4. Quality & Clarity: 8k resolution, authentic lighting physics, realistic depth of field, balanced visual hierarchy, tasteful color grading.";
     parts.push(antiSlopAndWhitespace);
 
-    // 6. Format Rasio Aspek
+    // 7. Format Rasio Aspek
     parts.push(`OUTPUT FORMAT:\n${activeRatio.promptParam}.`);
 
     return parts.join("\n\n");
@@ -374,7 +447,12 @@ export default function PromptStudioPage() {
     setSelectedStyleId("poster_domino_turnamen");
     setSelectedPaletteId("default_kks");
     setHasPhotoReference(false);
-    setSelectedRatioId("16_9");
+    setSelectedRatioId("4_5");
+    setIsPosterMode(true);
+    setPosterTitle("TURNAMEN DOMINO KKS MIMIKA 2026");
+    setPosterSubtitle("Ajang Silaturahmi & Asah Taktik Perantau Soppeng");
+    setPosterDateVenue("Sabtu - Minggu, 15-16 Oktober 2026 • Gedung Tongkonan Timika");
+    setPosterOrganizer("Kerukunan Keluarga Soppeng (KKS) Kab. Mimika");
     setCategoryFilter("all");
     setIsCopied(false);
   };
@@ -451,6 +529,12 @@ export default function PromptStudioPage() {
                       setUserInput(sug.text);
                       setSelectedStyleId(sug.styleId);
                       setSelectedPaletteId(sug.paletteId);
+                      setSelectedRatioId(sug.ratioId);
+                      setIsPosterMode(true);
+                      setPosterTitle(sug.titleText);
+                      setPosterSubtitle(sug.subtitleText);
+                      setPosterDateVenue(sug.dateVenueText);
+                      setPosterOrganizer(sug.organizerText);
                     }}
                     className="text-[11px] px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition cursor-pointer text-left"
                   >
@@ -460,10 +544,108 @@ export default function PromptStudioPage() {
               </div>
             </div>
 
+            {/* Mode Pembuatan: Poster Lengkap vs Gambar Saja */}
+            <div className="pt-3 border-t border-slate-100">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <FileText className="w-4 h-4 text-rose-600" />
+                    Format Poster Kegiatan Lengkap (Ada Judul & Teks)
+                  </span>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    Jika aktif, AI akan merender <strong>poster utuh siap tayang</strong> dengan tipografi judul, tanggal, dan nama paguyuban.
+                  </p>
+                </div>
+
+                <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                  <input
+                    type="checkbox"
+                    checked={isPosterMode}
+                    onChange={(e) => setIsPosterMode(e.target.checked)}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-slate-200 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-rose-600"></div>
+                </label>
+              </div>
+
+              {/* Form Input Detail Teks Poster jika Mode Poster Aktif */}
+              {isPosterMode && (
+                <div className="mt-3 p-3.5 rounded-lg bg-slate-50 border border-slate-200 space-y-3 animate-in fade-in duration-150">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                      <Type className="w-3.5 h-3.5 text-slate-600" />
+                      Detail Teks / Tipografi yang Tampil di Poster:
+                    </span>
+                    <span className="text-[10px] bg-rose-50 text-rose-700 border border-rose-200 px-2 py-0.5 rounded font-semibold">
+                      Terbaca di Poster AI
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div className="space-y-1 sm:col-span-2">
+                      <label className="text-[11px] font-semibold text-slate-700 flex items-center gap-1">
+                        <span>1. Judul Utama Poster (Header Title):</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={posterTitle}
+                        onChange={(e) => setPosterTitle(e.target.value)}
+                        placeholder="Contoh: TURNAMEN DOMINO KKS MIMIKA 2026"
+                        className="w-full px-3 py-1.5 text-xs bg-white border border-slate-300 rounded-md text-slate-900 font-bold focus:outline-hidden focus:border-slate-500"
+                      />
+                    </div>
+
+                    <div className="space-y-1 sm:col-span-2">
+                      <label className="text-[11px] font-semibold text-slate-700 flex items-center gap-1">
+                        <span>2. Subjudul / Tema / Hadiah (Subtitle Tagline):</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={posterSubtitle}
+                        onChange={(e) => setPosterSubtitle(e.target.value)}
+                        placeholder="Contoh: Ajang Silaturahmi & Asah Taktik - Total Hadiah Rp 15 Juta"
+                        className="w-full px-3 py-1.5 text-xs bg-white border border-slate-300 rounded-md text-slate-800 focus:outline-hidden focus:border-slate-500"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-semibold text-slate-700 flex items-center gap-1">
+                        <Calendar className="w-3 h-3 text-slate-500" />
+                        <span>3. Waktu & Lokasi Kegiatan:</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={posterDateVenue}
+                        onChange={(e) => setPosterDateVenue(e.target.value)}
+                        placeholder="Contoh: 15-16 Oktober 2026 • Gedung Tongkonan Timika"
+                        className="w-full px-3 py-1.5 text-xs bg-white border border-slate-300 rounded-md text-slate-800 focus:outline-hidden focus:border-slate-500"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-semibold text-slate-700 flex items-center gap-1">
+                        <MapPin className="w-3 h-3 text-slate-500" />
+                        <span>4. Penyelenggara / Paguyuban:</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={posterOrganizer}
+                        onChange={(e) => setPosterOrganizer(e.target.value)}
+                        placeholder="Contoh: Kerukunan Keluarga Soppeng (KKS) Kab. Mimika"
+                        className="w-full px-3 py-1.5 text-xs bg-white border border-slate-300 rounded-md text-slate-800 focus:outline-hidden focus:border-slate-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <p className="text-xs text-slate-500 flex items-center gap-1.5 pt-1 border-t border-slate-100">
               <HelpCircle className="w-3.5 h-3.5 text-slate-400 shrink-0" />
               <span>
-                Cukup ketikkan ide singkat Anda. Prompt engine kami menyuntikkan instruksi komposisi profesional agar hasilnya tampak seperti karya desainer grafis sungguhan.
+                {isPosterMode
+                  ? "Mode Poster Aktif: Prompt yang dihasilkan akan memerintahkan AI merancang layout poster acara lengkap dengan blok judul, tema, dan jadwal."
+                  : "Mode Gambar Murni: AI hanya akan menghasilkan gambar visual tanpa teks, menyisakan ruang lapang (whitespace) untuk Anda tambahkan teks manual."}
               </span>
             </p>
           </div>
@@ -853,14 +1035,24 @@ export default function PromptStudioPage() {
               )}
             </button>
 
-            {/* Highlights Anti-Slop Protections & Color Directive */}
+            {/* Highlights Anti-Slop Protections, Poster Layout & Color Directive */}
             <div className="p-3 rounded-lg bg-amber-50/60 border border-amber-200/50 text-[11px] text-amber-900 space-y-1">
               <div className="font-bold flex items-center gap-1">
                 <Sparkles className="w-3 h-3 text-amber-600" />
-                <span>Karakteristik Anti AI-Slop & Warna Terpasang:</span>
+                <span>
+                  {isPosterMode ? "Mode Poster Acara Resmi Aktif:" : "Karakteristik Anti AI-Slop & Warna:"}
+                </span>
               </div>
               <p className="text-amber-800/90 leading-relaxed">
-                Prompt otomatis mewajibkan <strong>35% negative whitespace</strong>, palet warna terkontrol (tidak ada warna pelangi acak), pencahayaan alami tanpa kulit plastik, dan akurasi anatomi 5 jari sempurna.
+                {isPosterMode ? (
+                  <>
+                    AI diperintahkan menghasilkan <strong>desain poster publikasi utuh</strong> lengkap dengan teks judul, jadwal acara, palet warna terkontrol, dan tata letak Swiss grafis yang seimbang (bukan sekadar ilustrasi gambar mentah).
+                  </>
+                ) : (
+                  <>
+                    Prompt mewajibkan <strong>35% negative whitespace</strong>, palet warna terkontrol, pencahayaan alami tanpa kulit plastik, dan akurasi anatomi 5 jari sempurna untuk ditambahi teks manual.
+                  </>
+                )}
               </p>
             </div>
 
