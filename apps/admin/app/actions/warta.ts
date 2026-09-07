@@ -47,9 +47,20 @@ export async function getWartaList(
 
 export async function createWarta(data: NewWartaPaguyuban) {
   try {
+    let slug = data.slug;
+    if (!slug) {
+      slug = data.judul
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "")
+        .slice(0, 80);
+      slug = `${slug}-${Date.now().toString().slice(-4)}`;
+    }
+
     const [inserted] = await db
       .insert(wartaPaguyuban)
-      .values(data)
+      .values({ ...data, slug })
       .returning();
 
     revalidatePath("/warta");
@@ -61,6 +72,23 @@ export async function createWarta(data: NewWartaPaguyuban) {
   }
 }
 
+export async function updateWarta(id: string, data: Partial<NewWartaPaguyuban>) {
+  try {
+    const [updated] = await db
+      .update(wartaPaguyuban)
+      .set({ ...data, updatedAt: new Date() })
+      .where(eq(wartaPaguyuban.id, id))
+      .returning();
+
+    revalidatePath("/warta");
+    revalidatePath("/");
+    return { success: true, data: updated };
+  } catch (error: any) {
+    console.error("Error updating warta:", error);
+    return { success: false, error: error?.message || "Gagal memperbarui warta" };
+  }
+}
+
 export async function updateWartaStatus(
   id: string,
   statusTayang: "draft" | "published" | "archived"
@@ -68,7 +96,7 @@ export async function updateWartaStatus(
   try {
     await db
       .update(wartaPaguyuban)
-      .set({ statusTayang })
+      .set({ statusTayang, updatedAt: new Date() })
       .where(eq(wartaPaguyuban.id, id));
 
     revalidatePath("/warta");

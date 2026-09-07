@@ -9,6 +9,7 @@ import {
   timestamp,
   date,
   pgEnum,
+  jsonb,
 } from "drizzle-orm/pg-core";
 import type { InferSelectModel, InferInsertModel } from "drizzle-orm";
 
@@ -95,19 +96,39 @@ export const wargaRantau = pgTable("warga_rantau", {
 });
 
 /**
- * Tabel Warta Suka, Duka (Lelayu), dan Agenda Paguyuban
+ * Tabel Warta Suka, Duka (Lelayu), dan Agenda Kegiatan Paguyuban
  */
 export const wartaPaguyuban = pgTable("warta_paguyuban", {
   id: uuid("id").primaryKey().defaultRandom(),
-  judul: text("judul").notNull(),
   kategori: kategoriWartaEnum("kategori").notNull(),
-  ringkasan: text("ringkasan"),
-  konten: text("konten"),
-  kontakDaruratWa: varchar("kontak_darurat_wa", { length: 20 }),
-  lokasiAcara: text("lokasi_acara").default("Timika"),
-  tanggalPeristiwa: date("tanggal_peristiwa"),
+  judul: varchar("judul", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).unique().notNull(),
+  ringkasan: text("ringkasan").notNull(),
+  kontenUtama: text("konten_utama").notNull(),
+  fotoUtamaUrl: text("foto_utama_url"),
   statusTayang: statusTayangEnum("status_tayang").default("published").notNull(),
+
+  // Field Khusus Duka Cita (Lelayu)
+  namaAlmarhum: varchar("nama_almarhum", { length: 255 }),
+  waktuWafat: timestamp("waktu_wafat", { withTimezone: true }),
+  alamatDukaTimika: text("alamat_duka_timika"),
+  kontakKeluargaWa: varchar("kontak_keluarga_wa", { length: 20 }),
+
+  // Field Khusus Agenda & Berita Kegiatan Kompleks (Opsional & Fleksibel)
+  tanggalMulai: timestamp("tanggal_mulai", { withTimezone: true }),
+  tanggalSelesai: timestamp("tanggal_selesai", { withTimezone: true }),
+  lokasiNamaTempat: varchar("lokasi_nama_tempat", { length: 255 }),
+  lokasiMapsUrl: text("lokasi_maps_url"),
+  penyelenggaraSektor: varchar("penyelenggara_sektor", { length: 100 }),
+  biayaPendaftaran: numeric("biaya_pendaftaran", { precision: 12, scale: 2 }).default("0").notNull(),
+  kuotaPeserta: integer("kuota_peserta"),
+  linkPendaftaranExternal: text("link_pendaftaran_external"),
+  kontakPanitiaWa: varchar("kontak_panitia_wa", { length: 20 }),
+  lampiranDokumenUrl: text("lampiran_dokumen_url"),
+  galeriFotoUrls: jsonb("galeri_foto_urls").$type<string[]>().default([]).notNull(),
+
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
 /**
@@ -130,11 +151,14 @@ export const kasSosial = pgTable("kas_sosial", {
  */
 export const direktoriNiaga = pgTable("direktori_niaga", {
   id: uuid("id").primaryKey().defaultRandom(),
-  namaUsaha: text("nama_usaha").notNull(),
-  namaPemilik: text("nama_pemilik").notNull(),
-  kategoriUsaha: text("kategori_usaha").notNull(),
-  alamatUsahaTimika: text("alamat_usaha_timika"),
+  namaUsaha: varchar("nama_usaha", { length: 255 }).notNull(),
+  namaPemilik: varchar("nama_pemilik", { length: 255 }).notNull(),
+  kategoriUsaha: varchar("kategori_usaha", { length: 100 }).notNull(),
+  alamatUsaha: text("alamat_usaha").notNull(),
   waBisnis: varchar("wa_bisnis", { length: 20 }).notNull(),
+  fotoUsahaUrl: text("foto_usaha_url"),
+  deskripsi: text("deskripsi"),
+  isVerified: boolean("is_verified").default(false).notNull(),
   isActive: boolean("is_active").default(true).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });

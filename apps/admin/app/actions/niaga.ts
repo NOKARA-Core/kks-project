@@ -40,6 +40,25 @@ export async function toggleNiagaStatus(id: string, isActive: boolean) {
   }
 }
 
+export async function toggleNiagaVerification(id: string, isVerified: boolean) {
+  try {
+    await db
+      .update(direktoriNiaga)
+      .set({ isVerified })
+      .where(eq(direktoriNiaga.id, id));
+
+    revalidatePath("/niaga");
+    revalidatePath("/");
+    return { success: true };
+  } catch (error: any) {
+    console.error("Error toggling niaga verification:", error);
+    return {
+      success: false,
+      error: error?.message || "Gagal mengubah status verifikasi usaha",
+    };
+  }
+}
+
 export async function createNiaga(data: NewDirektoriNiaga) {
   try {
     const [inserted] = await db
@@ -55,6 +74,26 @@ export async function createNiaga(data: NewDirektoriNiaga) {
     return {
       success: false,
       error: error?.message || "Gagal menambahkan usaha warga",
+    };
+  }
+}
+
+export async function updateNiaga(id: string, data: Partial<NewDirektoriNiaga>) {
+  try {
+    const [updated] = await db
+      .update(direktoriNiaga)
+      .set(data)
+      .where(eq(direktoriNiaga.id, id))
+      .returning();
+
+    revalidatePath("/niaga");
+    revalidatePath("/");
+    return { success: true, data: updated };
+  } catch (error: any) {
+    console.error("Error updating niaga:", error);
+    return {
+      success: false,
+      error: error?.message || "Gagal memperbarui usaha warga",
     };
   }
 }

@@ -1,0 +1,607 @@
+{
+  "id": "f685e451-40d6-4f72-a92f-ceef07208d2b",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.admin_users": {
+      "name": "admin_users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nama_lengkap": {
+          "name": "nama_lengkap",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password_hash": {
+          "name": "password_hash",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "no_wa": {
+          "name": "no_wa",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "admin_role_enum",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pengurus'"
+        },
+        "jabatan": {
+          "name": "jabatan",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Pengurus Paguyuban'"
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "last_login_at": {
+          "name": "last_login_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "admin_users_email_unique": {
+          "name": "admin_users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.direktori_niaga": {
+      "name": "direktori_niaga",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nama_usaha": {
+          "name": "nama_usaha",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nama_pemilik": {
+          "name": "nama_pemilik",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kategori_usaha": {
+          "name": "kategori_usaha",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "alamat_usaha": {
+          "name": "alamat_usaha",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "wa_bisnis": {
+          "name": "wa_bisnis",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto_usaha_url": {
+          "name": "foto_usaha_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deskripsi": {
+          "name": "deskripsi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_verified": {
+          "name": "is_verified",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.kas_sosial": {
+      "name": "kas_sosial",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "jenis_transaksi": {
+          "name": "jenis_transaksi",
+          "type": "jenis_transaksi_enum",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "peruntukan": {
+          "name": "peruntukan",
+          "type": "peruntukan_kas_enum",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nominal": {
+          "name": "nominal",
+          "type": "numeric(15, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "keterangan": {
+          "name": "keterangan",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nama_penyetor_penerima": {
+          "name": "nama_penyetor_penerima",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tanggal_transaksi": {
+          "name": "tanggal_transaksi",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "bukti_transaksi_url": {
+          "name": "bukti_transaksi_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.warga_rantau": {
+      "name": "warga_rantau",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nama_lengkap": {
+          "name": "nama_lengkap",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nik": {
+          "name": "nik",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "no_kk": {
+          "name": "no_kk",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "no_wa": {
+          "name": "no_wa",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kecamatan_asal": {
+          "name": "kecamatan_asal",
+          "type": "kecamatan_asal_enum",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "domisili_timika": {
+          "name": "domisili_timika",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "jumlah_keluarga": {
+          "name": "jumlah_keluarga",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "status_verifikasi": {
+          "name": "status_verifikasi",
+          "type": "status_verifikasi_enum",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "catatan_admin": {
+          "name": "catatan_admin",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "warga_rantau_nik_unique": {
+          "name": "warga_rantau_nik_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "nik"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.warta_paguyuban": {
+      "name": "warta_paguyuban",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "kategori": {
+          "name": "kategori",
+          "type": "kategori_warta_enum",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "judul": {
+          "name": "judul",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ringkasan": {
+          "name": "ringkasan",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "konten_utama": {
+          "name": "konten_utama",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto_utama_url": {
+          "name": "foto_utama_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status_tayang": {
+          "name": "status_tayang",
+          "type": "status_tayang_enum",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'published'"
+        },
+        "nama_almarhum": {
+          "name": "nama_almarhum",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "waktu_wafat": {
+          "name": "waktu_wafat",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alamat_duka_timika": {
+          "name": "alamat_duka_timika",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kontak_keluarga_wa": {
+          "name": "kontak_keluarga_wa",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tanggal_mulai": {
+          "name": "tanggal_mulai",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tanggal_selesai": {
+          "name": "tanggal_selesai",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lokasi_nama_tempat": {
+          "name": "lokasi_nama_tempat",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lokasi_maps_url": {
+          "name": "lokasi_maps_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "penyelenggara_sektor": {
+          "name": "penyelenggara_sektor",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "biaya_pendaftaran": {
+          "name": "biaya_pendaftaran",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'0'"
+        },
+        "kuota_peserta": {
+          "name": "kuota_peserta",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "link_pendaftaran_external": {
+          "name": "link_pendaftaran_external",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kontak_panitia_wa": {
+          "name": "kontak_panitia_wa",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lampiran_dokumen_url": {
+          "name": "lampiran_dokumen_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "galeri_foto_urls": {
+          "name": "galeri_foto_urls",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "warta_paguyuban_slug_unique": {
+          "name": "warta_paguyuban_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.admin_role_enum": {
+      "name": "admin_role_enum",
+      "schema": "public",
+      "values": [
+        "superadmin",
+        "pengurus"
+      ]
+    },
+    "public.jenis_transaksi_enum": {
+      "name": "jenis_transaksi_enum",
+      "schema": "public",
+      "values": [
+        "masuk",
+        "keluar"
+      ]
+    },
+    "public.kategori_warta_enum": {
+      "name": "kategori_warta_enum",
+      "schema": "public",
+      "values": [
+        "duka_cita",
+        "suka_cita",
+        "agenda_kegiatan"
+      ]
+    },
+    "public.kecamatan_asal_enum": {
+      "name": "kecamatan_asal_enum",
+      "schema": "public",
+      "values": [
+        "Lalabata",
+        "Lilirilau",
+        "Liliriaja",
+        "Marioriwawo",
+        "Marioriawa",
+        "Donri-Donri",
+        "Citta"
+      ]
+    },
+    "public.peruntukan_kas_enum": {
+      "name": "peruntukan_kas_enum",
+      "schema": "public",
+      "values": [
+        "santunan_duka",
+        "iuran_warga",
+        "kegiatan_silaturahmi",
+        "kas_siaga"
+      ]
+    },
+    "public.status_tayang_enum": {
+      "name": "status_tayang_enum",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published",
+        "archived"
+      ]
+    },
+    "public.status_verifikasi_enum": {
+      "name": "status_verifikasi_enum",
+      "schema": "public",
+      "values": [
+        "pending",
+        "verified",
+        "rejected"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
