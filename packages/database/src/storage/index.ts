@@ -188,7 +188,9 @@ export class SupabaseStorageAdapter implements StorageAdapter {
   private bucket: string;
 
   constructor(bucket = "kks-media") {
-    this.supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+    const rawUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+    // Clean URL: Hapus /rest/v1 dan trailing slash jika ada
+    this.supabaseUrl = rawUrl.replace(/\/rest\/v1\/?$/i, "").replace(/\/+$/, "");
     this.supabaseKey =
       process.env.SUPABASE_SERVICE_ROLE_KEY ||
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
