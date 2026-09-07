@@ -21,7 +21,9 @@ import {
   PanelLeftOpen,
   Settings,
   Wand2,
+  Images,
 } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 import { useSidebar } from "./SidebarContext";
 
@@ -63,7 +65,14 @@ const NAV_ITEMS = [
     badge: "AI",
   },
   {
+    name: "Banner Hero",
+    href: "/hero-banner",
+    icon: Images,
+    badge: "Hero",
+  },
+  {
     name: "Pengaturan Akun",
+
     href: "/settings",
     icon: Settings,
     badge: null,

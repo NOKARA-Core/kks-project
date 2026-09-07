@@ -188,7 +188,24 @@ export const direktoriNiaga = pgTable("direktori_niaga", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
+/**
+ * Tabel Hero Slides Banner Dinamis (Hero Media Carousel)
+ */
+export const heroSlides = pgTable("hero_slides", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  imageUrl: text("image_url").notNull(),
+  title: varchar("title", { length: 255 }),
+  subtitle: text("subtitle"),
+  badgeTag: varchar("badge_tag", { length: 100 }),
+  targetUrl: text("target_url"),
+  orderIndex: integer("order_index").default(0).notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
 // 3. TypeScript Inferred Types
+
 export type WargaRantau = InferSelectModel<typeof wargaRantau>;
 export type NewWargaRantau = InferInsertModel<typeof wargaRantau>;
 
@@ -207,7 +224,11 @@ export type NewDirektoriNiaga = InferInsertModel<typeof direktoriNiaga>;
 export type AdminUser = InferSelectModel<typeof adminUsers>;
 export type NewAdminUser = InferInsertModel<typeof adminUsers>;
 
+export type HeroSlide = InferSelectModel<typeof heroSlides>;
+export type NewHeroSlide = InferInsertModel<typeof heroSlides>;
+
 // Konstanta referensi daerah untuk filter & dropdown
+
 export const KECAMATAN_SOPPENG = [
   "Lalabata",
   "Lilirilau",

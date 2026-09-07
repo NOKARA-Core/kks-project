@@ -1,39 +1,33 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, ChevronRight, HeartHandshake, Calendar, Store, Users, MapPin, ShieldCheck } from 'lucide-react';
+import { db, heroSlides, type HeroSlide } from '@repo/database';
+import { asc, desc, eq } from 'drizzle-orm';
+import { HeroCarousel } from '../HeroCarousel';
 
-export function HeroSection() {
+export async function HeroSection() {
+  let slides: HeroSlide[] = [];
+  try {
+    slides = await db
+      .select()
+      .from(heroSlides)
+      .where(eq(heroSlides.isActive, true))
+      .orderBy(asc(heroSlides.orderIndex), desc(heroSlides.createdAt));
+  } catch (error) {
+    console.error("Error fetching hero slides in HeroSection:", error);
+  }
+
   return (
     <section className="relative bg-canvas-soft border-b border-slate-200/80 overflow-hidden pt-6 sm:pt-8 pb-14 sm:pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* =========================================================
-            SLOT ATAS: GAMBAR / BANNER INFORMASI / IKLAN (ADMIN SLOT)
+            SLOT ATAS: DYNAMIC HERO MEDIA CAROUSEL (ADMIN MANAGED)
             ========================================================= */}
         <div className="w-full mb-8 sm:mb-12">
-          <div className="group relative w-full aspect-[16/9] sm:aspect-[21/9] md:aspect-[24/8] min-h-[180px] max-h-[360px] rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white">
-            <img
-              src="/images/hero-banner.png"
-              alt="Dokumentasi Silaturahmi Kerukunan Keluarga Soppeng Mimika"
-              className="w-full h-full object-cover object-center group-hover:scale-[1.01] transition-transform duration-500"
-            />
-            
-            {/* Overlay Gradien Halus */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/30 to-transparent flex flex-col justify-end p-4 sm:p-6 md:p-8">
-              <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-sky-200 tracking-wider uppercase mb-1">
-                <span>Dokumentasi Warta Paguyuban</span>
-                <span className="hidden sm:inline">&bull;</span>
-                <span className="text-white/80 hidden sm:inline">Tanah Amungsa, Mimika</span>
-              </div>
-              <p className="text-white font-bold text-base sm:text-xl md:text-2xl leading-snug drop-shadow-sm max-w-3xl">
-                Musyawarah & Temu Warga Kerukunan Keluarga Soppeng (KKS) Kabupaten Mimika
-              </p>
-              <p className="text-white/80 text-xs sm:text-sm mt-1 max-w-2xl hidden md:block">
-                Slot penayangan foto liputan akbar komunitas, pengumuman resmi, atau sponsorship UMKM warga yang dikelola melalui panel admin.
-              </p>
-            </div>
-          </div>
+          <HeroCarousel slides={slides} />
         </div>
+
 
         {/* =========================================================
             EDITORIAL NEWS GRID: HEADLINE UTAMA & WARTA RINGKAS
