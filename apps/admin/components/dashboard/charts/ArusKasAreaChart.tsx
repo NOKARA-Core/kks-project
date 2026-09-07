@@ -106,7 +106,7 @@ export function ArusKasAreaChart({ data }: ArusKasAreaChartProps) {
     hoveredIndex !== null && data[hoveredIndex] ? data[hoveredIndex] : null;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs space-y-5">
+    <div className="bg-white rounded-xl border border-slate-200/80 p-5 sm:p-6 shadow-xs space-y-5">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-100">
         <div>
@@ -139,16 +139,16 @@ export function ArusKasAreaChart({ data }: ArusKasAreaChartProps) {
           className="w-full h-auto max-h-[260px] min-w-[480px] overflow-visible select-none"
         >
           <defs>
-            {/* Gradient Masuk (Gold) */}
+            {/* Gradient Masuk (Red Gold) */}
             <linearGradient id="area-grad-masuk" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#D97706" stopOpacity={0.24} />
-              <stop offset="100%" stopColor="#D97706" stopOpacity={0.0} />
+              <stop offset="0%" stopColor="#DC2626" stopOpacity={0.24} />
+              <stop offset="100%" stopColor="#DC2626" stopOpacity={0.0} />
             </linearGradient>
 
-            {/* Gradient Keluar (Siri Red) */}
+            {/* Gradient Keluar (Siri Dark Red) */}
             <linearGradient id="area-grad-keluar" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#DC2626" stopOpacity={0.2} />
-              <stop offset="100%" stopColor="#DC2626" stopOpacity={0.0} />
+              <stop offset="0%" stopColor="#991B1B" stopOpacity={0.2} />
+              <stop offset="100%" stopColor="#991B1B" stopOpacity={0.0} />
             </linearGradient>
           </defs>
 
@@ -188,7 +188,7 @@ export function ArusKasAreaChart({ data }: ArusKasAreaChartProps) {
           <path
             d={pathMasuk}
             fill="none"
-            stroke="#D97706"
+            stroke="#DC2626"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -196,7 +196,7 @@ export function ArusKasAreaChart({ data }: ArusKasAreaChartProps) {
           <path
             d={pathKeluar}
             fill="none"
-            stroke="#DC2626"
+            stroke="#991B1B"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -244,7 +244,7 @@ export function ArusKasAreaChart({ data }: ArusKasAreaChartProps) {
                   cy={ptMasuk.y}
                   r={isHovered ? 5.5 : 3.5}
                   fill="#FFFFFF"
-                  stroke="#D97706"
+                  stroke="#DC2626"
                   strokeWidth={isHovered ? 3 : 2}
                   className="transition-all duration-150"
                 />
@@ -253,7 +253,7 @@ export function ArusKasAreaChart({ data }: ArusKasAreaChartProps) {
                   cy={ptKeluar.y}
                   r={isHovered ? 5.5 : 3.5}
                   fill="#FFFFFF"
-                  stroke="#DC2626"
+                  stroke="#991B1B"
                   strokeWidth={isHovered ? 3 : 2}
                   className="transition-all duration-150"
                 />

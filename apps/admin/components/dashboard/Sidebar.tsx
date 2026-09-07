@@ -168,10 +168,10 @@ function SidebarNavContent({
                 onClick={onItemClick}
                 title={isCollapsed ? item.name : undefined}
                 className={cn(
-                  "relative flex items-center rounded-xl font-medium text-sm transition-colors duration-150 group",
+                  "relative flex items-center rounded-lg font-medium text-sm transition-colors duration-150 group",
                   isCollapsed
-                    ? "justify-center p-3 h-11 w-full"
-                    : "justify-between px-3.5 py-2.5",
+                    ? "justify-center p-2.5 h-10 w-full"
+                    : "justify-between px-3 py-2",
                   isActive
                     ? "text-white font-semibold"
                     : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
@@ -181,7 +181,7 @@ function SidebarNavContent({
                 {isActive && (
                   <motion.div
                     layoutId="activeNav"
-                    className="absolute inset-0 bg-gold rounded-xl shadow-md shadow-gold/25"
+                    className="absolute inset-0 bg-gold rounded-lg shadow-sm shadow-gold/30"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}

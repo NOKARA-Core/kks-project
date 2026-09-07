@@ -12,7 +12,7 @@ interface MiniSparklineProps {
 
 export function MiniSparkline({
   data,
-  color = "#D97706",
+  color = "#DC2626",
   height = 36,
   width = 90,
   className = "",
