@@ -36,3 +36,10 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+
+# AI .md
+AGENT.md
+DESIGN_SYSTEM.md
+PAGES_SPEC.md
+PRD_KKS.md

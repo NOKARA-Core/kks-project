@@ -4,6 +4,7 @@ import {
   wartaPaguyuban,
   kasSosial,
   direktoriNiaga,
+  adminUsers,
 } from "./schema";
 
 async function seed() {

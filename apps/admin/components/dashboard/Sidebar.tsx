@@ -19,6 +19,7 @@ import {
   ChevronRight,
   PanelLeftClose,
   PanelLeftOpen,
+  Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "./SidebarContext";
@@ -53,6 +54,12 @@ const NAV_ITEMS = [
     href: "/niaga",
     icon: Store,
     badge: "UMKM",
+  },
+  {
+    name: "Pengaturan Akun",
+    href: "/settings",
+    icon: Settings,
+    badge: null,
   },
 ];
 
@@ -280,20 +287,22 @@ function SidebarNavContent({
           </div>
         )}
 
-        {/* Admin profile */}
-        <div
+        {/* Admin profile (clickable to /settings/profile) */}
+        <Link
+          href="/settings/profile"
+          onClick={onItemClick}
           className={cn(
-            "pt-1 flex items-center gap-3",
+            "pt-1 flex items-center gap-3 rounded-lg p-1.5 hover:bg-slate-100 transition-colors group cursor-pointer",
             isCollapsed ? "justify-center px-0" : "px-1"
           )}
-          title={isCollapsed ? "Admin Pengurus (admin@kks-mimika.id)" : undefined}
+          title={isCollapsed ? "Pengaturan Akun Saya" : undefined}
         >
-          <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">
-            <ShieldCheck className="w-4 h-4 text-slate-700" />
+          <div className="w-8 h-8 rounded-full bg-slate-200 group-hover:bg-rose-100 group-hover:text-rose-700 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0 transition-colors">
+            <ShieldCheck className="w-4 h-4" />
           </div>
           {!isCollapsed && (
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-slate-900 truncate">
+              <p className="text-xs font-semibold text-slate-900 group-hover:text-rose-600 truncate transition-colors">
                 Admin Pengurus
               </p>
               <p className="text-[11px] text-slate-500 truncate">
@@ -301,7 +310,7 @@ function SidebarNavContent({
               </p>
             </div>
           )}
-        </div>
+        </Link>
       </div>
     </div>
   );
