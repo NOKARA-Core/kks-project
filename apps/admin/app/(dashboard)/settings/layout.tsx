@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getCurrentAdminUser } from "@/lib/auth";
 import { SettingsNavTabs } from "@/components/settings/SettingsNavTabs";
 import { Shield, Sparkles } from "lucide-react";
@@ -8,6 +9,10 @@ export default async function SettingsLayout({
   children: React.ReactNode;
 }) {
   const currentUser = await getCurrentAdminUser();
+
+  if (!currentUser) {
+    redirect("/login");
+  }
 
   return (
     <div className="space-y-6">
