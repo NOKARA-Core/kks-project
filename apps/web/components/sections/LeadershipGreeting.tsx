@@ -105,6 +105,7 @@ export function LeadershipGreeting() {
 
           </div>
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );
