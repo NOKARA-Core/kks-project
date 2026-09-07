@@ -200,7 +200,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
               }}
               className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                 idx === currentIndex
-                  ? "w-6 bg-amber-400 shadow-xs"
+                  ? "w-6 bg-rose-500 shadow-xs"
                   : "w-2 bg-white/40 hover:bg-white/70"
               }`}
             />

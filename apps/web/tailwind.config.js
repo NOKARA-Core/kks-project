@@ -8,9 +8,19 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: {
+          light: "#FFF1F2",     // Rose 50 subtle surface
+          border: "#FECDD3",    // Rose 200 chip border
+          DEFAULT: "#E11D48",   // Rose 600 soft crimson
+          hover: "#BE123C",     // Rose 700 hover
+          vibrant: "#F43F5E",   // Rose 500 gentle siri red
+        },
+        // Alias gold ke palet merah terang lembut untuk konsistensi brand KKS Siri' Na Pacce
         gold: {
-          DEFAULT: "#D97706",
-          dark: "#B45309",
+          light: "#FFF1F2",
+          DEFAULT: "#E11D48",
+          hover: "#BE123C",
+          dark: "#BE123C",
         },
         sky: {
           light: "#E0F2FE",
@@ -18,7 +28,9 @@ export default {
           dark: "#0284C7",
         },
         siri: {
-          DEFAULT: "#DC2626",
+          DEFAULT: "#E11D48",
+          dark: "#BE123C",
+          light: "#FFF1F2",
         },
         canvas: {
           DEFAULT: "#FFFFFF",
