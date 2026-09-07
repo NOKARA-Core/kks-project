@@ -76,28 +76,36 @@ export async function HeroSection() {
               </Link>
             </div>
 
-            {/* Data Metrik Informatif Ringkas */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5 text-slate-900 font-extrabold text-2xl sm:text-3xl">
-                  <Users className="w-4 h-4 text-slate-400 hidden sm:inline" />
-                  <span>450+</span>
+            {/* Data Metrik Informatif Ringkas (Micro-Stats Hero) */}
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-6 border-t border-slate-200">
+              <div className="bg-white/90 border border-slate-200/80 rounded-xl p-2.5 sm:p-4 text-center sm:text-left flex flex-col sm:flex-row items-center gap-2 sm:gap-3 shadow-2xs">
+                <div className="w-7 h-7 sm:w-10 sm:h-10 p-1.5 sm:p-2 rounded-lg bg-slate-50 border border-slate-100 shrink-0 text-amber-600 flex items-center justify-center">
+                  <Users className="w-full h-full" />
                 </div>
-                <span className="text-xs sm:text-sm text-slate-500 font-medium">KK Terdaftar</span>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-sm sm:text-lg font-bold text-slate-900 tracking-tight">450+</span>
+                  <span className="text-[10px] sm:text-xs text-slate-500 font-medium leading-tight truncate w-full">KK Terdaftar</span>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5 text-slate-900 font-extrabold text-2xl sm:text-3xl">
-                  <MapPin className="w-4 h-4 text-slate-400 hidden sm:inline" />
-                  <span>12</span>
+
+              <div className="bg-white/90 border border-slate-200/80 rounded-xl p-2.5 sm:p-4 text-center sm:text-left flex flex-col sm:flex-row items-center gap-2 sm:gap-3 shadow-2xs">
+                <div className="w-7 h-7 sm:w-10 sm:h-10 p-1.5 sm:p-2 rounded-lg bg-slate-50 border border-slate-100 shrink-0 text-amber-600 flex items-center justify-center">
+                  <MapPin className="w-full h-full" />
                 </div>
-                <span className="text-xs sm:text-sm text-slate-500 font-medium">Sektor Wilayah</span>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-sm sm:text-lg font-bold text-slate-900 tracking-tight">12</span>
+                  <span className="text-[10px] sm:text-xs text-slate-500 font-medium leading-tight truncate w-full">Sektor Wilayah</span>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5 text-sky-dark font-extrabold text-2xl sm:text-3xl">
-                  <ShieldCheck className="w-4 h-4 text-sky hidden sm:inline" />
-                  <span>Siaga 24 Jam</span>
+
+              <div className="bg-white/90 border border-slate-200/80 rounded-xl p-2.5 sm:p-4 text-center sm:text-left flex flex-col sm:flex-row items-center gap-2 sm:gap-3 shadow-2xs">
+                <div className="w-7 h-7 sm:w-10 sm:h-10 p-1.5 sm:p-2 rounded-lg bg-sky-50 border border-sky-100 shrink-0 text-sky-600 flex items-center justify-center">
+                  <ShieldCheck className="w-full h-full" />
                 </div>
-                <span className="text-xs sm:text-sm text-slate-500 font-medium">Layanan Kas Duka</span>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-sm sm:text-lg font-bold text-sky-900 tracking-tight">24 Jam</span>
+                  <span className="text-[10px] sm:text-xs text-slate-500 font-medium leading-tight truncate w-full">Kas Duka Siaga</span>
+                </div>
               </div>
             </div>
 

@@ -53,19 +53,25 @@ export function WartaSection({ wartaList, className = "" }: WartaSectionProps) {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-6">
             {wartaList.map((item) => {
               const isDuka = item.kategori === "duka_cita";
               const isAgenda = item.kategori === "agenda_kegiatan";
               const isSuka = item.kategori === "suka_cita";
 
               const badgeClass = isDuka
-                ? "bg-rose-50 text-rose-700 border-rose-100"
+                ? "bg-rose-50 text-rose-700 border-rose-200/80"
                 : isAgenda
-                ? "bg-sky-50 text-sky-700 border-sky-100"
-                : "bg-emerald-50 text-emerald-700 border-emerald-100";
+                ? "bg-sky-50 text-sky-700 border-sky-200/80"
+                : "bg-emerald-50 text-emerald-700 border-emerald-200/80";
 
               const badgeLabel = isDuka
+                ? "Lelayu"
+                : isAgenda
+                ? "Agenda"
+                : "Suka Cita";
+
+              const fullBadgeLabel = isDuka
                 ? "Kabar Duka (Lelayu)"
                 : isAgenda
                 ? "Agenda & Turnamen"
@@ -77,11 +83,11 @@ export function WartaSection({ wartaList, className = "" }: WartaSectionProps) {
               return (
                 <article
                   key={item.id}
-                  className="group bg-white rounded-2xl border border-slate-200/80 hover:border-slate-300 overflow-hidden shadow-xs hover:shadow-sm transition-all duration-200 flex flex-col justify-between"
+                  className="group bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 hover:border-slate-300 overflow-hidden shadow-xs hover:shadow-sm transition-all duration-200 flex flex-col justify-between"
                 >
                   <div>
-                    {/* Thumbnail Cover */}
-                    <div className="relative w-full aspect-16/9 overflow-hidden bg-slate-100">
+                    {/* Thumbnail Cover (aspect-video sm:aspect-16/9) */}
+                    <div className="relative w-full aspect-video sm:aspect-16/9 overflow-hidden bg-slate-100 rounded-t-xl sm:rounded-t-2xl">
                       <img
                         src={imageSrc}
                         alt={item.judul}
@@ -89,30 +95,31 @@ export function WartaSection({ wartaList, className = "" }: WartaSectionProps) {
                         className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                       />
                       {/* Top Overlay Badge */}
-                      <div className="absolute top-3 left-3 flex items-center gap-2">
+                      <div className="absolute top-1.5 left-1.5 sm:top-3 sm:left-3 flex items-center gap-1">
                         <span
-                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border backdrop-blur-xs shadow-2xs ${badgeClass}`}
+                          className={`inline-flex items-center gap-1 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-xs font-semibold border backdrop-blur-xs shadow-2xs ${badgeClass}`}
                         >
-                          {isDuka && <HeartHandshake className="w-3 h-3" />}
-                          {isAgenda && <Calendar className="w-3 h-3" />}
-                          {isSuka && <Sparkles className="w-3 h-3" />}
-                          <span>{badgeLabel}</span>
+                          {isDuka && <HeartHandshake className="w-2.5 h-2.5 sm:w-3 sm:h-3" />}
+                          {isAgenda && <Calendar className="w-2.5 h-2.5 sm:w-3 sm:h-3" />}
+                          {isSuka && <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3" />}
+                          <span className="sm:hidden">{badgeLabel}</span>
+                          <span className="hidden sm:inline">{fullBadgeLabel}</span>
                         </span>
                       </div>
                     </div>
 
-                    {/* Content Body */}
-                    <div className="p-5 sm:p-6 space-y-3">
+                    {/* Content Body (Padding mikro di mobile p-2.5 sm:p-5) */}
+                    <div className="p-2.5 sm:p-5 space-y-1.5 sm:space-y-2.5">
                       {/* Meta Waktu & Lokasi */}
-                      <div className="flex items-center gap-3 text-xs text-slate-500 font-medium">
+                      <div className="flex items-center gap-2 text-[10px] sm:text-xs text-slate-500 font-medium">
                         <span className="flex items-center gap-1">
-                          <Clock className="w-3.5 h-3.5 text-slate-400" />
+                          <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 shrink-0" />
                           <time dateTime={item.createdAt.toISOString()}>
                             {formatTanggal(item.createdAt)}
                           </time>
                         </span>
-                        <span>&bull;</span>
-                        <span className="flex items-center gap-1 truncate">
+                        <span className="hidden sm:inline">&bull;</span>
+                        <span className="hidden sm:flex items-center gap-1 truncate">
                           <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                           <span className="truncate">
                             {item.lokasiNamaTempat || item.alamatDukaTimika || "Timika"}
@@ -121,30 +128,30 @@ export function WartaSection({ wartaList, className = "" }: WartaSectionProps) {
                       </div>
 
                       {/* Judul Warta */}
-                      <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-gold transition-colors line-clamp-2 leading-snug">
+                      <h3 className="text-xs sm:text-base font-bold text-slate-900 group-hover:text-gold transition-colors line-clamp-2 leading-snug">
                         <Link href={detailUrl}>
                           {item.judul}
                         </Link>
                       </h3>
 
-                      {/* Ringkasan */}
-                      <p className="text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed">
+                      {/* Ringkasan: Sembunyikan di mobile untuk menjaga simetri kartu */}
+                      <p className="hidden sm:block text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed">
                         {item.ringkasan || "Klik tautan di bawah untuk membaca warta paguyuban selengkapnya."}
                       </p>
                     </div>
                   </div>
 
                   {/* Card Bottom Footer Link */}
-                  <div className="px-5 sm:px-6 pb-5 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <span className="text-slate-400 font-medium">
+                  <div className="p-2.5 pt-1.5 sm:px-5 sm:pb-4 sm:pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] sm:text-xs">
+                    <span className="hidden sm:inline text-slate-400 font-medium">
                       {isDuka ? "Salipuri Temmadinging" : "KKS Kab. Mimika"}
                     </span>
                     <Link
                       href={detailUrl}
-                      className="inline-flex items-center gap-1 font-bold text-slate-800 hover:text-gold transition-colors group/link"
+                      className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-1 font-bold text-slate-800 hover:text-gold transition-colors group/link"
                     >
-                      <span>Baca Selengkapnya</span>
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5" />
+                      <span>Baca</span>
+                      <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform group-hover/link:translate-x-0.5" />
                     </Link>
                   </div>
                 </article>

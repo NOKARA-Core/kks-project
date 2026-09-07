@@ -6,6 +6,7 @@ import {
   direktoriNiaga,
   type WartaPaguyuban,
   type DirektoriNiaga,
+  type KasSosial,
 } from "@repo/database";
 import { desc, eq, and } from "drizzle-orm";
 import { HeroSection } from "../components/sections/HeroSection";
@@ -34,6 +35,7 @@ export default async function Home() {
   let totalSaldo = 0;
   let totalSantunanKeluar = 0;
   let jumlahPenerimaSantunan = 0;
+  let recentTransactions: KasSosial[] = [];
   try {
     const allKas = await db.select().from(kasSosial);
     let totalMasuk = 0;
@@ -55,6 +57,13 @@ export default async function Home() {
       }
     }
     totalSaldo = totalMasuk - totalKeluar;
+
+    // Fetch 4 transaksi terbaru
+    recentTransactions = await db
+      .select()
+      .from(kasSosial)
+      .orderBy(desc(kasSosial.tanggalTransaksi), desc(kasSosial.createdAt))
+      .limit(4);
   } catch (error) {
     console.error("Error aggregating kas sosial:", error);
   }
@@ -93,6 +102,7 @@ export default async function Home() {
         totalSaldo={totalSaldo}
         totalSantunanKeluar={totalSantunanKeluar}
         jumlahPenerimaSantunan={jumlahPenerimaSantunan}
+        recentTransactions={recentTransactions}
       />
 
       {/* 5. Direktori UMKM & Niaga Warga Rantau */}

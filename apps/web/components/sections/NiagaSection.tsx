@@ -45,7 +45,7 @@ export function NiagaSection({ niagaList, className = "" }: NiagaSectionProps) {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-6">
             {niagaList.map((item) => {
               const imageSrc = formatImageUrl(item.fotoUsahaUrl, "/placeholder-kks.webp");
               const waUrl = formatWhatsAppUrl(
@@ -56,52 +56,52 @@ export function NiagaSection({ niagaList, className = "" }: NiagaSectionProps) {
               return (
                 <div
                   key={item.id}
-                  className="group bg-white rounded-2xl border border-slate-200/80 hover:border-slate-300 overflow-hidden shadow-xs hover:shadow-sm transition-all duration-200 flex flex-col justify-between"
+                  className="group bg-white rounded-xl sm:rounded-2xl border border-slate-200/80 hover:border-slate-300 overflow-hidden shadow-xs hover:shadow-sm transition-all duration-200 flex flex-col justify-between"
                 >
                   <div>
-                    {/* Thumbnail Image */}
-                    <div className="relative w-full aspect-16/10 overflow-hidden bg-slate-100">
+                    {/* Thumbnail Image (aspect-4/3 w-full object-cover rounded-t-xl) */}
+                    <div className="relative w-full aspect-4/3 overflow-hidden bg-slate-100 rounded-t-xl sm:rounded-t-2xl">
                       <img
                         src={imageSrc}
                         alt={item.namaUsaha}
                         loading="lazy"
                         className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute top-2.5 left-2.5">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/95 text-slate-800 backdrop-blur-xs shadow-2xs border border-slate-200">
+                      <div className="absolute top-1.5 left-1.5 sm:top-2.5 sm:left-2.5">
+                        <span className="px-1.5 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold bg-white/95 text-slate-800 backdrop-blur-xs shadow-2xs border border-slate-200 truncate max-w-[110px] inline-block">
                           {item.kategoriUsaha}
                         </span>
                       </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="p-4 sm:p-5 space-y-2">
-                      <h3 className="font-extrabold text-sm sm:text-base text-slate-900 line-clamp-1 group-hover:text-gold transition-colors">
+                    {/* Content (p-2.5 sm:p-4) */}
+                    <div className="p-2.5 sm:p-4 space-y-1 sm:space-y-1.5">
+                      <h3 className="font-bold text-xs sm:text-sm text-slate-900 truncate group-hover:text-gold transition-colors">
                         {item.namaUsaha}
                       </h3>
 
-                      <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                        <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <div className="flex items-center gap-1 text-[10px] sm:text-xs text-sky-600 font-medium truncate">
+                        <User className="w-3 h-3 text-sky-500 shrink-0" />
                         <span className="truncate">{item.namaPemilik}</span>
                       </div>
 
-                      <div className="flex items-start gap-1.5 text-xs text-slate-600 pt-1">
-                        <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                      <div className="flex items-start gap-1 text-[10px] sm:text-xs text-slate-500">
+                        <MapPin className="w-3 h-3 text-slate-400 shrink-0 mt-0.5" />
                         <span className="line-clamp-1">{item.alamatUsaha}</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Card Bottom CTA */}
-                  <div className="p-4 pt-0">
+                  {/* Card Bottom CTA (h-8 sm:h-9 text-[11px] sm:text-xs w-full mt-2 rounded-lg bg-emerald-600) */}
+                  <div className="p-2.5 pt-0 sm:p-4 sm:pt-0">
                     <a
                       href={waUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-3 bg-emerald-50 hover:bg-emerald-600 text-emerald-800 hover:text-white border border-emerald-200 hover:border-emerald-600 font-semibold rounded-xl text-xs transition-all shadow-2xs group/btn"
+                      className="h-8 sm:h-9 text-[11px] sm:text-xs w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center gap-1 font-medium transition-all shadow-2xs"
                     >
-                      <MessageCircle className="w-3.5 h-3.5" />
-                      <span>Hubungi via WA</span>
+                      <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                      <span>Hubungi WA</span>
                     </a>
                   </div>
                 </div>
