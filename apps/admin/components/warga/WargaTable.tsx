@@ -35,7 +35,7 @@ import {
   SEKTOR_TIMIKA,
   type WargaRantau,
   type NewWargaRantau,
-} from "@repo/database";
+} from "@repo/database/schema";
 
 type Props = {
   initialWarga: WargaRantau[];

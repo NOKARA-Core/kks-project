@@ -25,7 +25,7 @@ import {
   updateWartaStatus,
   deleteWarta,
 } from "@/app/actions/warta";
-import type { WartaPaguyuban, NewWartaPaguyuban } from "@repo/database";
+import type { WartaPaguyuban, NewWartaPaguyuban } from "@repo/database/schema";
 
 type Props = {
   initialWarta: WartaPaguyuban[];

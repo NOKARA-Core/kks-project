@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { formatRupiah, formatTanggal, formatWhatsAppUrl } from "@/lib/utils";
 import { updateWargaStatus } from "@/app/actions/warga";
-import type { WargaRantau, WartaPaguyuban, KasSosial } from "@repo/database";
+import type { WargaRantau, WartaPaguyuban, KasSosial } from "@repo/database/schema";
 import type { KasSummary } from "@/app/actions/kas";
 
 type Props = {

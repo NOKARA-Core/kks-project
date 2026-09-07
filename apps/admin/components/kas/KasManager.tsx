@@ -22,7 +22,7 @@ import {
   deleteTransaksiKas,
   type KasSummary,
 } from "@/app/actions/kas";
-import type { KasSosial, NewKasSosial } from "@repo/database";
+import type { KasSosial, NewKasSosial } from "@repo/database/schema";
 
 type Props = {
   initialKas: KasSosial[];

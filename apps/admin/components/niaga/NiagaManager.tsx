@@ -21,7 +21,7 @@ import {
   toggleNiagaStatus,
   deleteNiaga,
 } from "@/app/actions/niaga";
-import type { DirektoriNiaga, NewDirektoriNiaga } from "@repo/database";
+import type { DirektoriNiaga, NewDirektoriNiaga } from "@repo/database/schema";
 
 type Props = {
   initialNiaga: DirektoriNiaga[];
