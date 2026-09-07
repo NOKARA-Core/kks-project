@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -57,8 +58,15 @@ export function Sidebar() {
       <div>
         <div className="p-6 border-b border-slate-100">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold to-gold-dark text-white flex items-center justify-center font-bold text-lg shadow-md shadow-gold/20">
-              KKS
+            <div className="relative w-11 h-11 flex-shrink-0">
+              <Image
+                src="/logo-kks.svg"
+                alt="Logo Kerukunan Keluarga Soppeng Kab. Mimika"
+                width={44}
+                height={44}
+                className="w-full h-full object-contain"
+                priority
+              />
             </div>
             <div>
               <h1 className="font-bold text-slate-900 leading-tight text-sm tracking-tight">
