@@ -27,6 +27,7 @@ import {
   Loader2,
   Globe,
 } from "lucide-react";
+import Link from "next/link";
 import { formatTanggal, formatWhatsAppUrl } from "@/lib/utils";
 import {
   createWarta,
@@ -36,6 +37,7 @@ import {
 } from "@/app/actions/warta";
 import { uploadImageAction, uploadDocumentAction } from "@/app/actions/upload";
 import { WartaBroadcastButton } from "@/components/modules/WartaBroadcastButton";
+import { FormWartaAccessible } from "@/components/warta/FormWartaAccessible";
 import type { WartaPaguyuban, NewWartaPaguyuban } from "@repo/database/schema";
 
 type Props = {
@@ -128,16 +130,15 @@ export function WartaManager({ initialWarta }: Props) {
           </p>
         </div>
 
-        <button
-          onClick={() => {
-            setEditingWarta(null);
-            setIsCreateModalOpen(true);
-          }}
-          className="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-sm transition shadow-sm flex items-center gap-2 shrink-0 self-start sm:self-auto"
-        >
-          <Plus className="w-4 h-4" />
-          Buat Warta Baru
-        </button>
+        <div className="flex items-center gap-3 shrink-0 self-start sm:self-auto">
+          <Link
+            href="/warta/new"
+            className="px-5 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-base transition shadow-md shadow-amber-600/25 flex items-center gap-2.5 active:scale-95"
+          >
+            <Plus className="w-5 h-5 stroke-[2.5]" />
+            <span>Tulis Kabar Baru</span>
+          </Link>
+        </div>
       </div>
 
       {/* Category Tabs & Status Filter */}
@@ -675,26 +676,46 @@ export function WartaManager({ initialWarta }: Props) {
         </div>
       )}
 
-      {/* Modal Buat / Edit Warta */}
+      {/* Modal Buat / Edit Warta (Accessible Senior-Friendly) */}
       {isCreateModalOpen && (
-        <ModalFormWarta
-          editingWarta={editingWarta}
-          onClose={() => {
-            setIsCreateModalOpen(false);
-            setEditingWarta(null);
-          }}
-          onSuccess={(savedWarta) => {
-            if (editingWarta) {
-              setWartaList((prev) =>
-                prev.map((w) => (w.id === savedWarta.id ? savedWarta : w))
-              );
-            } else {
-              setWartaList((prev) => [savedWarta, ...prev]);
-            }
-            setIsCreateModalOpen(false);
-            setEditingWarta(null);
-          }}
-        />
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 my-8 max-h-[92vh] overflow-y-auto relative animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                {editingWarta ? "Perbarui Warta Paguyuban" : "Tulis Kabar Paguyuban Baru"}
+              </h3>
+              <button
+                onClick={() => {
+                  setIsCreateModalOpen(false);
+                  setEditingWarta(null);
+                }}
+                className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <FormWartaAccessible
+              initialData={editingWarta}
+              isModal={true}
+              onCloseModal={() => {
+                setIsCreateModalOpen(false);
+                setEditingWarta(null);
+              }}
+              onSuccessCallback={(savedWarta) => {
+                if (editingWarta) {
+                  setWartaList((prev) =>
+                    prev.map((w) => (w.id === savedWarta.id ? savedWarta : w))
+                  );
+                } else {
+                  setWartaList((prev) => [savedWarta, ...prev]);
+                }
+                setIsCreateModalOpen(false);
+                setEditingWarta(null);
+              }}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

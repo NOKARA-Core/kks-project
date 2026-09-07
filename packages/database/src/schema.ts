@@ -114,13 +114,23 @@ export const wartaPaguyuban = pgTable("warta_paguyuban", {
   alamatDukaTimika: text("alamat_duka_timika"),
   kontakKeluargaWa: varchar("kontak_keluarga_wa", { length: 20 }),
 
-  // Field Khusus Agenda & Berita Kegiatan Kompleks (Opsional & Fleksibel)
+  // Field Khusus Agenda & Turnamen Olahraga / Kegiatan Kompleks
+  subJenisAgenda: varchar("sub_jenis_agenda", { length: 50 }), // 'turnamen_olahraga' | 'rapat_musda' | 'pengajian_arisan' | 'berita_umum'
+  namaKegiatan: varchar("nama_kegiatan", { length: 255 }),
   tanggalMulai: timestamp("tanggal_mulai", { withTimezone: true }),
   tanggalSelesai: timestamp("tanggal_selesai", { withTimezone: true }),
   lokasiNamaTempat: varchar("lokasi_nama_tempat", { length: 255 }),
+  lokasiGedung: varchar("lokasi_gedung", { length: 255 }),
   lokasiMapsUrl: text("lokasi_maps_url"),
+  linkLokasiMaps: text("link_lokasi_maps"),
   penyelenggaraSektor: varchar("penyelenggara_sektor", { length: 100 }),
+  penanggungJawabNama: varchar("penanggung_jawab_nama", { length: 255 }),
+  penanggungJawabWa: varchar("penanggung_jawab_wa", { length: 20 }),
   biayaPendaftaran: numeric("biaya_pendaftaran", { precision: 12, scale: 2 }).default("0").notNull(),
+  biayaTiketMasuk: numeric("biaya_tiket_masuk", { precision: 12, scale: 2 }).default("0").notNull(),
+  totalHadiahPembinaan: text("total_hadiah_pembinaan"),
+  statusPendaftaran: varchar("status_pendaftaran", { length: 50 }).default("buka").notNull(), // 'buka' | 'tutup' | 'selesai'
+  tautanPendaftaranLuar: text("tautan_pendaftaran_luar"),
   kuotaPeserta: integer("kuota_peserta"),
   linkPendaftaranExternal: text("link_pendaftaran_external"),
   kontakPanitiaWa: varchar("kontak_panitia_wa", { length: 20 }),
@@ -129,6 +139,21 @@ export const wartaPaguyuban = pgTable("warta_paguyuban", {
 
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+/**
+ * Tabel Aset Media & Lampiran Warta Paguyuban (Gambar, Bagan, PDF Juknis)
+ */
+export const wartaAssets = pgTable("warta_assets", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  wartaId: uuid("warta_id")
+    .references(() => wartaPaguyuban.id, { onDelete: "cascade" })
+    .notNull(),
+  fileUrl: text("file_url").notNull(),
+  fileName: text("file_name").notNull(),
+  fileType: varchar("file_type", { length: 50 }).notNull(), // 'image' | 'document_pdf' | 'bracket_image'
+  keterangan: text("keterangan"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
 /**
@@ -169,6 +194,9 @@ export type NewWargaRantau = InferInsertModel<typeof wargaRantau>;
 
 export type WartaPaguyuban = InferSelectModel<typeof wartaPaguyuban>;
 export type NewWartaPaguyuban = InferInsertModel<typeof wartaPaguyuban>;
+
+export type WartaAsset = InferSelectModel<typeof wartaAssets>;
+export type NewWartaAsset = InferInsertModel<typeof wartaAssets>;
 
 export type KasSosial = InferSelectModel<typeof kasSosial>;
 export type NewKasSosial = InferInsertModel<typeof kasSosial>;

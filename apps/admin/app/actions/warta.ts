@@ -3,8 +3,11 @@
 import {
   db,
   wartaPaguyuban,
+  wartaAssets,
   type WartaPaguyuban,
   type NewWartaPaguyuban,
+  type WartaAsset,
+  type NewWartaAsset,
 } from "@repo/database";
 import { desc, eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -122,3 +125,43 @@ export async function deleteWarta(id: string) {
     return { success: false, error: error?.message || "Gagal menghapus warta" };
   }
 }
+
+// ----------------------------------------------------
+// Aset Media Warta (warta_assets)
+// ----------------------------------------------------
+
+export async function getWartaAssets(wartaId: string): Promise<WartaAsset[]> {
+  try {
+    return await db
+      .select()
+      .from(wartaAssets)
+      .where(eq(wartaAssets.wartaId, wartaId))
+      .orderBy(desc(wartaAssets.createdAt));
+  } catch (error) {
+    console.error("Error fetching warta assets:", error);
+    return [];
+  }
+}
+
+export async function createWartaAsset(data: NewWartaAsset) {
+  try {
+    const [inserted] = await db.insert(wartaAssets).values(data).returning();
+    revalidatePath("/warta");
+    return { success: true, data: inserted };
+  } catch (error: any) {
+    console.error("Error creating warta asset:", error);
+    return { success: false, error: error?.message || "Gagal menyimpan aset warta" };
+  }
+}
+
+export async function deleteWartaAsset(assetId: string) {
+  try {
+    await db.delete(wartaAssets).where(eq(wartaAssets.id, assetId));
+    revalidatePath("/warta");
+    return { success: true };
+  } catch (error: any) {
+    console.error("Error deleting warta asset:", error);
+    return { success: false, error: error?.message || "Gagal menghapus aset warta" };
+  }
+}
+
