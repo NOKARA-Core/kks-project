@@ -155,6 +155,25 @@ export function Footer() {
             <Link href="/pendataan" className="hover:text-slate-900 transition-colors">Buku Warga</Link>
           </div>
         </div>
+
+        {/* Watermark Kredit Minimalis */}
+        <div className="mt-6 pt-4 border-t border-slate-100/60 flex flex-col sm:flex-row justify-between items-center gap-2 text-[11px] text-slate-400 text-center sm:text-left">
+          <p>
+            Dibuat oleh{" "}
+            <span className="font-semibold text-slate-600">Muhammad Amin Hidayat</span> dan{" "}
+            <a
+              href="https://www.nokara.id"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary font-semibold hover:underline"
+            >
+              www.nokara.id
+            </a>
+          </p>
+          <p className="text-[10px] text-slate-400">
+            Platform Digital Komunitas & Paguyuban Daerah
+          </p>
+        </div>
       </div>
     </footer>
   );
