@@ -11,11 +11,14 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
 });
 
+import { siteConfig } from "@/lib/config";
+
 export const metadata: Metadata = {
-  title: "Admin KKS Mimika — Manajemen Paguyuban Keluarga Soppeng",
+  title: `Admin ${siteConfig.shortOrgName} — Manajemen ${siteConfig.orgName}`,
   description:
-    "Dashboard Manajemen Resmi Pengurus Kerukunan Keluarga Soppeng (KKS) Kabupaten Mimika, Papua Tengah.",
+    `Dashboard Manajemen Resmi Pengurus ${siteConfig.orgName}, Papua Tengah.`,
 };
+
 
 export default function RootLayout({
   children,

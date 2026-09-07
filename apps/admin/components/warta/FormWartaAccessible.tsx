@@ -24,6 +24,8 @@ import {
 import { createWarta, updateWarta, createWartaAsset } from "@/app/actions/warta";
 import { uploadFileClient } from "@/lib/upload-client";
 import { siteConfig } from "@/lib/config";
+import { formatRupiah } from "@repo/database";
+
 
 import type { WartaPaguyuban, NewWartaPaguyuban } from "@repo/database/schema";
 
@@ -791,14 +793,22 @@ Salipuri Temmadinging.`;
                         </label>
                       </div>
                       {!isGratis && (
-                        <input
-                          type="number"
-                          value={biayaPendaftaran}
-                          onChange={(e) => setBiayaPendaftaran(e.target.value)}
-                          placeholder="Rp 100.000"
-                          className="w-full h-12 sm:h-13 px-4 bg-white border border-blue-300 focus:border-blue-600 rounded-xl text-sm sm:text-base text-slate-900 focus:outline-hidden font-medium shadow-2xs"
-                        />
+                        <div className="space-y-1">
+                          <input
+                            type="number"
+                            value={biayaPendaftaran}
+                            onChange={(e) => setBiayaPendaftaran(e.target.value)}
+                            placeholder="Contoh: 100000"
+                            className="w-full h-12 sm:h-13 px-4 bg-white border border-blue-300 focus:border-blue-600 rounded-xl text-sm sm:text-base text-slate-900 focus:outline-hidden font-medium shadow-2xs"
+                          />
+                          {biayaPendaftaran && Number(biayaPendaftaran) > 0 && (
+                            <span className="inline-block text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
+                              Nominal: {formatRupiah(biayaPendaftaran)}
+                            </span>
+                          )}
+                        </div>
                       )}
+
                     </div>
 
                     <div className="space-y-1.5">

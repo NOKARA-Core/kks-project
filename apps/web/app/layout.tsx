@@ -13,13 +13,15 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
 });
 
+import { siteConfig } from "@/lib/config";
+
 export const metadata: Metadata = {
   title: {
-    default: "KKS Timika — Kerukunan Keluarga Soppeng Kabupaten Mimika",
-    template: "%s | KKS Timika",
+    default: `${siteConfig.shortOrgName} — ${siteConfig.orgName}`,
+    template: `%s | ${siteConfig.shortOrgName}`,
   },
   description:
-    "Portal resmi warta, silaturahmi, dan pendataan warga paguyuban Kerukunan Keluarga Soppeng (KKS) Kabupaten Mimika, Papua Tengah. Menjaga kerukunan dan persaudaraan di tanah rantau.",
+    `Portal resmi warta, silaturahmi, dan pendataan warga paguyuban ${siteConfig.orgName}, Papua Tengah. Menjaga kerukunan dan persaudaraan di tanah rantau.`,
   keywords: [
     "KKS Timika",
     "Kerukunan Keluarga Soppeng",
@@ -29,18 +31,19 @@ export const metadata: Metadata = {
     "Yassisoppengi",
     "Timika Papua Tengah",
   ],
-  authors: [{ name: "Kerukunan Keluarga Soppeng Kab. Mimika" }],
-  creator: "KKS Kabupaten Mimika",
+  authors: [{ name: siteConfig.orgName }],
+  creator: siteConfig.orgName,
   openGraph: {
-    title: "KKS Timika — Kerukunan Keluarga Soppeng Kabupaten Mimika",
+    title: `${siteConfig.shortOrgName} — ${siteConfig.orgName}`,
     description:
-      "Portal resmi silaturahmi, warta komunitas, dan pendataan warga perantau Soppeng di Tanah Amungsa/Mimika, Papua Tengah.",
-    url: "https://kks-mimika.org",
-    siteName: "KKS Timika",
+      `Portal resmi silaturahmi, warta komunitas, dan pendataan warga perantau Soppeng di Tanah Amungsa/Mimika, Papua Tengah.`,
+    url: siteConfig.appUrl,
+    siteName: siteConfig.shortOrgName,
     locale: "id_ID",
     type: "website",
   },
 };
+
 
 export default function RootLayout({
   children,

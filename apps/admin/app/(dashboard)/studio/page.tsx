@@ -30,6 +30,8 @@ import {
   MapPin,
   FileText,
 } from "lucide-react";
+import { siteConfig } from "@/lib/config";
+
 
 // ==========================================
 // 1. PRESET DEFINITIONS (10 GAYA VISUAL)
@@ -263,7 +265,8 @@ export default function PromptStudioPage() {
   const [posterTitle, setPosterTitle] = useState("TURNAMEN DOMINO KKS MIMIKA 2026");
   const [posterSubtitle, setPosterSubtitle] = useState("Ajang Silaturahmi & Asah Taktik Perantau Soppeng");
   const [posterDateVenue, setPosterDateVenue] = useState("Sabtu - Minggu, 15-16 Oktober 2026 • Gedung Tongkonan Timika");
-  const [posterOrganizer, setPosterOrganizer] = useState("Kerukunan Keluarga Soppeng (KKS) Kab. Mimika");
+  const [posterOrganizer, setPosterOrganizer] = useState(siteConfig.orgName);
+
 
   // Active items
   const activeStyle =
@@ -452,10 +455,11 @@ export default function PromptStudioPage() {
     setPosterTitle("TURNAMEN DOMINO KKS MIMIKA 2026");
     setPosterSubtitle("Ajang Silaturahmi & Asah Taktik Perantau Soppeng");
     setPosterDateVenue("Sabtu - Minggu, 15-16 Oktober 2026 • Gedung Tongkonan Timika");
-    setPosterOrganizer("Kerukunan Keluarga Soppeng (KKS) Kab. Mimika");
+    setPosterOrganizer(siteConfig.orgName);
     setCategoryFilter("all");
     setIsCopied(false);
   };
+
 
   return (
     <div className="space-y-6 pb-12">
