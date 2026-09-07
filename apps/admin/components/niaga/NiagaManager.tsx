@@ -25,7 +25,7 @@ import {
   toggleNiagaVerification,
   deleteNiaga,
 } from "@/app/actions/niaga";
-import { uploadImageAction } from "@/app/actions/upload";
+import { uploadFileClient } from "@/lib/upload-client";
 import type { DirektoriNiaga, NewDirektoriNiaga } from "@repo/database/schema";
 
 type Props = {
@@ -396,10 +396,7 @@ function ModalNiagaForm({
     setIsUploading(true);
     setError(null);
 
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const res = await uploadImageAction(formData, "niaga");
+    const res = await uploadFileClient(file, "niaga", false);
     setIsUploading(false);
 
     if (res.success && res.url) {

@@ -22,7 +22,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { createWarta, updateWarta, createWartaAsset } from "@/app/actions/warta";
-import { uploadImageAction, uploadDocumentAction } from "@/app/actions/upload";
+import { uploadFileClient } from "@/lib/upload-client";
 import type { WartaPaguyuban, NewWartaPaguyuban } from "@repo/database/schema";
 
 interface Props {
@@ -101,9 +101,7 @@ export function FormWartaAccessible({
       : ""
   );
   const [tanggalSelesai, setTanggalSelesai] = useState(
-    initialData?.tanggalSelesai
-      ? new Date(initialData.tanggalSelesai).toISOString().slice(0, 16)
-      : ""
+    editingDate(initialData?.tanggalSelesai)
   );
   const [lokasiGedung, setLokasiGedung] = useState(
     initialData?.lokasiGedung || initialData?.lokasiNamaTempat || ""
@@ -145,16 +143,19 @@ export function FormWartaAccessible({
   const docInputRef = useRef<HTMLInputElement>(null);
   const bracketInputRef = useRef<HTMLInputElement>(null);
 
+  function editingDate(d?: Date | null) {
+    return d ? new Date(d).toISOString().slice(0, 16) : "";
+  }
+
   // Upload Foto Utama
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setUploadingImage(true);
-    const formData = new FormData();
-    formData.append("file", file);
+    setErrorMessage(null);
 
-    const res = await uploadImageAction(formData, "warta");
+    const res = await uploadFileClient(file, "warta", false);
     setUploadingImage(false);
 
     if (res.success && res.url) {
@@ -170,10 +171,9 @@ export function FormWartaAccessible({
     if (!file) return;
 
     setUploadingDoc(true);
-    const formData = new FormData();
-    formData.append("file", file);
+    setErrorMessage(null);
 
-    const res = await uploadDocumentAction(formData, "documents");
+    const res = await uploadFileClient(file, "documents", true);
     setUploadingDoc(false);
 
     if (res.success && res.url) {
@@ -189,10 +189,9 @@ export function FormWartaAccessible({
     if (!file) return;
 
     setUploadingBracket(true);
-    const formData = new FormData();
-    formData.append("file", file);
+    setErrorMessage(null);
 
-    const res = await uploadImageAction(formData, "turnamen-bracket");
+    const res = await uploadFileClient(file, "turnamen-bracket", false);
     setUploadingBracket(false);
 
     if (res.success && res.url) {
