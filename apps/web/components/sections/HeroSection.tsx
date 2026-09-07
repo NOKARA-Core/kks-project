@@ -18,7 +18,7 @@ export async function HeroSection() {
   }
 
   return (
-    <section className="relative bg-canvas-soft border-b border-slate-200/80 overflow-hidden py-16 sm:py-24">
+    <section className="relative bg-canvas-soft border-b border-slate-200/80 overflow-hidden pt-8 sm:pt-12 pb-10 sm:pb-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* =========================================================

@@ -4,7 +4,7 @@ import { ChevronRight, Award } from "lucide-react";
 
 export function LeadershipGreeting() {
   return (
-    <section className="bg-canvas-soft py-12 sm:py-16 border-b border-slate-200/80">
+    <section className="bg-canvas-soft py-5 sm:py-7 border-b border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-6 shadow-xs hover:border-slate-300 hover:shadow-sm transition-all space-y-4 lg:space-y-0">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 sm:gap-6 lg:gap-8">
