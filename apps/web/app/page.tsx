@@ -9,8 +9,9 @@ export default function Home() {
       {/* 1. Hero Section Berita Informatif */}
       <HeroSection />
 
-      {/* 2. Warta & Agenda Komunitas (Dengan CTA Saluran WhatsApp Resmi) */}
+      {/* 2. Warta & Agenda Komunitas */}
       <WartaSection />
+
 
       {/* 2. Tiga Pilar Luhur Komunitas di Rantau */}
       <section className="py-16 sm:py-20 bg-white border-b border-slate-100">

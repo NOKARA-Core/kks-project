@@ -11,7 +11,7 @@ import {
   ChevronRight,
   ShieldCheck,
 } from "lucide-react";
-import { WartaChannelCta } from "../WartaChannelCta";
+
 
 interface WartaSectionProps {
   className?: string;
@@ -145,10 +145,8 @@ export function WartaSection({ className = "" }: WartaSectionProps) {
             </div>
           </div>
         </div>
-
-        {/* CTA BANNER: GABUNG SALURAN WHATSAPP WARTA KKS */}
-        <WartaChannelCta />
       </div>
     </section>
   );
 }
+

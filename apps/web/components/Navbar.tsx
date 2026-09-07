@@ -115,17 +115,6 @@ export function Navbar() {
                 </Link>
               )
             ))}
-            
-            <a 
-              href={process.env.NEXT_PUBLIC_WA_CHANNEL_URL || "https://whatsapp.com/channel/0029VbDSxiID38CTGypJBm3p"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-2 inline-flex items-center gap-1.5 px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200/80 font-semibold rounded-full transition-all text-xs shadow-2xs hover:shadow-xs active:scale-95"
-              title="Ikuti Saluran Warta KKS Mimika di WhatsApp"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Saluran WA</span>
-            </a>
 
             <Link 
               href="/pendataan"
@@ -134,6 +123,7 @@ export function Navbar() {
               Daftar Warga Rantau
             </Link>
           </div>
+
           
           <div className="md:hidden flex items-center">
             <button 
@@ -187,16 +177,6 @@ export function Navbar() {
                 </div>
               ))}
               <div className="flex flex-col gap-2.5 mt-4 mx-2">
-                <a 
-                  href={process.env.NEXT_PUBLIC_WA_CHANNEL_URL || "https://whatsapp.com/channel/0029VbDSxiID38CTGypJBm3p"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsOpen(false)}
-                  className="px-5 py-3 text-center bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold rounded-xl transition-all text-sm flex items-center justify-center gap-2 shadow-2xs"
-                >
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>Ikuti Saluran Warta WhatsApp</span>
-                </a>
                 <Link 
                   href="/pendataan"
                   onClick={() => setIsOpen(false)}
@@ -205,6 +185,7 @@ export function Navbar() {
                   Daftar Warga Rantau
                 </Link>
               </div>
+
             </div>
           </motion.div>
         )}
